@@ -37,8 +37,15 @@
                             <td>{{$animal->name}}</td>
                             <td>{{$animal->liveBeing}}</td>
                             <td>{{$animal->breedName}}</td>
-                            <td>{{$animal->mother}}</td>
-                            <td>{{$animal->father}}</td>
+                            @if($animal->sex == 2)
+                                <td>Moteris</td>
+                            @elseif($animal->sex == 1)
+                                <td>Vyras</td>
+                            @else
+                                <td>-</td>
+                            @endif
+
+                            <td>{{$animal->color}}</td>
                             <td>{{$animal->birthday}}</td>
                             <td>{{$animal->mother}}</td>
                             <td>{{$animal->father}}</td>

@@ -4,8 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Animal extends Model
+class Medicine extends Model
 {
-    //
     public $timestamps = false;
 }

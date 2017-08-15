@@ -12,3 +12,12 @@ Route::resource('sarasas', 'AnimalController', [
         'index'=>'sarasas'
     ]
 ]);
+
+Route::post('trintiVaista', 'MedicineController@deleteMedical')->name('trintiVaista');
+Route::get('medicalAjax/{id}', 'MedicineController@getMedicineRowData')->name('medicalAjax');
+
+Route::resource('medikamentai', 'MedicineController', [
+    'names' => [
+        'index'=>'medikamentai'
+    ]
+]);

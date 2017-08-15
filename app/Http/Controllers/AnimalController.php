@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Animal;
 use Illuminate\Http\Request;
+use DateTime;
 
 class AnimalController extends Controller
 {
@@ -37,8 +38,25 @@ class AnimalController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        dump($request);
+        $data = $request->all();
+//        $this->validate($request, [
+//            'title' => 'required|max:100',
+//            'body' => 'required|min:10'
+//        ]);
+
+        $animal = new Animal();
+        $animal->number = $data['number'];
+        $animal->name = $data['name'];
+        $animal->livebeing = $data['livebeing'];
+        $animal->breedName = $data['breed'];
+        $animal->sex = $data['gender'];
+        $animal->birthday = $data['birthday'];
+        $animal->color = $data['color'];
+        $animal->mother = $data['mother'];
+        $animal->father = $data['father'];
+        $animal->comment = $data['desc'];
+        $animal->save();
+        return 1;
     }
 
     /**
@@ -70,9 +88,22 @@ class AnimalController extends Controller
      * @param  \App\Animal  $animal
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Animal $animal)
+    public function update(Request $request)
     {
-        //
+        $data = $request->all();
+        dump($data);
+        $animal = Animal::find($data['rowId']);
+        $animal->number = $data['number'];
+        $animal->name = $data['name'];
+        $animal->livebeing = $data['livebeing'];
+        $animal->breedName = $data['breed'];
+        $animal->sex = $data['gender'];
+        $animal->birthday = $data['birthday'];
+        $animal->color = $data['color'];
+        $animal->mother = $data['mother'];
+        $animal->father = $data['father'];
+        $animal->comment = $data['desc'];
+        $animal->save();
     }
 
     /**

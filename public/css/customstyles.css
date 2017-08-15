@@ -5,6 +5,7 @@ body {
 }
 
 .aa {
+    text-align: center;
     width: 100%;
     display: block;
     border: none;
@@ -36,6 +37,7 @@ body {
 
 /* Button 1 */
 .btn-1 {
+    border-radius: 6px;
     border: 3px solid #fff;
     color: #fff;
 }
@@ -650,7 +652,7 @@ tr {
     transition: all 0.16s;
 }
 
-.clickable-row:hover {
+.clickable-row:hover, .clickable-med-row:hover {
     background-color: rgba(19, 103, 255, 0.29);
 }
 
@@ -662,6 +664,18 @@ tr {
     background-color: rgba(0, 204, 255, 0.66);
 }
 
+.no-med {
+    background-color: rgb(255, 223, 220);
+}
+
+.no-med:hover {
+    background-color: rgb(255, 140, 132);
+}
+
+.selected-table-row-danger {
+    background-color: rgb(255, 185, 185);
+}
+
 .crud-btns {
     margin-left: 10px;
     margin-bottom: 20px;
@@ -670,4 +684,8 @@ tr {
 .clsDatePicker {
     position: relative;
     z-index: 1000000000000000;
+}
+
+.date {
+    z-index: 999999999;
 }

@@ -4,7 +4,7 @@
             {{ Form::open(array('class'=>'form-horizontal', 'onsubmit' => 'return false')) }}
             <div class="modal-header" >
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Prclassėti gyvūną</h4>
+                <h4 class="modal-title">Prdėti gyvūną</h4>
             </div>
 
             <div class="modal-body">
@@ -39,7 +39,7 @@
                         {{ Form::radio('gender', 1, false, array('class'=>'male')) }}
                         &#8194
                         {{ Form::label('female', 'Moteris') }}
-                        {{ Form::radio('gender', 1, false, array('class'=>'female')) }}
+                        {{ Form::radio('gender', 2, false, array('class'=>'female')) }}
                     </div>
                 </div>
                 <div class="form-group">
@@ -52,8 +52,7 @@
                     {{ Form::label('birthday', 'Gimtadienis', array('class' => 'control-label col-sm-3')) }}
                     <div class="col-sm-8">
                         <div class="input-group date">
-
-                            {{ Form::text('text', 'Spalva', array('class' => 'date form-control birthday', 'required'=> '')) }}
+                            {{ Form::date('date', '', array('class' => 'date form-control birthday', 'required'=> '')) }}
                             <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                         </div>
                     </div>
@@ -67,7 +66,7 @@
                 <div class="form-group">
                     {{ Form::label('father', 'Tėtis', array('class' => 'control-label col-sm-3')) }}
                     <div class="col-sm-8">
-                        {{ Form::text('name', '', array('class' => 'form-control', 'required father'=> '')) }}
+                        {{ Form::text('name', '', array('class' => 'form-control father', 'required'=> '')) }}
                     </div>
                 </div>
                 <div class="form-group">
@@ -78,7 +77,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                {{Form::submit('Išsaugoti', array('class' => 'btn btn-success btn-lg btn-block js-save-user-profile', null))}}
+                {{Form::submit('Išsaugoti', array('class' => 'btn btn-success btn-lg btn-block js-save-new-animal', null))}}
             </div>
             {{ Form::close() }}
         </div>

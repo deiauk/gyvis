@@ -10,7 +10,7 @@
             <a class="aa btn-1 btn-1a" href="{{ route('sarasas') }}">Sąrašas</a>
             <a class="aa btn-1 btn-1c" href="#">Gydymas</a>
             <a class="aa btn-1 btn-1d" href="#">Ruja</a>
-            <a class="aa btn-1 btn-1e" href="#">Medikamentų žurnalas</a>
+            <a class="aa btn-1 btn-1e" href="{{ route('medikamentai') }}">Medikamentų žurnalas</a>
         </div>
     </div>
 @stop
