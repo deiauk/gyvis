@@ -18,8 +18,8 @@
     @if(count($medicines) > 0)
         <div class="table-responsive">
             <table class="table table-curved table-color">
-                <thead>
-                    <tr>
+                <theader>
+                    <tr class="align-rule">
                         <th>Data</th>
                         <th>Pavadinimas</th>
                         <th>Pagaminimo data</th>
@@ -30,7 +30,7 @@
                         <th>Sunaudota</th>
                         <th>Likutis</th>
                     </tr>
-                </thead>
+                </theader>
                 <tbody>
                     @foreach($medicines as $medicine)
                         @if($medicine->balance <= 0)

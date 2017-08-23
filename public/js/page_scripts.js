@@ -1,6 +1,7 @@
 $(document).ready(function() {
     var animalTableRowId = -1;
     var medicineTableRowId = -1;
+    var treatmentTableRowId = -1;
     
    $('.clickable-row').click(function () {
        var selectedClass = $('.selected-table-row');
@@ -24,7 +25,7 @@ $(document).ready(function() {
     $('.clickable-med-row').click(function () {
         var selectedClass = $('.selected-table-row');
         medicineTableRowId = this.id;
-         $('tr').removeClass('selected-table-row-danger');
+        $('tr').removeClass('selected-table-row-danger');
         if($(this).hasClass('selected-table-row')) {
             $(this).removeClass('selected-table-row');
 
@@ -46,6 +47,29 @@ $(document).ready(function() {
         }
     });
 
+    $('.clickable-treat-row').click(function () {
+        var selectedClass = $('.selected-table-row');
+        treatmentTableRowId = this.id;
+        if($(this).hasClass('selected-table-row')) {
+            $(this).removeClass('selected-table-row');
+            resetTreatmentStates();
+        } else {
+            selectedClass.removeClass('selected-table-row');
+            if($(this).hasClass('no-med')) {
+                $(this).toggleClass("selected-table-row-danger");
+                $(this).toggleClass("selected-table-row");
+            } else {
+                $(this).toggleClass("selected-table-row");
+            }
+            if($('.selected-table-row').length === 0) {
+                resetTreatmentStates();
+            } else {
+                $('#delete-treatment').removeClass('disabled');
+                $('#edit-treatment').removeClass('disabled');
+            }
+        }
+    });
+
    function resetBtnStates() {
        animalTableRowId = -1;
        $('#delete').addClass('disabled');
@@ -57,6 +81,12 @@ $(document).ready(function() {
         medicineTableRowId = -1;
         $('#delete-medicine').addClass('disabled');
         $('#edit-medicine').addClass('disabled');
+    }
+
+    function resetTreatmentStates() {
+        treatmentTableRowId = -1;
+        $('#delete-treatment').addClass('disabled');
+        $('#edit-treatment').addClass('disabled');
     }
 
    // $('#delete').click(function () {

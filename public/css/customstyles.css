@@ -652,7 +652,7 @@ tr {
     transition: all 0.16s;
 }
 
-.clickable-row:hover, .clickable-med-row:hover {
+.clickable-row:hover, .clickable-med-row:hover, .clickable-treat-row:hover {
     background-color: rgba(19, 103, 255, 0.29);
 }
 
@@ -681,11 +681,10 @@ tr {
     margin-bottom: 20px;
 }
 
-.clsDatePicker {
-    position: relative;
-    z-index: 1000000000000000;
+.align-rule th {
+    text-align: center;
 }
 
-.date {
-    z-index: 999999999;
+.align-rule {
+    background-color: rgba(0, 209, 253, 0.2);
 }

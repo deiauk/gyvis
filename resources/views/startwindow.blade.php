@@ -8,7 +8,7 @@
     <div class="container">
         <div class="menu">
             <a class="aa btn-1 btn-1a" href="{{ route('sarasas') }}">Sąrašas</a>
-            <a class="aa btn-1 btn-1c" href="#">Gydymas</a>
+            <a class="aa btn-1 btn-1c" href="{{ route('gydymai') }}">Gydymas</a>
             <a class="aa btn-1 btn-1d" href="#">Ruja</a>
             <a class="aa btn-1 btn-1e" href="{{ route('medikamentai') }}">Medikamentų žurnalas</a>
         </div>

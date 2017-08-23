@@ -14,10 +14,10 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="active"><a href="{{ route('sarasas') }}">Sąrašas</a></li>
-                <li><a href="#">Gydymas</a></li>
-                <li><a href="#">Ruja</a></li>
-                <li><a href="{{ route('medikamentai') }}">Medikamentų žurnalas</a></li>
+                <li class="{{ Route::currentRouteNamed('sarasas') ? 'active' : '' }}"><a href="{{ route('sarasas') }}">Sąrašas</a></li>
+                <li class="{{ Route::currentRouteNamed('gydymai') ? 'active' : '' }}"><a href="{{ route('gydymai') }}">Gydymas</a></li>
+                <li class="{{ Route::currentRouteNamed('ruja') ? 'active' : '' }}"><a href="#">Ruja</a></li>
+                <li class="{{ Route::currentRouteNamed('medikamentai') ? 'active' : '' }}"><a href="{{ route('medikamentai') }}">Medikamentų žurnalas</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">Atsijungti</a></li>

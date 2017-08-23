@@ -21,3 +21,9 @@ Route::resource('medikamentai', 'MedicineController', [
         'index'=>'medikamentai'
     ]
 ]);
+
+Route::resource('gydymai', 'TreatmentController', [
+    'names' => [
+        'index'=>'gydymai'
+    ]
+]);

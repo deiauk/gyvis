@@ -16,8 +16,8 @@
     @if(count($animals) > 0)
         <div class="table-responsive">
             <table class="table table-curved table-color">
-                <thead>
-                    <tr>
+                <theader>
+                    <tr class="align-rule">
                         <th>Numerėlis</th>
                         <th>Vardas</th>
                         <th>Gyvis</th>
@@ -29,7 +29,7 @@
                         <th>Tėtis</th>
                         <th>Komentaras</th>
                     </tr>
-                </thead>
+                </theader>
                 <tbody>
                     @foreach($animals as $animal)
                         <tr class='clickable-row' id='{{$animal->id}}'>
@@ -53,7 +53,6 @@
                                 <a href="#child4">
                                     {{ str_limit($animal->comment, $limit = 20, $end = '...') }}
                                 </a>
-
                             </td>
                         </tr>
                     @endforeach
