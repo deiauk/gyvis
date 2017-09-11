@@ -20,7 +20,17 @@
                 <li class="{{ Route::currentRouteNamed('medikamentai') ? 'active' : '' }}"><a href="{{ route('medikamentai') }}">Medikamentų žurnalas</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#">Atsijungti</a></li>
+                <li>
+                    <a href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                                                 document.getElementById('logout-form').submit();">
+                        Atsijungti
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        {{ csrf_field() }}
+                    </form>
+                </li>
             </ul>
         </div><!-- /.navbar-collapse -->
     </div><!-- /.container-fluid -->

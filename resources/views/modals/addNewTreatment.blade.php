@@ -4,67 +4,86 @@
             {{ Form::open(array('class'=>'form-horizontal', 'onsubmit' => 'return false')) }}
             <div class="modal-header" >
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Prdėti medikamentą</h4>
+                <h4 class="modal-title">Pradėti gydymą</h4>
             </div>
 
             <div class="modal-body">
                 <div class="form-group">
-                    {{ Form::label('filldate', 'Data', array('class' => 'control-label col-sm-3')) }}
+                    {{ Form::label('date', 'Data', array('class' => 'control-label col-sm-3')) }}
                     <div class="col-sm-8">
                         <div class="input-group date">
-                            {{ Form::date('date', null, array('class' => 'date form-control filldate', 'required'=> '')) }}
+                            {{ Form::date('date', null, array('class' => 'date form-control date', 'required'=> '')) }}
                             <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    {{ Form::label('medicname', 'Gyvulio Nr.', array('class' => 'control-label col-sm-3')) }}
+                    {{ Form::label('animalNumber', 'Gyvulio Nr.', array('class' => 'control-label col-sm-3')) }}
                     <div class="col-sm-8">
-                        {{ Form::text('name', '', array('class' => 'form-control medicname')) }}
+                        {{ Form::text('name', '', array('class' => 'form-control animalNumber')) }}
                     </div>
                 </div>
                 <div class="form-group">
-                    {{ Form::label('productiondate', 'Pagaminimo data', array('class' => 'control-label col-sm-3')) }}
+                    {{ Form::label('breed', 'Gyvulio rūšis', array('class' => 'control-label col-sm-3')) }}
+                    <div class="col-sm-8">
+                        {{ Form::text('name', '', array('class' => 'form-control breed')) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ Form::label('animalAge', 'Gyvulio amžius', array('class' => 'control-label col-sm-3')) }}
+                    <div class="col-sm-8">
+                        {{ Form::text('name', '', array('class' => 'form-control animalAge')) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ Form::label('animalColor', 'Gyvulio spalva', array('class' => 'control-label col-sm-3')) }}
+                    <div class="col-sm-8">
+                        {{ Form::text('name', '', array('class' => 'form-control animalColor')) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ Form::label('sickdate', 'Susirgimo data', array('class' => 'control-label col-sm-3')) }}
                     <div class="col-sm-8">
                         <div class="input-group date">
-
-                            {{ Form::date('date', '', array('class' => 'date form-control productiondate', 'required'=> '')) }}
+                            {{ Form::date('date', null, array('class' => 'date form-control sickdate', 'required'=> '')) }}
                             <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    {{ Form::label('expirydate', 'Galioja iki', array('class' => 'control-label col-sm-3')) }}
+                    {{ Form::label('animalTemperature', 'Temperatūra', array('class' => 'control-label col-sm-3')) }}
                     <div class="col-sm-8">
-                        <div class="input-group date">
-
-                            {{ Form::date('date', '', array('class' => 'date form-control expirydate', 'required'=> '')) }}
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                        </div>
+                        {{ Form::text('name', '', array('class' => 'form-control animalTemperature')) }}
                     </div>
                 </div>
                 <div class="form-group">
-                    {{ Form::label('series', 'Serija', array('class' => 'control-label col-sm-3')) }}
+                    {{ Form::label('animalPulse', 'Pulsas', array('class' => 'control-label col-sm-3')) }}
                     <div class="col-sm-8">
-                        {{ Form::number('number', '', array('class' => 'form-control series', 'required'=> '', 'min' => 0)) }}
+                        {{ Form::text('name', '', array('class' => 'form-control animalPulse')) }}
                     </div>
                 </div>
                 <div class="form-group">
-                    {{ Form::label('patientregistrationnr', 'Pacientų registracijos nr.', array('class' => 'control-label col-sm-3')) }}
+                    {{ Form::label('diagnosis', 'Diagnozė', array('class' => 'control-label col-sm-3')) }}
                     <div class="col-sm-8">
-                        {{ Form::number('number', '', array('class' => 'form-control patientregistrationnr', 'required'=> '', 'min' => 0)) }}
+                        {{ Form::text('name', '', array('class' => 'form-control diagnosis')) }}
                     </div>
                 </div>
                 <div class="form-group">
-                    {{ Form::label('quantity', 'Gauta', array('class' => 'control-label col-sm-3')) }}
+                    {{ Form::label('treatment', 'Gydymas ir nurodymai', array('class' => 'control-label col-sm-3')) }}
                     <div class="col-sm-8">
-                        {{ Form::number('number', '', array('class' => 'form-control quantity', 'required'=> '', 'min' => 0)) }}
+                        {{ Form::text('name', '', array('class' => 'form-control treatment')) }}
                     </div>
                 </div>
                 <div class="form-group">
-                    {{ Form::label('consumed', 'Sundaudota', array('class' => 'control-label col-sm-3')) }}
+                    {{ Form::label('end', 'Baigtis', array('class' => 'control-label col-sm-3')) }}
                     <div class="col-sm-8">
-                        {{ Form::number('number', 0, array('class' => 'form-control consumed', 'required'=> '', 'min' => 0)) }}
+                        {{ Form::text('name', '', array('class' => 'form-control end')) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ Form::label('otherInfo', 'Pastabos', array('class' => 'control-label col-sm-3')) }}
+                    <div class="col-sm-8">
+                        {{ Form::text('name', '', array('class' => 'form-control otherInfo')) }}
                     </div>
                 </div>
                 {{--<div class="form-group">--}}

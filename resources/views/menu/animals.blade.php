@@ -49,8 +49,8 @@
                             <td>{{$animal->birthday}}</td>
                             <td>{{$animal->mother}}</td>
                             <td>{{$animal->father}}</td>
-                            <td>
-                                <a href="#child4">
+                            <td class="fullinfo" data-comment="{{$animal->comment}}">
+                                <a>
                                     {{ str_limit($animal->comment, $limit = 20, $end = '...') }}
                                 </a>
                             </td>
@@ -74,5 +74,7 @@
     @include('modals.addNewAnimal')
     @include('modals.confirmDelete')
     @include('modals.editAnimal')
+    @include('modals.addNewTreatment')
+    @include('modals.showFullValue')
 @stop
 

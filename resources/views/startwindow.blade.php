@@ -6,11 +6,24 @@
 
 @section('content')
     <div class="container">
-        <div class="menu">
-            <a class="aa btn-1 btn-1a" href="{{ route('sarasas') }}">Sąrašas</a>
-            <a class="aa btn-1 btn-1c" href="{{ route('gydymai') }}">Gydymas</a>
-            <a class="aa btn-1 btn-1d" href="#">Ruja</a>
-            <a class="aa btn-1 btn-1e" href="{{ route('medikamentai') }}">Medikamentų žurnalas</a>
-        </div>
+        <a href="{{ route('sarasas') }}" class="menu-btn a">
+            <span class="icon icon-gear"></span>
+            <span class="right"></span>Sąrašas
+        </a>
+
+        <a href="{{ route('gydymai') }}" class="menu-btn b">
+            <span class="icon icon-gear"></span>
+            <span class="right"></span>Gydymas
+        </a>
+
+        <a href="{{ route('gydymai') }}" class="menu-btn c">
+            <span class="icon icon-gear"></span>
+            <span class="right"></span>Ruja
+        </a>
+
+        <a href="{{ route('medikamentai') }}" class="menu-btn d">
+            <span class="icon icon-gear"></span>
+            <span class="right"></span>Medikamentų žurnalas
+        </a>
     </div>
 @stop

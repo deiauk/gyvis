@@ -8,6 +8,7 @@
     @include('modals.addNewTreatment')
     @include('modals.editMedical')
     @include('modals.confirmDelete')
+    @include('modals.showFullValue')
 
     <div class="row crud-btns">
         <button type="button" class="btn btn-danger disabled" id="delete-treatment">Ištrinti</button>
@@ -107,8 +108,8 @@
                                 </a>
                             </td>
                             <td>{{$medicine->result}}</td>
-                            <td>
-                                <a href="#child4">
+                            <td class="fullinfo" data-comment="{{$medicine->notes}}">
+                                <a>
                                     {{ str_limit($medicine->notes, $limit = 20, $end = '...') }}
                                 </a>
                             </td>

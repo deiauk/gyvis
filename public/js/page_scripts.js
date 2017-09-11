@@ -70,6 +70,70 @@ $(document).ready(function() {
         }
     });
 
+    $('#cure').click(function () {
+        if (animalTableRowId !== -1) {
+            var date = getCurrentDate();
+            $('#add-treatment').modal('show');
+            $(".sickdate").datepicker().datepicker("setDate", new Date());
+            $(".date").datepicker().datepicker("setDate", new Date());
+
+
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
+                url: 'gyvunasAxax/' + animalTableRowId,
+                method: 'GET', // Type of response and matches what we said in the route
+                success: function (response) { // What to do if we succeed
+                    console.log(response);
+                    $(".animalNumber").val(response.number);
+                    $(".breed").val(response.name);
+                    var birthday = new Date(response.birthday).getTime();
+                    var age = getAge(birthday);
+                    $(".animalAge").val(age);
+                    // $(".nr-val").val(response.number);
+                    // $(".description-val").val(response.name);
+                    // $(".live-being").val(response.liveBeing);
+                    // $(".breed-being").val(response.breedName);
+                    // $(".birthday").val(response.birthday);
+                    // console.log(response);
+                    // $(".color").val(response.color);
+                    // $(".mother").val(response.mother);
+                    // $(".father").val(response.father);
+                    // $(".description-user").val(response.comment);
+                    //
+                    // if (response.sex === 1) {
+                    //     $(".male").attr("checked", true);
+                    //     $(".female").attr("checked", false);
+                    //     console.log("A");
+                    // } else if (response.sex === 2) {
+                    //     $(".male").attr("checked", false);
+                    //     $(".female").attr("checked", true);
+                    //     console.log("B");
+                    // }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                }
+            });
+        }
+    });
+
+    function getAge(birtdayMillis) {
+        var current = new Date(getCurrentDate()).getTime();
+        console.log("sdfdsffdsf " + current + " " + birtdayMillis + " ");
+        var date = new Date((current - birthday));
+        var str = date.getUTCDate() - 1;
+        var stra = date.getUTCMonth() - 1;
+        var straa = date.getUTCDate() - 1;
+        console.log(str  + " " + stra + " " + straa);
+    }
+
+    function getCurrentDate() {
+        var d = new Date();
+        var month = d.getMonth() + 1;
+        var day = d.getDate();
+        return d.getFullYear() + '-' + (month<10 ? '0' : '') + month + '-' + (day<10 ? '0' : '') + day;
+    }
+
    function resetBtnStates() {
        animalTableRowId = -1;
        $('#delete').addClass('disabled');
@@ -134,17 +198,20 @@ $(document).ready(function() {
                     $(".breed-being").val(response.breedName);
                     $(".birthday").val(response.birthday);
                     console.log(response);
-                    if (response.sex === 1) {
-                        $(".male").attr("checked", true);
-                        $(".female").attr("checked", false);
-                    } else if (response.sex === 2) {
-                        $(".male").attr("checked", false);
-                        $(".female").attr("checked", true);
-                    }
                     $(".color").val(response.color);
                     $(".mother").val(response.mother);
                     $(".father").val(response.father);
                     $(".description-user").val(response.comment);
+
+                    if (response.sex === 1) {
+                        $(".male").attr("checked", true);
+                        $(".female").attr("checked", false);
+                        console.log("A");
+                    } else if (response.sex === 2) {
+                        $(".male").attr("checked", false);
+                        $(".female").attr("checked", true);
+                        console.log("B");
+                    }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log(jqXHR);
@@ -196,6 +263,7 @@ $(document).ready(function() {
 
     $('#add-animal').on('show.bs.modal', function (e) {
         if (e.namespace === 'bs.modal') {
+            console.log("clear");
             $(".nr-val").val('');
             $(".description-val").val('');
             $(".live-being").val('');
@@ -242,7 +310,7 @@ $(document).ready(function() {
                    console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
                }
            });
-       } else if (medicineTableRowId != -1) {
+       } else if (medicineTableRowId !== -1) {
            var obj = {
                id: medicineTableRowId
            };
@@ -406,6 +474,12 @@ $(document).ready(function() {
                 console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
             }
         });
+    });
+
+    $('.fullinfo').click(function () {
+        $('#full-info').modal('show');
+        var fullComment = $(this).attr('data-comment');
+        $('#full-info-p').text(fullComment);
     });
 
     $('.date').datepicker({
