@@ -75,6 +75,6 @@
     @include('modals.confirmDelete')
     @include('modals.editAnimal')
     @include('modals.addNewTreatment')
-    @include('modals.showFullValue')
+{{--    @include('modals.showFullValue')--}}
 @stop
 

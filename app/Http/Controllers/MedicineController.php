@@ -141,14 +141,13 @@ class MedicineController extends Controller
         //
     }
 
-    function deleteMedical(Request $request) {
-        $id = $request->id;
-        Medicine::destroy($id);
+    function delete(Medicine $medicine) {
+        $id = $medicine->id;
+        $medicine->delete();
         return $id;
     }
 
-    public function getMedicineRowData($id) {
-        $medic = Medicine::find($id);
-        return $medic;
+    public function getData(Medicine $medicine) {
+        return $medicine;
     }
 }

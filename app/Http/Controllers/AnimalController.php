@@ -15,9 +15,8 @@ class AnimalController extends Controller
      */
     public function index()
     {
-
         $animals = Animal::paginate(15);
-        return view('menu.animals')->withAnimals($animals);
+        return view('menu.animals', ['animals' => $animals]);
     }
 
     /**
@@ -33,7 +32,7 @@ class AnimalController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -62,7 +61,7 @@ class AnimalController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Animal  $animal
+     * @param  \App\Animal $animal
      * @return \Illuminate\Http\Response
      */
     public function show(Animal $animal)
@@ -73,7 +72,7 @@ class AnimalController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Animal  $animal
+     * @param  \App\Animal $animal
      * @return \Illuminate\Http\Response
      */
     public function edit(Animal $animal)
@@ -84,8 +83,8 @@ class AnimalController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Animal  $animal
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Animal $animal
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -109,7 +108,7 @@ class AnimalController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Animal  $animal
+     * @param  \App\Animal $animal
      * @return \Illuminate\Http\Response
      */
     public function destroy(Animal $animal)
@@ -117,13 +116,14 @@ class AnimalController extends Controller
         dump($animal);
     }
 
-    function deleteAnimal(Request $request) {
-        $id = $request->id;
-        Animal::destroy($id);
-        return $id;
+    function delete(Request $request)
+    {
+        Animal::destroy($request->id);
+        return $request->id;
     }
 
-    function getAnimalRowData($id) {
+    function getData($id)
+    {
         $animal = Animal::find($id);
         return $animal;
     }

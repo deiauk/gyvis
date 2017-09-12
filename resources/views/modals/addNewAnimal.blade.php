@@ -1,85 +1,86 @@
 <div id="add-animal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            {{ Form::open(array('class'=>'form-horizontal', 'onsubmit' => 'return false')) }}
+            <form class="form-horizontal" onsubmit="return false">
+            {{ csrf_field() }}
             <div class="modal-header" >
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Prdėti gyvūną</h4>
+                <h4 class="modal-title">Pridėti gyvūną</h4>
             </div>
 
             <div class="modal-body">
                 <div class="form-group">
-                    {{ Form::label('nr-val', 'Numerėlis', array('class' => 'control-label col-sm-3')) }}
+                    <label for="number" class="control-label col-sm-3">Numerėlis</label>
                     <div class="col-sm-8">
-                        {{ Form::text('number', '', array('class' => 'form-control nr-val', 'required'=> '')) }}
+                        <input type="text" name="number" id="number" class="form-control nr-val" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    {{ Form::label('description-val', 'Vardas', array('class' => 'control-label col-sm-3')) }}
+                    <label for="name" class="control-label col-sm-3">Vardas</label>
                     <div class="col-sm-8">
-                        {{ Form::text('name', '', array('class' => 'form-control description-val')) }}
+                        <input type="text" name="name" id="name" class="form-control description-val">
                     </div>
                 </div>
                 <div class="form-group">
-                    {{ Form::label('live-being', 'Gyvis', array('class' => 'control-label col-sm-3')) }}
+                    <label for="live-being" class="control-label col-sm-3">Gyvis</label>
                     <div class="col-sm-8">
-                        {{ Form::text('name', '', array('class' => 'form-control live-being')) }}
+                        <input type="text" name="live-being" id="live-being" class="form-control live-being">
                     </div>
                 </div>
                 <div class="form-group">
-                    {{ Form::label('breed-being', 'Veislės vardas', array('class' => 'control-label col-sm-3')) }}
+                    <label for="breed-being" class="control-label col-sm-3">Veislės vardas</label>
                     <div class="col-sm-8">
-                        {{ Form::text('name', '', array('class' => 'form-control breed-being')) }}
+                        <input type="text" name="breed-being" id="breed-being" class="form-control breed-being">
                     </div>
                 </div>
                 <div class="form-group">
-                    {{ Form::label('gender', 'Lytis', array('class' => 'control-label col-sm-3')) }}
+                    <label for="gender" class="control-label col-sm-3">Lytis</label>
                     <div class="col-sm-8">
-                        {{ Form::label('male', 'Vyras') }}
-                        {{ Form::radio('gender', 1, false, array('class'=>'male')) }}
+                        <label for="g1">Vyras</label>
+                        <input type="radio" name="gender" value="1" id="g1" class="male">
                         &#8194
-                        {{ Form::label('female', 'Moteris') }}
-                        {{ Form::radio('gender', 2, false, array('class'=>'female')) }}
+                        <label for="g2">Moteris</label>
+                        <input type="radio" name="gender" value="2" id="g2" class="female">
                     </div>
                 </div>
                 <div class="form-group">
-                    {{ Form::label('color', 'Spalva', array('class' => 'control-label col-sm-3')) }}
+                    <label for="color" class="control-label col-sm-3">Spalva</label>
                     <div class="col-sm-8">
-                        {{ Form::text('name', '', array('class' => 'form-control color', 'required'=> '')) }}
+                        <input type="text" name="color" id="color" class="form-control color" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    {{ Form::label('birthday', 'Gimtadienis', array('class' => 'control-label col-sm-3')) }}
+                    <label for="birthday" class="control-label col-sm-3">Gimtadienis</label>
                     <div class="col-sm-8">
                         <div class="input-group date">
-                            {{ Form::date('date', '', array('class' => 'date form-control birthday', 'required'=> '')) }}
+                            <input type="date" name="birthday" id="birthday" class="date form-control birthday" required>
                             <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    {{ Form::label('mother', 'Mama', array('class' => 'control-label col-sm-3')) }}
+                    <label for="mother" class="control-label col-sm-3">Mama</label>
                     <div class="col-sm-8">
-                        {{ Form::text('name', '', array('class' => 'form-control mother', 'required'=> '')) }}
+                        <input type="text" name="mother" id="mother" class="form-control mother" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    {{ Form::label('father', 'Tėtis', array('class' => 'control-label col-sm-3')) }}
+                    <label for="father" class="control-label col-sm-3">Tėtis</label>
                     <div class="col-sm-8">
-                        {{ Form::text('name', '', array('class' => 'form-control father', 'required'=> '')) }}
+                        <input type="text" name="father" id="father" class="form-control father" required>
                     </div>
                 </div>
                 <div class="form-group">
-                    {{ Form::label('description-user', 'Aprašymas', array('class' => 'control-label col-sm-3')) }}
+                    <label for="bodytext" class="control-label col-sm-3">Aprašymas</label>
                     <div class="col-sm-8">
-                        {{ Form::textarea('bodytext', null, array('class' => 'form-control description-user', 'minlength' => '10')) }}
+                        <textarea name="bodytext" id="bodytext" class="form-control description-user" minlength="10"></textarea>
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
-                {{Form::submit('Išsaugoti', array('class' => 'btn btn-success btn-lg btn-block js-save-new-animal', null))}}
+                <button type="submit" class="btn btn-success btn-lg btn-block js-save-new-animal">Išsaugoti</button>
             </div>
-            {{ Form::close() }}
+            </form>
         </div>
     </div>
 </div>
