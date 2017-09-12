@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Animal;
 use Illuminate\Http\Request;
-use DateTime;
 
 class AnimalController extends Controller
 {

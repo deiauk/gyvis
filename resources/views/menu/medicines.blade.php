@@ -2,18 +2,16 @@
 
 @section('navbar')
     @include('navbar.navbarview')
-@stop
+@endsection
 
 @section('content')
-    @include('modals.addNewMedical')
-    @include('modals.editMedical')
-    @include('modals.confirmDelete')
-
-    <div class="row crud-btns">
-        <button type="button" class="btn btn-danger disabled" id="delete-medicine">Ištrinti</button>
-        <button type="button" class="btn btn-warning disabled" id="edit-medicine">Redaguoti</button>
-        <button type="button" class="btn btn-success" id="add-medicine" data-toggle="modal" data-target="#add-medicine">Pridėti</button>
-    </div>
+    @if(auth()->user()->hasRole('admin'))
+        <div class="row crud-btns">
+            <button type="button" class="btn btn-danger disabled" id="delete-medicine">Ištrinti</button>
+            <button type="button" class="btn btn-warning disabled" id="edit-medicine">Redaguoti</button>
+            <button type="button" class="btn btn-success" id="add-medicine" data-toggle="modal" data-target="#add-medicine">Pridėti</button>
+        </div>
+    @endif
 
     @if(count($medicines) > 0)
         <div class="table-responsive">
@@ -63,4 +61,8 @@
             </div>
         </div>
     @endif
-@stop
+
+    @include('modals.addNewMedical')
+    @include('modals.editMedical')
+    @include('modals.confirmDelete')
+@endsection

@@ -5,7 +5,7 @@ Route::group(['middleware' => 'auth'], function () {
         return view('startwindow');
     })->name('meniu');
 
-    Route::post('gyvunas/trinti', 'AnimalController@delete')->name('animal.delete');
+    Route::post('gyvunas/trinti', 'AnimalController@delete')->middleware('role:admin')->name('animal.delete');
     Route::get('gyvunas/{id}', 'AnimalController@getData')->name('animal.get.data');
 
     Route::resource('sarasas', 'AnimalController', [
@@ -14,7 +14,7 @@ Route::group(['middleware' => 'auth'], function () {
         ]
     ]);
 
-    Route::post('vaistai/trinti/{medicine}', 'MedicineController@delete')->name('medicine.delete');
+    Route::post('vaistai/trinti/{medicine}', 'MedicineController@delete')->middleware('role:admin')->name('medicine.delete');
     Route::get('vaistai/{medicine}', 'MedicineController@getData')->name('medicine.get.data');
 
     Route::resource('medikamentai', 'MedicineController', [

@@ -2,16 +2,18 @@
 
 @section('navbar')
     @include('navbar.navbarview')
-@stop
+@endsection
 
 @section('content')
-    <div class="row crud-btns">
-        {{--<button type="button" class="btn btn-danger disabled" id="delete" data-toggle="modal" data-target="#confirm-delete">Ištrinti</button>--}}
-        <button type="button" class="btn btn-danger disabled" id="delete">Ištrinti</button>
-        <button type="button" class="btn btn-warning disabled" id="edit">Redaguoti</button>
-        <button type="button" class="btn btn-info disabled" id="cure">Gydyti</button>
-        <button type="button" class="btn btn-success" id="add-new" data-toggle="modal" data-target="#add-animal">Įvesti naują</button>
-    </div>
+    @if(auth()->user()->hasRole('admin'))
+        <div class="row crud-btns">
+            {{--<button type="button" class="btn btn-danger disabled" id="delete" data-toggle="modal" data-target="#confirm-delete">Ištrinti</button>--}}
+            <button type="button" class="btn btn-danger disabled" id="delete">Ištrinti</button>
+            <button type="button" class="btn btn-warning disabled" id="edit">Redaguoti</button>
+            <button type="button" class="btn btn-info disabled" id="cure">Gydyti</button>
+            <button type="button" class="btn btn-success" id="add-new" data-toggle="modal" data-target="#add-animal">Įvesti naują</button>
+        </div>
+    @endif
 
     @if(count($animals) > 0)
         <div class="table-responsive">
@@ -75,6 +77,6 @@
     @include('modals.confirmDelete')
     @include('modals.editAnimal')
     @include('modals.addNewTreatment')
-{{--    @include('modals.showFullValue')--}}
-@stop
+    @include('modals.showFullValue')
+@endsection
 

@@ -1,81 +1,81 @@
 <div id="edit-medicine-modal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            {{ Form::open(array('class'=>'form-horizontal', 'onsubmit' => 'return false')) }}
-            <div class="modal-header" >
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Prdėti medikamentą</h4>
-            </div>
+            <form class="form-horizontal" onsubmit="return false">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Prdėti medikamentą</h4>
+                </div>
 
-            <div class="modal-body">
-                <div class="form-group">
-                    {{ Form::label('filldate', 'Data', array('class' => 'control-label col-sm-3')) }}
-                    <div class="col-sm-8">
-                        <div class="input-group date">
-                            {{ Form::date('date', null, array('class' => 'date form-control filldate', 'required'=> '', 'id' => 'edit-med-date')) }}
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="edit-med-date" class="control-label col-sm-3">Data</label>
+                        <div class="col-sm-8">
+                            <div class="input-group date">
+                                <input type="date" class="date form-control filldate" name="filldate" id="edit-med-date" required>
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    {{ Form::label('medicname', 'Pavadinimas', array('class' => 'control-label col-sm-3')) }}
-                    <div class="col-sm-8">
-                        {{ Form::text('name', '', array('class' => 'form-control medicname', 'id' => 'edit-med-medicname')) }}
-                    </div>
-                </div>
-                <div class="form-group">
-                    {{ Form::label('productiondate', 'Pagaminimo data', array('class' => 'control-label col-sm-3')) }}
-                    <div class="col-sm-8">
-                        <div class="input-group date">
-                            {{ Form::date('date', '', array('class' => 'date form-control productiondate', 'required'=> '', 'id' => 'edit-med-productiondate')) }}
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                    <div class="form-group">
+                        <label for="name" class="control-label col-sm-3">Pavadinimas</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control medicname" name="name" id="edit-med-medicname">
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    {{ Form::label('expirydate', 'Galioja iki', array('class' => 'control-label col-sm-3')) }}
-                    <div class="col-sm-8">
-                        <div class="input-group date">
-                            {{ Form::date('date', '', array('class' => 'date form-control expirydate', 'required'=> '', 'id' => 'edit-med-expirydate')) }}
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                    <div class="form-group">
+                        <label for="edit-med-productiondate" class="control-label col-sm-3">Pagaminimo data</label>
+                        <div class="col-sm-8">
+                            <div class="input-group date">
+                                <input type="date" class="date form-control productiondate" name="productiondate" id="edit-med-productiondate" required>
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    {{ Form::label('series', 'Serija', array('class' => 'control-label col-sm-3')) }}
-                    <div class="col-sm-8">
-                        {{ Form::number('number', '', array('class' => 'form-control series', 'required'=> '', 'min' => 0, 'id' => 'edit-med-series')) }}
+                    <div class="form-group">
+                        <label for="edit-med-expirydate" class="control-label col-sm-3">Galioja iki</label>
+                        <div class="col-sm-8">
+                            <div class="input-group date">
+                                <input type="date" class="date form-control expirydate" name="expirydate" id="edit-med-expirydate" required>
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    {{ Form::label('patientregistrationnr', 'Pacientų registracijos nr.', array('class' => 'control-label col-sm-3')) }}
-                    <div class="col-sm-8">
-                        {{ Form::number('number', '', array('class' => 'form-control patientregistrationnr', 'required'=> '', 'min' => 0, 'id' => 'edit-med-patientregistrationnr')) }}
+                    <div class="form-group">
+                        <label for="edit-med-series" class="control-label col-sm-3">Serija</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control series" min="0" name="series" id="edit-med-series" required>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    {{ Form::label('quantity', 'Gauta', array('class' => 'control-label col-sm-3')) }}
-                    <div class="col-sm-8">
-                        {{ Form::number('number', '', array('class' => 'form-control quantity', 'required'=> '', 'min' => 0, 'id' => 'edit-med-quantity')) }}
+                    <div class="form-group">
+                        <label for="edit-med-patientregistrationnr" class="control-label col-sm-3">Pacientų registracijos nr.</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control patientregistrationnr" min="0" name="patientregistrationnr" id="edit-med-patientregistrationnr" required>
+                        </div>
                     </div>
-                </div>
-                <div class="form-group">
-                    {{ Form::label('consumed', 'Sundaudota', array('class' => 'control-label col-sm-3')) }}
-                    <div class="col-sm-8">
-                        {{ Form::number('number', 0, array('class' => 'form-control consumed', 'required'=> '', 'min' => 0, 'id' => 'edit-med-consumed')) }}
+                    <div class="form-group">
+                        <label for="edit-med-quantity" class="control-label col-sm-3">Gauta</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control quantity" min="0" name="quantity" id="edit-med-quantity" required>
+                        </div>
                     </div>
+                    <div class="form-group">
+                        <label for="edit-med-consumed" class="control-label col-sm-3">Sunaudota</label>
+                        <div class="col-sm-8">
+                            <input type="number" class="form-control consumed" min="0" name="consumed" id="edit-med-consumed" required>
+                        </div>
+                    </div>
+                    {{--<div class="form-group">--}}
+                    {{--{{ Form::label('balance', 'Likutis', array('class' => 'control-label col-sm-3')) }}--}}
+                    {{--<div class="col-sm-8">--}}
+                    {{--{{ Form::text('bodytext', null, array('class' => 'form-control balance', 'minlength' => '10')) }}--}}
+                    {{--</div>--}}
+                    {{--</div>--}}
                 </div>
-                {{--<div class="form-group">--}}
-                {{--{{ Form::label('balance', 'Likutis', array('class' => 'control-label col-sm-3')) }}--}}
-                {{--<div class="col-sm-8">--}}
-                {{--{{ Form::text('bodytext', null, array('class' => 'form-control balance', 'minlength' => '10')) }}--}}
-                {{--</div>--}}
-                {{--</div>--}}
-            </div>
-            <div class="modal-footer">
-                {{Form::submit('Išsaugoti', array('class' => 'btn btn-success btn-lg btn-block js-edit-medicament', null))}}
-            </div>
-            {{ Form::close() }}
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success btn-lg btn-block js-edit-medicament">Išsaugoti</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

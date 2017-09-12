@@ -2,19 +2,16 @@
 
 @section('navbar')
     @include('navbar.navbarview')
-@stop
+@endsection
 
 @section('content')
-    @include('modals.addNewTreatment')
-    @include('modals.editMedical')
-    @include('modals.confirmDelete')
-    @include('modals.showFullValue')
-
-    <div class="row crud-btns">
-        <button type="button" class="btn btn-danger disabled" id="delete-treatment">Ištrinti</button>
-        <button type="button" class="btn btn-warning disabled" id="edit-treatment">Redaguoti</button>
-        <button type="button" class="btn btn-success" id="add-treatment" data-toggle="modal" data-target="#add-treatment">Pridėti</button>
-    </div>
+    @if(auth()->user()->hasRole('admin'))
+        <div class="row crud-btns">
+            <button type="button" class="btn btn-danger disabled" id="delete-treatment">Ištrinti</button>
+            <button type="button" class="btn btn-warning disabled" id="edit-treatment">Redaguoti</button>
+            <button type="button" class="btn btn-success" id="add-treatment" data-toggle="modal" data-target="#add-treatment">Pridėti</button>
+        </div>
+    @endif
 
     {{--<div class="table-responsive">--}}
         {{--<table class="table table-curved table-color">--}}
@@ -129,4 +126,9 @@
             </div>
         </div>
     @endif
-@stop
+
+    @include('modals.addNewTreatment')
+    @include('modals.editMedical')
+    @include('modals.confirmDelete')
+    @include('modals.showFullValue')
+@endsection
