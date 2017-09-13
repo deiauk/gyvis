@@ -21,6 +21,9 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>
+                    <a href="{{ route('token.index') }}">Siųsti pakvietimą</a>
+                </li>
+                <li>
                     <a href="{{ route('logout') }}"
                        onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">

@@ -29,6 +29,10 @@ Route::group(['middleware' => 'auth'], function () {
         ]
     ]);
 
+    Route::get('zetonas', 'TokenController@index')->middleware('role:admin')->name('token.index');
+    Route::post('zetonas', 'TokenController@store')->middleware('role:admin')->name('token.store');
+    Route::get('zetonas/{token}', 'TokenController@create')->middleware('role:admin')->name('token.create');
+
 });
 
 Auth::routes();

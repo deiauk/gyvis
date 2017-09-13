@@ -23,6 +23,9 @@
     </head>
     <body>
         @yield('navbar')
+
+        @include('layouts.includes._messages')
+
         @yield('content')
     </body>
 </html>

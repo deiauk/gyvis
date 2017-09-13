@@ -15,9 +15,9 @@ class AccessRoles
      */
     public function handle($request, Closure $next, $role)
     {
-        if(auth()->check() && auth()->user()->hasRole($role)) {
-            return $next($request);
+        if(auth()->check() && !auth()->user()->hasRole($role)) {
+            return redirect()->route('meniu');
         }
-        return redirect('/');
+        return $next($request);
     }
 }

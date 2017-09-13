@@ -380,3 +380,10 @@ tr {
 .align-rule {
     background-color: rgba(0, 209, 253, 0.2);
 }
+.panel-default {
+    padding: 0;
+}
+.panel-default > .panel-body {
+    padding: 15px;
+    margin: 0 20px;
+}
