@@ -5,8 +5,8 @@ Route::group(['middleware' => 'auth'], function () {
         return view('startwindow');
     })->name('meniu');
 
-    Route::post('gyvunas/trinti', 'AnimalController@delete')->middleware('role:admin')->name('animal.delete');
-    Route::get('gyvunas/{id}', 'AnimalController@getData')->name('animal.get.data');
+    Route::post('gyvunas/trinti/{animal}', 'AnimalController@delete')->middleware('role:admin')->name('animal.delete');
+    Route::get('gyvunas/{animal}', 'AnimalController@getData')->name('animal.get.data');
 
     Route::resource('sarasas', 'AnimalController', [
         'names' => [
@@ -31,12 +31,12 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('zetonas', 'TokenController@index')->middleware('role:admin')->name('token.index');
     Route::post('zetonas', 'TokenController@store')->middleware('role:admin')->name('token.store');
-    Route::get('zetonas/{token}', 'TokenController@create')->middleware('role:admin')->name('token.create');
-
 });
 
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('auth.login');
 Route::get('prisijungti', 'HomeController@index')->name('auth.login');
-Route::get('registruotis', 'HomeController@index')->name('auth.register');
+//Route::get('registruotis', 'HomeController@index')->name('auth.register');
+
+Route::get('zetonas/{token}', 'TokenController@create')->name('token.create');

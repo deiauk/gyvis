@@ -24,8 +24,12 @@
     <body>
         @yield('navbar')
 
-        @include('layouts.includes._messages')
+        <div class="col-lg-12">
+            @include('layouts.includes._messages')
+        </div>
 
-        @yield('content')
+        <div class="col-lg-12">
+            @yield('content')
+        </div>
     </body>
 </html>

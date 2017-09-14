@@ -80,7 +80,7 @@ $(document).ready(function() {
 
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
-                url: 'gyvunasAxax/' + animalTableRowId,
+                url: 'vaistai/' + animalTableRowId,
                 method: 'GET', // Type of response and matches what we said in the route
                 success: function (response) { // What to do if we succeed
                     console.log(response);
@@ -115,6 +115,66 @@ $(document).ready(function() {
                 }
             });
         }
+    });
+
+    $('#medicine').change(function () {
+        if(this.value !== -1) {
+            console.log("vaistas: " + this.value);
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
+                url: 'vaistai/' + this.value,
+                method: 'GET', // Type of response and matches what we said in the route
+                success: function (response) { // What to do if we succeed
+                    // console.log(response);
+                    // $(".animalNumber").val(response.number);
+                    // $(".breed").val(response.name);
+                    // var birthday = new Date(response.birthday).getTime();
+                    // var age = getAge(birthday);
+                    // $(".animalAge").val(age);
+                    console.log(response);
+                    $('#quantity').attr({
+                        "max" : response.balance
+                    });
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                }
+            });
+        }
+    });
+
+    $('.js-add-new-treatment').click(function () {
+        var newTreatment = {
+            date : $('#date').val(),
+            number : $('.animalNumber').val(),
+            breed : $('#breed').val(),
+            age : $('#age').val(),
+            color : $('.animalColor').val(),
+            sickdate : $('#sickdate').val(),
+            temperature : $('#temperature').val(),
+            pulse : $('#pulse').val(),
+            diagnosis : $('#diagnosis').val(),
+            treatment : $('#treatment').val(),
+            medicine : $('#medicine').val(),
+            quantity : $('#quantity').val(),
+            end : $('#end').val(),
+            info : $('#info').val()
+        };
+
+        $.ajax({
+            headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
+            url: 'gydymai',
+            method: 'POST', // Type of response and matches what we said in the route
+            data: newTreatment,
+            success: function(response) { // What to do if we succeed
+                location.reload();
+                //console.log(response);
+            },
+            error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+                console.log(JSON.stringify(jqXHR));
+                console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+            }
+        });
     });
 
     function getAge(birtdayMillis) {
@@ -189,7 +249,7 @@ $(document).ready(function() {
         if (e.namespace === 'bs.modal') {
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
-                url: 'gyvunasAxax/' + animalTableRowId,
+                url: 'gyvunas/' + animalTableRowId,
                 method: 'GET', // Type of response and matches what we said in the route
                 success: function (response) { // What to do if we succeed
                     $(".nr-val").val(response.number);
@@ -298,7 +358,7 @@ $(document).ready(function() {
            };
            $.ajax({
                headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
-               url: 'trinti',
+               url: 'gyvunas/trinti/' + animalTableRowId,
                method: 'POST', // Type of response and matches what we said in the route
                data: obj,
                success: function(response) { // What to do if we succeed
@@ -316,7 +376,7 @@ $(document).ready(function() {
            };
            $.ajax({
                headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
-               url: 'trintiVaista',
+               url: 'vaistai/trinti/' + medicineTableRowId,
                method: 'POST', // Type of response and matches what we said in the route
                data: obj,
                success: function(response) { // What to do if we succeed
@@ -419,7 +479,7 @@ $(document).ready(function() {
         if (e.namespace === 'bs.modal') {
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
-                url: 'medicalAjax/' + medicineTableRowId,
+                url: 'vaistai/' + medicineTableRowId,
                 method: 'GET', // Type of response and matches what we said in the route
                 success: function (response) { // What to do if we succeed
                     $(".filldate").val(response.filldate);

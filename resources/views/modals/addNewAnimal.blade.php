@@ -53,7 +53,7 @@
                     <label for="birthday" class="control-label col-sm-3">Gimtadienis</label>
                     <div class="col-sm-8">
                         <div class="input-group date">
-                            <input type="date" name="birthday" id="birthday" class="date form-control birthday" required>
+                            <input type="text" name="birthday" id="birthday" class="date form-control birthday" required>
                             <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                         </div>
                     </div>

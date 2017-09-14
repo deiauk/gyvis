@@ -73,10 +73,12 @@
         </div>
     @endif
 
-    @include('modals.addNewAnimal')
-    @include('modals.confirmDelete')
-    @include('modals.editAnimal')
-    @include('modals.addNewTreatment')
-    @include('modals.showFullValue')
+    @if(auth()->user()->hasRole('admin'))
+        @include('modals.addNewAnimal')
+        @include('modals.confirmDelete')
+        @include('modals.editAnimal')
+        @include('modals.addNewTreatment')
+        @include('modals.showFullValue')
+    @endif
 @endsection
 

@@ -20,9 +20,11 @@
                 <li class="{{ Route::currentRouteNamed('medikamentai') ? 'active' : '' }}"><a href="{{ route('medikamentai') }}">Medikamentų žurnalas</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="{{ route('token.index') }}">Siųsti pakvietimą</a>
-                </li>
+                @if(auth()->user()->hasRole('admin'))
+                    <li>
+                        <a href="{{ route('token.index') }}">Siųsti pakvietimą</a>
+                    </li>
+                @endif
                 <li>
                     <a href="{{ route('logout') }}"
                        onclick="event.preventDefault();

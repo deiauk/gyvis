@@ -10,6 +10,10 @@
                     <form class="form-horizontal" method="POST" action="{{ route('register') }}">
                         {{ csrf_field() }}
 
+                        @if(!is_null($token))
+                            <input type="hidden" name="token" value="{{ $token->id }}">
+                        @endif
+
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Vardas</label>
 
@@ -28,7 +32,7 @@
                             <label for="email" class="col-md-4 control-label">El. paštas</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ is_null($token->email) ? old('email') : $token->email }}" required>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">

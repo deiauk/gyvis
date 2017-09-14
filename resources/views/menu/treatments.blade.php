@@ -6,6 +6,10 @@
 
 @section('content')
     @if(auth()->user()->hasRole('admin'))
+        @include('modals.addNewTreatment')
+        @include('modals.editMedical')
+        @include('modals.confirmDelete')
+        @include('modals.showFullValue')
         <div class="row crud-btns">
             <button type="button" class="btn btn-danger disabled" id="delete-treatment">Ištrinti</button>
             <button type="button" class="btn btn-warning disabled" id="edit-treatment">Redaguoti</button>
@@ -126,9 +130,4 @@
             </div>
         </div>
     @endif
-
-    @include('modals.addNewTreatment')
-    @include('modals.editMedical')
-    @include('modals.confirmDelete')
-    @include('modals.showFullValue')
 @endsection

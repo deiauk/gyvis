@@ -12,7 +12,7 @@
                         <label for="filldate" class="control-label col-sm-3">Data</label>
                         <div class="col-sm-8">
                             <div class="input-group date">
-                                <input type="date" class="date form-control filldate" name="filldate" id="filldate" required>
+                                <input type="text" class="date form-control filldate" name="filldate" id="filldate" required>
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                             </div>
                         </div>
@@ -27,7 +27,7 @@
                         <label for="productiondate" class="control-label col-sm-3">Pagaminimo data</label>
                         <div class="col-sm-8">
                             <div class="input-group date">
-                                <input type="date" class="date form-control productiondate" name="productiondate" id="productiondate" required>
+                                <input type="text" class="date form-control productiondate" name="productiondate" id="productiondate" required>
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                         <label for="expirydate" class="control-label col-sm-3">Galioja iki</label>
                         <div class="col-sm-8">
                             <div class="input-group date">
-                                <input type="date" class="date form-control expirydate" name="expirydate" id="expirydate" required>
+                                <input type="text" class="date form-control expirydate" name="expirydate" id="expirydate" required>
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                             </div>
                         </div>

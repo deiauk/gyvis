@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Animal;
+use App\Medicine;
 use Illuminate\Http\Request;
 
 class AnimalController extends Controller
@@ -14,8 +15,10 @@ class AnimalController extends Controller
      */
     public function index()
     {
+        //dd(auth()->user());
         $animals = Animal::paginate(15);
-        return view('menu.animals', ['animals' => $animals]);
+        $medicines = Medicine::where('balance', '>', 0)->get();
+        return view('menu.animals', compact('animals', 'medicines'));
     }
 
     /**
@@ -121,9 +124,8 @@ class AnimalController extends Controller
         return $request->id;
     }
 
-    function getData($id)
+    function getData(Animal $animal)
     {
-        $animal = Animal::find($id);
         return $animal;
     }
 }
