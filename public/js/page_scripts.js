@@ -210,6 +210,14 @@ $(document).ready(function() {
                     $('.edit-treatment-otherInfo').val(response.notes);
                     $('.edit-treatment-medicine').val(response.medicine);
                     $('.edit-treatment-quantity').val(response.medicineQuantity);
+
+                    if(response.medicine <= 0) {
+                        $('.edit-treatment-medicine').val(-1);
+                    } else {
+                        $('.edit-treatment-medicine').val(response.medicine);
+                    }
+
+                    $('.edit-treatment-quantity').val(response.quantity);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log(jqXHR);
@@ -222,20 +230,21 @@ $(document).ready(function() {
 
         var editedTreatment = {
             'rowId': treatmentTableRowId,
-            'animalNumber' : $('#edit-treatment-animalNumber').val(),
-            'breed' : $('#edit-treatment-breed').val(),
-            'age' : $('#edit-treatment-animalAge').val(),
-            'color' : $('#edit-treatment-animalColor').val(),
-            'sickDate' : $('#edit-treatment-sickdate').val(),
+            'date' : $('.edit-treatment-date').val(),
+            'animalNumber' : $('.edit-treatment-animalNumber').val(),
+            'breed' : $('.edit-treatment-breed').val(),
+            'age' : $('.edit-treatment-animalAge').val(),
+            'color' : $('.edit-treatment-animalColor').val(),
+            'sickDate' : $('.edit-treatment-sickdate').val(),
             'animalResearchData' : '',
-            'pulse' : $('#edit-treatment-animalPulse').val(),
+            'pulse' : $('.edit-treatment-animalPulse').val(),
             'breath' : '',
-            'diagnosis' : $('#edit-treatment-diagnosis').val(),
-            'treatmentAndDirections' : $('#edit-treatment-treatment').val(),
-            'result' : $('#edit-treatment-end').val(),
-            'notes' : $('#edit-treatment-otherInfo').val(),
-            'medicine' : $('#edit-treatment-medicine').val(),
-            'medicineQuantity' : $('#edit-treatment-quantity').val()
+            'diagnosis' : $('.edit-treatment-diagnosis').val(),
+            'treatmentAndDirections' : $('.edit-treatment-treatment').val(),
+            'result' : $('.edit-treatment-end').val(),
+            'notes' : $('.edit-treatment-otherInfo').val(),
+            'medicine' : $('.edit-treatment-medicine').val(),
+            'medicineQuantity' : $('.edit-treatment-quantity').val()
         };
 
         $.ajax({

@@ -33,13 +33,13 @@ class TreatmentController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
         $medicine = Medicine::find($request->input('medicine'));
-        $medicine->consumed = $medicine->consumed + 1;
+        $medicine->consumed = $medicine->consumed + $request->input('medicineQuantity');
         $medicine->balance = $medicine->quantity - $medicine->consumed;
         $medicine->save();
 
@@ -64,7 +64,7 @@ class TreatmentController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Treatment  $treatment
+     * @param  \App\Treatment $treatment
      * @return \Illuminate\Http\Response
      */
     public function show(Treatment $treatment)
@@ -75,7 +75,7 @@ class TreatmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Treatment  $treatment
+     * @param  \App\Treatment $treatment
      * @return \Illuminate\Http\Response
      */
     public function edit(Treatment $treatment)
@@ -86,36 +86,66 @@ class TreatmentController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Treatment  $treatment
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Treatment $treatment
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Treatment $treatment)
     {
         $treatment = Treatment::find($request->input('rowId'));
-        dd($treatment);
+        $treatment->date = $request->input('date');
+        $treatment->animalNumber = $request->input('animalNumber');
+        $treatment->animalType = $request->input('breed');
+        $treatment->age = $request->input('age');
+        $treatment->color = $request->input('color');
+        $treatment->sickDate = $request->input('sickDate');
+        $treatment->pulse = $request->input('pulse');
+        $treatment->diagnosis = $request->input('diagnosis');
+        $treatment->treatmentAndDirections = $request->input('treatmentAndDirections');
+        $treatment->result = $request->input('result');
+        $treatment->notes = $request->input('notes');
 
-//            [
-//            "date" => $request->input('date'),
-//            "animalNumber" => $request->input('number'),
-//            "animalType" => $request->input('breed'),
-//            "age" => $request->input('age'),
-//            "color" => $request->input('color'),
-//            "sickDate" => $request->input('sickdate'),
-//            "animalResearchData" => "",
-//            "pulse" => $request->input('pulse'),
-//            "breath" => "",
-//            "diagnosis" => $request->input('diagnosis'),
-//            "treatmentAndDirections" => $request->input('treatment'),
-//            "result" => $request->input('end'),
-//            "notes" => $request->input('info'),
-//        ]);
+        // if medicine ID is different
+        if ($treatment->medicine != $request->input('medicine')) {
+            // reset medicine quantity to previous state
+            $this->calcMedicine($treatment->medicine, -$treatment->quantity);
+            // set new medicine
+            $treatment->medicine = $request->input('medicine');
+            // set new medicine quantity
+            $this->calcMedicine($treatment->medicine, $request->input('medicineQuantity'));
+        } // if ID is not different
+        else {
+            // if new quantity is lower
+            if ($treatment->quantity > $request->input('medicineQuantity')) {
+                $this->calcMedicine($treatment->medicine,
+                    -($request->input('medicineQuantity') - $treatment->quantity));
+            } // if new quantity is larger
+            else {
+                if ($treatment->quantity < $request->input('medicineQuantity')) {
+                    $this->calcMedicine($treatment->medicine,
+                        $treatment->quantity - $request->input('medicineQuantity'));
+                }
+            }
+        }
+        $treatment->quantity = $request->input('medicineQuantity');
+        $treatment->save();
+        return 1;
+    }
+
+    private function calcMedicine($id, $quantity)
+    {
+        $medicine = Medicine::find($id);
+        if ($medicine) {
+            $medicine->consumed = $medicine->consumed + $quantity;
+            $medicine->balance = $medicine->quantity - $medicine->consumed;
+            $medicine->save();
+        }
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Treatment  $treatment
+     * @param  \App\Treatment $treatment
      * @return \Illuminate\Http\Response
      */
     public function destroy(Treatment $treatment)

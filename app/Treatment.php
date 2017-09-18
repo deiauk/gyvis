@@ -9,5 +9,4 @@ class Treatment extends Model
     public $timestamps = false;
 
     protected $guarded = [];
-
 }
