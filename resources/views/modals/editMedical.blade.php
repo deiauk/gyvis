@@ -12,7 +12,7 @@
                         <label for="edit-med-date" class="control-label col-sm-3">Data</label>
                         <div class="col-sm-8">
                             <div class="input-group date">
-                                <input type="date" class="date form-control filldate" name="filldate" id="edit-med-date" required>
+                                <input type="text" class="date form-control filldate" name="filldate" id="edit-med-date" required>
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                             </div>
                         </div>
@@ -27,7 +27,7 @@
                         <label for="edit-med-productiondate" class="control-label col-sm-3">Pagaminimo data</label>
                         <div class="col-sm-8">
                             <div class="input-group date">
-                                <input type="date" class="date form-control productiondate" name="productiondate" id="edit-med-productiondate" required>
+                                <input type="text" class="date form-control productiondate" name="productiondate" id="edit-med-productiondate" required>
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                             </div>
                         </div>
@@ -36,7 +36,7 @@
                         <label for="edit-med-expirydate" class="control-label col-sm-3">Galioja iki</label>
                         <div class="col-sm-8">
                             <div class="input-group date">
-                                <input type="date" class="date form-control expirydate" name="expirydate" id="edit-med-expirydate" required>
+                                <input type="text" class="date form-control expirydate" name="expirydate" id="edit-med-expirydate" required>
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                             </div>
                         </div>
