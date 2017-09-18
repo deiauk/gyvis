@@ -57,6 +57,8 @@ class TreatmentController extends Controller
             "treatmentAndDirections" => $request->input('treatment'),
             "result" => $request->input('end'),
             "notes" => $request->input('info'),
+            "medicine" => $request->input('medicine'),
+            "quantity" => $request->input('quantity'),
         ]);
         return 1;
     }
