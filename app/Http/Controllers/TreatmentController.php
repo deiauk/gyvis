@@ -92,7 +92,24 @@ class TreatmentController extends Controller
      */
     public function update(Request $request, Treatment $treatment)
     {
-        //
+        $treatment = Treatment::find($request->input('rowId'));
+        dd($treatment);
+
+//            [
+//            "date" => $request->input('date'),
+//            "animalNumber" => $request->input('number'),
+//            "animalType" => $request->input('breed'),
+//            "age" => $request->input('age'),
+//            "color" => $request->input('color'),
+//            "sickDate" => $request->input('sickdate'),
+//            "animalResearchData" => "",
+//            "pulse" => $request->input('pulse'),
+//            "breath" => "",
+//            "diagnosis" => $request->input('diagnosis'),
+//            "treatmentAndDirections" => $request->input('treatment'),
+//            "result" => $request->input('end'),
+//            "notes" => $request->input('info'),
+//        ]);
     }
 
     /**
@@ -103,6 +120,12 @@ class TreatmentController extends Controller
      */
     public function destroy(Treatment $treatment)
     {
-        //
+        $treatment->destroy(request('id'));
+        return 1;
+    }
+
+    function getData(Treatment $treatment)
+    {
+        return $treatment;
     }
 }

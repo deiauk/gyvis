@@ -50,6 +50,7 @@ $(document).ready(function() {
     $('.clickable-treat-row').click(function () {
         var selectedClass = $('.selected-table-row');
         treatmentTableRowId = this.id;
+
         if($(this).hasClass('selected-table-row')) {
             $(this).removeClass('selected-table-row');
             resetTreatmentStates();
@@ -169,6 +170,81 @@ $(document).ready(function() {
             success: function(response) { // What to do if we succeed
                 location.reload();
                 //console.log(response);
+            },
+            error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+                console.log(JSON.stringify(jqXHR));
+                console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+            }
+        });
+    });
+
+    $('#edit-treatment-modal').on('show.bs.modal', function (e) {
+        if (e.namespace === 'bs.modal') {
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
+                url: 'gydymas/' + treatmentTableRowId,
+                method: 'GET', // Type of response and matches what we said in the route
+                success: function (response) { // What to do if we succeed
+                    console.log(response);
+                    // $(".filldate").val(response.filldate);
+                    // $(".medicname").val(response.from);
+                    // $(".productiondate").val(response.productiondate);
+                    // $(".expirydate").val(response.expirydate);
+                    // $(".series").val(response.series);
+                    // $(".patientregistrationnr").val(response.patientregistrationnr);
+                    // $(".quantity").val(response.quantity);
+                    // $(".consumed").val(response.consumed);
+
+                    $('.edit-treatment-date').val(response.date);
+                    $('.edit-treatment-animalNumber').val(response.animalNumber);
+                    $('.edit-treatment-breed').val(response.animalType);
+                    $('.edit-treatment-animalAge').val(response.age);
+                    $('.edit-treatment-animalColor').val(response.color);
+                    $('.edit-treatment-sickdate').val(response.sickDate);
+                    //'animalResearchData' : '';
+                    $('.edit-treatment-animalPulse').val(response.pulse);
+                    //'breath' : '';
+                    $('.edit-treatment-diagnosis').val(response.diagnosis);
+                    $('.edit-treatment-treatment').val(response.treatmentAndDirections);
+                    $('.edit-treatment-end').val(response.result);
+                    $('.edit-treatment-otherInfo').val(response.notes);
+                    $('.edit-treatment-medicine').val(response.medicine);
+                    $('.edit-treatment-quantity').val(response.medicineQuantity);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                }
+            });
+        }
+    });
+
+    $('.js-edit-treatment').click(function () {
+
+        var editedTreatment = {
+            'rowId': treatmentTableRowId,
+            'animalNumber' : $('#edit-treatment-animalNumber').val(),
+            'breed' : $('#edit-treatment-breed').val(),
+            'age' : $('#edit-treatment-animalAge').val(),
+            'color' : $('#edit-treatment-animalColor').val(),
+            'sickDate' : $('#edit-treatment-sickdate').val(),
+            'animalResearchData' : '',
+            'pulse' : $('#edit-treatment-animalPulse').val(),
+            'breath' : '',
+            'diagnosis' : $('#edit-treatment-diagnosis').val(),
+            'treatmentAndDirections' : $('#edit-treatment-treatment').val(),
+            'result' : $('#edit-treatment-end').val(),
+            'notes' : $('#edit-treatment-otherInfo').val(),
+            'medicine' : $('#edit-treatment-medicine').val(),
+            'medicineQuantity' : $('#edit-treatment-quantity').val()
+        };
+
+        $.ajax({
+            headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
+            url: 'gydymai/' + treatmentTableRowId,
+            method: 'PUT', // Type of response and matches what we said in the route
+            data: editedTreatment,
+            success: function(response) { // What to do if we succeed
+                //location.reload();
             },
             error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
                 console.log(JSON.stringify(jqXHR));
@@ -388,7 +464,25 @@ $(document).ready(function() {
                    console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
                }
            });
-
+       } else if(treatmentTableRowId !== -1) {
+           var obj = {
+               id: treatmentTableRowId
+           };
+           console.log("id = " +treatmentTableRowId);
+           $.ajax({
+               headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
+               url: 'gydymai/' + medicineTableRowId,
+               method: 'DELETE', // Type of response and matches what we said in the route
+               data: obj,
+               success: function(response) { // What to do if we succeed
+                   treatmentTableRowId = -1;
+                   location.reload();
+               },
+               error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+                   console.log(JSON.stringify(jqXHR));
+                   console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+               }
+           });
        }
    });
 

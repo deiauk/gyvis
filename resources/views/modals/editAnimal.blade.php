@@ -35,10 +35,10 @@
                     <div class="form-group">
                         <label for="gender-edit-val" class="control-label col-sm-3">Lytis</label>
                         <div class="col-sm-8">
-                            <label for="g1">Vyras</label>
+                            <label for="g1">Vyriška</label>
                             <input type="radio" name="gender" value="1" id="g1" class="male">
                             &#8194
-                            <label for="g2">Moteris</label>
+                            <label for="g2">Moteriška</label>
                             <input type="radio" name="gender" value="2" id="g2" class="female">
                         </div>
                     </div>

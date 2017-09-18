@@ -23,6 +23,7 @@ Route::group(['middleware' => 'auth'], function () {
         ]
     ]);
 
+    Route::get('gydymas/{treatment}', 'TreatmentController@getData')->name('treatment.get.data');
     Route::resource('gydymai', 'TreatmentController', [
         'names' => [
             'index' => 'gydymai'
