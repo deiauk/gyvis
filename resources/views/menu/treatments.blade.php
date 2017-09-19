@@ -105,7 +105,7 @@
                             <td>{{$medicine->pulse}}</td>
                             <td>{{$medicine->breath}}</td>
                             <td>{{$medicine->diagnosis}}</td>
-                            <td>
+                            <td class="fullinfo" data-comment="{{ $medicine->treatmentAndDirections }}">
                                 <a href="#child4">
                                     {{ str_limit($medicine->treatmentAndDirections, $limit = 40, $end = '...') }}
                                 </a>

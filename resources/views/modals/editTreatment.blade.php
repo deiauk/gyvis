@@ -4,7 +4,7 @@
             <form class="form-horizontal" onsubmit="return false">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Pradėti gydymą</h4>
+                    <h4 class="modal-title">Redaguoti gydymą</h4>
                 </div>
 
                 <div class="modal-body">
@@ -15,30 +15,45 @@
                                 <input type="text" class="date form-control edit-treatment-date" name="date" id="date" required>
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                             </div>
+                            <span class="help-block err-date">
+                                <strong></strong>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="number" class="control-label col-sm-3">Gyvulio Nr.</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control edit-treatment-animalNumber" name="number" id="number" required>
+                            <span class="help-block err-number">
+                                <strong></strong>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="breed" class="control-label col-sm-3">Gyvulio rūšis</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control edit-treatment-breed" name="breed" id="breed" required>
+                            <span class="help-block err-breed">
+                                <strong></strong>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="age" class="control-label col-sm-3">Gyvulio amžius</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control edit-treatment-animalAge" name="age" id="age" required>
+                            <span class="help-block err-age">
+                                <strong></strong>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="color" class="control-label col-sm-3">Gyvulio spalva</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control edit-treatment-animalColor" name="color" id="color" required>
+                            <span class="help-block err-color">
+                                <strong></strong>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -48,30 +63,45 @@
                                 <input type="text" class="date form-control edit-treatment-sickdate" name="sickdate" id="sickdate" required>
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                             </div>
+                            <span class="help-block err-sickdate">
+                                <strong></strong>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="temperature" class="control-label col-sm-3">Temperatūra</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control edit-treatment-animalTemperature" name="temperature" id="temperature" required>
+                            <span class="help-block err-temperature">
+                                <strong></strong>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="pulse" class="control-label col-sm-3">Pulsas</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control edit-treatment-animalPulse" name="pulse" id="pulse" required>
+                            <span class="help-block err-pulse">
+                                <strong></strong>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="diagnosis" class="control-label col-sm-3">Diagnozė</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control edit-treatment-diagnosis" name="diagnosis" id="diagnosis" required>
+                            <span class="help-block err-diagnosis">
+                                <strong></strong>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="treatment" class="control-label col-sm-3">Gydymas ir nurodymai</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control edit-treatment-treatment" name="treatment" id="treatment" required>
+                            <span class="help-block err-treatment">
+                                <strong></strong>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -85,24 +115,36 @@
                                     @endforeach
                                 @endif
                             </select>
+                            <span class="help-block err-medicine">
+                                <strong></strong>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="quantity" class="control-label col-sm-3">Vaistų kiekis</label>
                         <div class="col-sm-8">
                             <input type="number" class="form-control edit-treatment-quantity" name="quantity" id="quantity" min="0" required>
+                            <span class="help-block err-quantity">
+                                <strong></strong>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="end" class="control-label col-sm-3">Baigtis</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control edit-treatment-end" name="end" id="end" required>
+                            <span class="help-block err-end">
+                                <strong></strong>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="info" class="control-label col-sm-3">Pastabos</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control edit-treatment-otherInfo" name="info" id="info" required>
+                            <span class="help-block err-info">
+                                <strong></strong>
+                            </span>
                         </div>
                     </div>
                 </div>

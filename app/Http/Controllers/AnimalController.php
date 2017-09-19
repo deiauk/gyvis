@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Animal;
 use App\Medicine;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class AnimalController extends Controller
 {
@@ -39,11 +40,22 @@ class AnimalController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            "number" => "required",
+            "name" => "required",
+            "livebeing" => "required",
+            "breed" => "required",
+            "gender" => "required|numeric",
+            "birthday" => "required|date",
+            "color" => "required",
+            "mother" => "required",
+            "father" => "required",
+            "desc" => "required|min:10",
+        ]);
+        if($validator->fails()) {
+            return response()->json($validator->messages(), 200);
+        }
         $data = $request->all();
-//        $this->validate($request, [
-//            'title' => 'required|max:100',
-//            'body' => 'required|min:10'
-//        ]);
 
         $animal = new Animal();
         $animal->number = $data['number'];
@@ -57,7 +69,7 @@ class AnimalController extends Controller
         $animal->father = $data['father'];
         $animal->comment = $data['desc'];
         $animal->save();
-        return 1;
+        return response()->json([], 201);
     }
 
     /**
@@ -91,8 +103,24 @@ class AnimalController extends Controller
      */
     public function update(Request $request)
     {
+        //dd($request->all());
+        $validator = Validator::make($request->all(), [
+            "number" => "required",
+            "name" => "required",
+            "livebeing" => "required",
+            "breed" => "required",
+            "gender" => "required|numeric",
+            "birthday" => "required|date",
+            "color" => "required",
+            "mother" => "required",
+            "father" => "required",
+            "desc" => "required|min:10",
+        ]);
+        if($validator->fails()) {
+            return response()->json($validator->messages(), 200);
+        }
         $data = $request->all();
-        dump($data);
+
         $animal = Animal::find($data['rowId']);
         $animal->number = $data['number'];
         $animal->name = $data['name'];
@@ -105,6 +133,7 @@ class AnimalController extends Controller
         $animal->father = $data['father'];
         $animal->comment = $data['desc'];
         $animal->save();
+        return response()->json([], 201);
     }
 
     /**

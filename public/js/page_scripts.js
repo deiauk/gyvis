@@ -145,6 +145,7 @@ $(document).ready(function() {
     });
 
     $('.js-add-new-treatment').click(function () {
+        clearErrors('#add-treatment')
         var newTreatment = {
             date : $('#date').val(),
             number : $('.animalNumber').val(),
@@ -167,9 +168,16 @@ $(document).ready(function() {
             url: 'gydymai',
             method: 'POST', // Type of response and matches what we said in the route
             data: newTreatment,
-            success: function(response) { // What to do if we succeed
-                location.reload();
+            success: function(response, textStatus, xhr) { // What to do if we succeed
+                //location.reload();
                 //console.log(response);
+                if(xhr.status === 201) {
+                    $('#add-treatment').modal('toggle');
+                    location.reload();
+                } else if(xhr.status === 200) {
+                    setErrors(response);
+                    return false;
+                }
             },
             error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
                 console.log(JSON.stringify(jqXHR));
@@ -244,24 +252,24 @@ $(document).ready(function() {
     });
 
     $('.js-edit-treatment').click(function () {
-
+        clearErrors('#edit-treatment-modal');
         var editedTreatment = {
             'rowId': treatmentTableRowId,
             'date' : $('.edit-treatment-date').val(),
-            'animalNumber' : $('.edit-treatment-animalNumber').val(),
+            'number' : $('.edit-treatment-animalNumber').val(),
             'breed' : $('.edit-treatment-breed').val(),
             'age' : $('.edit-treatment-animalAge').val(),
             'color' : $('.edit-treatment-animalColor').val(),
-            'sickDate' : $('.edit-treatment-sickdate').val(),
+            'sickdate' : $('.edit-treatment-sickdate').val(),
             'animalResearchData' : '',
             'pulse' : $('.edit-treatment-animalPulse').val(),
             'breath' : '',
             'diagnosis' : $('.edit-treatment-diagnosis').val(),
-            'treatmentAndDirections' : $('.edit-treatment-treatment').val(),
-            'result' : $('.edit-treatment-end').val(),
+            'treatment' : $('.edit-treatment-treatment').val(),
+            'end' : $('.edit-treatment-end').val(),
             'notes' : $('.edit-treatment-otherInfo').val(),
             'medicine' : $('.edit-treatment-medicine').val(),
-            'medicineQuantity' : $('.edit-treatment-quantity').val()
+            'quantity' : $('.edit-treatment-quantity').val()
         };
 
         $.ajax({
@@ -269,8 +277,15 @@ $(document).ready(function() {
             url: 'gydymai/' + treatmentTableRowId,
             method: 'PUT', // Type of response and matches what we said in the route
             data: editedTreatment,
-            success: function(response) { // What to do if we succeed
-                location.reload();
+            success: function(response, textStatus, xhr) { // What to do if we succeed
+                if(xhr.status === 201) {
+                    $('#edit-treatment-modal').modal('toggle');
+                    location.reload();
+                } else if(xhr.status === 200) {
+                    console.log(response);
+                    setErrors(response);
+                    return false;
+                }
             },
             error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
                 console.log(JSON.stringify(jqXHR));
@@ -383,49 +398,43 @@ $(document).ready(function() {
     });
 
     $('.js-save-edited-animal').click(function () {
-        var number = $("#nr-edit-val").val();
-        var name = $("#description-edit-val").val();
-        var livebeing =  $("#live-being-edit-val").val();
-        var breed =  $("#breed-being-edit-val").val();
-        var gender = $('input[name=gender]:checked', '#edit-animal').val();
-        var color = $("#color-edit-val").val();
-        var mother = $("#mother-edit-val").val();
-        var father = $("#father-edit-val").val();
-        var desc = $("#edited-description").val();
-        var birthday =  $("#birthday").val();
-
-        console.log(birthday + " " + gender);
+        clearErrors('#edit-animal');
 
         var editedAnimal = {
             'rowId': animalTableRowId,
-            'number' : number,
-            'name' : name,
-            'livebeing' : livebeing,
-            'breed' : breed,
-            'gender' : gender,
-            'color' : color,
-            'mother' : mother,
-            'father' : father,
-            'desc' : desc,
-            'birthday': birthday
+            'number' : $("#nr-edit-val").val(),
+            'name' : $("#description-edit-val").val(),
+            'livebeing' : $("#live-being-edit-val").val(),
+            'breed' : $("#breed-being-edit-val").val(),
+            'gender' : $('input[name=gender]:checked', '#edit-animal').val(),
+            'color' : $("#color-edit-val").val(),
+            'mother' : $("#mother-edit-val").val(),
+            'father' : $("#father-edit-val").val(),
+            'desc' : $("#edited-description").val(),
+            'birthday': $("#birthday").val()
         };
         $.ajax({
             headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
             url: 'sarasas/' + animalTableRowId,
             method: 'PUT', // Type of response and matches what we said in the route
             data: editedAnimal,
-            success: function(response) { // What to do if we succeed
-                location.reload();
+            success: function(response, textStatus, xhr) { // What to do if we succeed
+                if(xhr.status === 201) {
+                    $('#edit-animal').modal('toggle');
+                    location.reload();
+                } else if(xhr.status === 200) {
+                    setErrors(response);
+                    return false;
+                }
             },
             error: function(jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR);
+                //console.log(jqXHR);
             }
         });
     });
 
     $('#add-animal').on('show.bs.modal', function (e) {
         if (e.namespace === 'bs.modal') {
-            console.log("clear");
             $(".nr-val").val('');
             $(".description-val").val('');
             $(".live-being").val('');
@@ -513,30 +522,19 @@ $(document).ready(function() {
    });
 
    $('.js-save-new-animal').click(function () {
-       var number = $(".nr-val").val();
-       var name = $(".description-val").val();
-       var livebeing =  $(".live-being").val();
-       var breed =  $(".breed-being").val();
-       var gender = $('input[name=gender]:checked', '#add-animal').val();
-       var color = $(".color").val();
-       var mother = $(".mother").val();
-       var father = $(".father").val();
-       var desc = $(".description-user").val();
-       var birthday =  $(".birthday").val();
-
-       console.log(gender + " asdsdsadsdasdasd");
+       clearErrors('#add-animal');
 
        var newAnimal = {
-           'number' : number,
-           'name' : name,
-           'livebeing' : livebeing,
-           'breed' : breed,
-           'gender' : gender,
-           'color' : color,
-           'mother' : mother,
-           'father' : father,
-           'desc' : desc,
-           'birthday': birthday
+           'number' : $(".nr-val").val(),
+           'name' : $(".description-val").val(),
+           'livebeing' : $(".live-being").val(),
+           'breed' : $(".breed-being").val(),
+           'gender' : $('input[name=gender]:checked', '#add-animal').val(),
+           'color' : $(".color").val(),
+           'mother' : $(".mother").val(),
+           'father' : $(".father").val(),
+           'desc' : $(".description-user").val(),
+           'birthday': $(".birthday").val()
        };
 
        $.ajax({
@@ -544,40 +542,36 @@ $(document).ready(function() {
            url: 'sarasas',
            method: 'POST', // Type of response and matches what we said in the route
            data: newAnimal,
-           success: function(response) { // What to do if we succeed
-               location.reload();
+           success: function(response, textStatus, xhr) { // What to do if we succeed
+               if(xhr.status === 201) {
+                   $('#add-animal').modal('toggle');
+                   location.reload();
+               } else if(xhr.status === 200) {
+                   setErrors(response);
+                   return false;
+               }
            },
            error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
-               console.log(JSON.stringify(jqXHR));
-               console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+
            }
        });
-
-       $('#add-animal').modal('toggle');
    });
 
 
    //MEDICAMENTS
 
     $('.js-add-new-medicament').click(function () {
-        var filldate = $('.filldate').val();
-        var medicname = $('.medicname').val();
-        var productiondate = $('.productiondate').val();
-        var expirydate = $('.expirydate').val();
-        var series = $('.series').val();
-        var patientregistrationnr = $('.patientregistrationnr').val();
-        var quantity = $('.quantity').val();
-        var consumed = $('.consumed').val();
+        clearErrors('#add-medicine');
 
         var newMedicament = {
-            'filldate' : filldate,
-            'medicname' : medicname,
-            'productiondate' : productiondate,
-            'expirydate' : expirydate,
-            'series' : series,
-            'patientregistrationnr' : patientregistrationnr,
-            'quantity' : quantity,
-            'consumed' : consumed
+            'filldate' : $('.filldate').val(),
+            'medicname' : $('.medicname').val(),
+            'productiondate' : $('.productiondate').val(),
+            'expirydate' : $('.expirydate').val(),
+            'series' : $('.series').val(),
+            'patientregistrationnr' : $('.patientregistrationnr').val(),
+            'quantity' : $('.quantity').val(),
+            'consumed' : $('.consumed').val()
         };
 
         $.ajax({
@@ -585,8 +579,14 @@ $(document).ready(function() {
             url: 'medikamentai',
             method: 'POST', // Type of response and matches what we said in the route
             data: newMedicament,
-            success: function(response) { // What to do if we succeed
-                location.reload();
+            success: function(response, textStatus, xhr) { // What to do if we succeed
+                if(xhr.status === 201) {
+                    $('#add-medicine').modal('toggle');
+                    location.reload();
+                } else if(xhr.status === 200) {
+                    setErrors(response);
+                    return false;
+                }
             },
             error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
                 console.log(JSON.stringify(jqXHR));
@@ -620,25 +620,17 @@ $(document).ready(function() {
 
 
     $('.js-edit-medicament').click(function () {
-        var filldate = $('#edit-med-date').val();
-        var medicname = $('#edit-med-medicname').val();
-        var productiondate = $('#edit-med-productiondate').val();
-        var expirydate = $('#edit-med-expirydate').val();
-        var series = $('#edit-med-series').val();
-        var patientregistrationnr = $('#edit-med-patientregistrationnr').val();
-        var quantity = $('#edit-med-quantity').val();
-        var consumed = $('#edit-med-consumed').val();
-
+        clearErrors('#edit-medicine-modal');
         var editedMedicament = {
             'rowId': medicineTableRowId,
-            'filldate' : filldate,
-            'medicname' : medicname,
-            'productiondate' : productiondate,
-            'expirydate' : expirydate,
-            'series' : series,
-            'patientregistrationnr' : patientregistrationnr,
-            'quantity' : quantity,
-            'consumed' : consumed
+            'filldate' : $('#edit-med-date').val(),
+            'medicname' : $('#edit-med-medicname').val(),
+            'productiondate' : $('#edit-med-productiondate').val(),
+            'expirydate' : $('#edit-med-expirydate').val(),
+            'series' : $('#edit-med-series').val(),
+            'patientregistrationnr' : $('#edit-med-patientregistrationnr').val(),
+            'quantity' : $('#edit-med-quantity').val(),
+            'consumed' : $('#edit-med-consumed').val()
         };
 
         $.ajax({
@@ -646,8 +638,14 @@ $(document).ready(function() {
             url: 'medikamentai/' + medicineTableRowId,
             method: 'PUT', // Type of response and matches what we said in the route
             data: editedMedicament,
-            success: function(response) { // What to do if we succeed
-                location.reload();
+            success: function(response, textStatus, xhr) { // What to do if we succeed
+                if(xhr.status === 201) {
+                    $('#edit-medicine-modal').modal('toggle');
+                    location.reload();
+                } else if(xhr.status === 200) {
+                    setErrors(response);
+                    return false;
+                }
             },
             error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
                 console.log(JSON.stringify(jqXHR));
@@ -666,3 +664,14 @@ $(document).ready(function() {
         format: 'yyyy-mm-dd'
     });
 });
+
+function setErrors(errors) {
+    $.each(errors, function (name, value) {
+        $('span.err-' + name).children('strong').text(value[0]);
+    });
+}
+function clearErrors(modalId) {
+    $(modalId).find('span.help-block').each(function () {
+        $(this).children('strong').text('');
+    });
+}

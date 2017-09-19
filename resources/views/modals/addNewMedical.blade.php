@@ -15,12 +15,18 @@
                                 <input type="text" class="date form-control filldate" name="filldate" id="filldate" required>
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                             </div>
+                            <span class="help-block err-filldate">
+                                <strong></strong>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="name" class="control-label col-sm-3">Pavadinimas</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control medicname" name="name" id="name">
+                            <span class="help-block err-medicname">
+                                <strong></strong>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -30,6 +36,9 @@
                                 <input type="text" class="date form-control productiondate" name="productiondate" id="productiondate" required>
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                             </div>
+                            <span class="help-block err-productiondate">
+                                <strong></strong>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group">
@@ -39,30 +48,45 @@
                                 <input type="text" class="date form-control expirydate" name="expirydate" id="expirydate" required>
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                             </div>
+                            <span class="help-block err-expirydate">
+                                <strong></strong>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="series" class="control-label col-sm-3">Serija</label>
                         <div class="col-sm-8">
                             <input type="number" class="form-control series" min="0" name="series" id="series" required>
+                            <span class="help-block err-series">
+                                <strong></strong>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="patientregistrationnr" class="control-label col-sm-3">Pacientų registracijos nr.</label>
                         <div class="col-sm-8">
                             <input type="number" class="form-control patientregistrationnr" min="0" name="patientregistrationnr" id="patientregistrationnr" required>
+                            <span class="help-block err-patientregistrationnr">
+                                <strong></strong>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="quantity" class="control-label col-sm-3">Gauta</label>
                         <div class="col-sm-8">
                             <input type="number" class="form-control quantity" min="0" name="quantity" id="quantity" required>
+                            <span class="help-block err-quantity">
+                                <strong></strong>
+                            </span>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="consumed" class="control-label col-sm-3">Sunaudota</label>
                         <div class="col-sm-8">
                             <input type="number" class="form-control consumed" min="0" name="consumed" id="consumed" required>
+                            <span class="help-block err-consumed">
+                                <strong></strong>
+                            </span>
                         </div>
                     </div>
                     {{--<div class="form-group">--}}

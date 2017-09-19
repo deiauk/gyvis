@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Medicine;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class MedicineController extends Controller
 {
@@ -36,8 +37,19 @@ class MedicineController extends Controller
      */
     public function store(Request $request)
     {
-        dump($request);
-        $data = $request->all();
+        $validator = Validator::make($request->all(), [
+            "filldate" => "required|date",
+            "medicname" => "required",
+            "productiondate" => "required|date",
+            "expirydate" => "required|date",
+            "series" => "required",
+            "patientregistrationnr" => "required",
+            "quantity" => "required|numeric|min:0",
+            "consumed" => "required|numeric|min:0",
+        ]);
+        if($validator->fails()) {
+            return response()->json($validator->messages(), 200);
+        }
 ////        $this->validate($request, [
 ////            'title' => 'required|max:100',
 ////            'body' => 'required|min:10'
@@ -70,6 +82,7 @@ class MedicineController extends Controller
         };
          */
 
+        $data = $request->all();
 
         $medicament = new Medicine();
         $medicament->filldate = $data['filldate'];
@@ -82,7 +95,7 @@ class MedicineController extends Controller
         $medicament->consumed = $data['consumed'];
         $medicament->balance = $data['quantity'] - $data['consumed'];
         $medicament->save();
-        return 1;
+        return response()->json([], 201);
     }
 
     /**
@@ -116,6 +129,19 @@ class MedicineController extends Controller
      */
     public function update(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            "filldate" => "required|date",
+            "medicname" => "required",
+            "productiondate" => "required|date",
+            "expirydate" => "required|date",
+            "series" => "required",
+            "patientregistrationnr" => "required",
+            "quantity" => "required|numeric|min:0",
+            "consumed" => "required|numeric|min:0",
+        ]);
+        if($validator->fails()) {
+            return response()->json($validator->messages(), 200);
+        }
         $data = $request->all();
         $medicine = Medicine::find($data['rowId']);
         $medicine->filldate = $data['filldate'];
@@ -128,6 +154,7 @@ class MedicineController extends Controller
         $medicine->consumed = $data['consumed'];
         $medicine->balance = $data['quantity'] - $data['consumed'];
         $medicine->save();
+        return response()->json([], 201);
     }
 
     /**
