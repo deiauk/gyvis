@@ -77,7 +77,9 @@
                         <th rowspan="2">Susirgimo data</th>
                         <th colspan="3">Gyvulio tyrimo duomenys</th>
                         <th rowspan="2">Diagnozė</th>
-                        <th rowspan="2">Gydymas ir nuordymai</th>
+                        <th rowspan="2">Gydymas ir nurodymai</th>
+                        <th rowspan="2">Vaistai</th>
+                        <th rowspan="2">Vaistų kiekis</th>
                         <th rowspan="2">Baigtis</th>
                         <th rowspan="2">Pastabos</th>
                     </tr>
@@ -110,6 +112,8 @@
                                     {{ str_limit($medicine->treatmentAndDirections, $limit = 40, $end = '...') }}
                                 </a>
                             </td>
+                            <td>{{ $medicine->medicine['from'] }}</td>
+                            <td>{{ $medicine->quantity }}</td>
                             <td>{{$medicine->result}}</td>
                             <td class="fullinfo" data-comment="{{$medicine->notes}}">
                                 <a>
