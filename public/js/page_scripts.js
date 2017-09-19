@@ -264,6 +264,7 @@ $(document).ready(function() {
             'animalResearchData' : '',
             'pulse' : $('.edit-treatment-animalPulse').val(),
             'breath' : '',
+            'temperature' : $('.edit-treatment-animalTemperature').val(),
             'diagnosis' : $('.edit-treatment-diagnosis').val(),
             'treatment' : $('.edit-treatment-treatment').val(),
             'end' : $('.edit-treatment-end').val(),
