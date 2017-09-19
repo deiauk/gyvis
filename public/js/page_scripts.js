@@ -364,6 +364,7 @@ $(document).ready(function() {
     });
 
     $('#edit-animal').on('show.bs.modal', function (e) {
+        var modal = $('#edit-animal');
         if (e.namespace === 'bs.modal') {
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
@@ -375,20 +376,17 @@ $(document).ready(function() {
                     $(".live-being").val(response.liveBeing);
                     $(".breed-being").val(response.breedName);
                     $(".birthday").val(response.birthday);
-                    console.log(response);
                     $(".color").val(response.color);
                     $(".mother").val(response.mother);
                     $(".father").val(response.father);
                     $(".description-user").val(response.comment);
 
                     if (response.sex === 1) {
-                        $(".male").attr("checked", true);
-                        $(".female").attr("checked", false);
-                        console.log("A");
+                        $(".male").prop("checked", true);
+                        $(".female").prop("checked", false);
                     } else if (response.sex === 2) {
-                        $(".male").attr("checked", false);
-                        $(".female").attr("checked", true);
-                        console.log("B");
+                        $(".male").prop("checked", false);
+                        $(".female").prop("checked", true);
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
