@@ -185,7 +185,6 @@ $(document).ready(function() {
                 url: 'gyvunas/' + animalTableRowId,
                 method: 'GET', // Type of response and matches what we said in the route
                 success: function (response) { // What to do if we succeed
-                    console.log(response);
                     $(".animalNumber").val(response.number);
                     $(".breed").val(response.breedName);
                     $(".animalAge").val(_calculateAge(response.birthday));
@@ -212,15 +211,6 @@ $(document).ready(function() {
                 url: 'gydymas/' + treatmentTableRowId,
                 method: 'GET', // Type of response and matches what we said in the route
                 success: function (response) { // What to do if we succeed
-                    console.log(response);
-                    // $(".filldate").val(response.filldate);
-                    // $(".medicname").val(response.from);
-                    // $(".productiondate").val(response.productiondate);
-                    // $(".expirydate").val(response.expirydate);
-                    // $(".series").val(response.series);
-                    // $(".patientregistrationnr").val(response.patientregistrationnr);
-                    // $(".quantity").val(response.quantity);
-                    // $(".consumed").val(response.consumed);
 
                     $('.edit-treatment-date').val(response.date);
                     $('.edit-treatment-animalNumber').val(response.animalNumber);
@@ -280,7 +270,7 @@ $(document).ready(function() {
             method: 'PUT', // Type of response and matches what we said in the route
             data: editedTreatment,
             success: function(response) { // What to do if we succeed
-                //location.reload();
+                location.reload();
             },
             error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
                 console.log(JSON.stringify(jqXHR));
