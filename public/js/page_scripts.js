@@ -178,6 +178,33 @@ $(document).ready(function() {
         });
     });
 
+    $('#add-treatment').on('show.bs.modal', function (e) {
+        if (e.namespace === 'bs.modal' && animalTableRowId != -1) {
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
+                url: 'gyvunas/' + animalTableRowId,
+                method: 'GET', // Type of response and matches what we said in the route
+                success: function (response) { // What to do if we succeed
+                    console.log(response);
+                    $(".animalNumber").val(response.number);
+                    $(".breed").val(response.breedName);
+                    $(".animalAge").val(_calculateAge(response.birthday));
+                    $(".animalColor").val(response.color);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                }
+            });
+        }
+    });
+
+    function _calculateAge(birthday) { // birthday is a date
+        var b = new Date(birthday);
+        var ageDifMs = Date.now() - b.getTime();
+        var ageDate = new Date(ageDifMs); // miliseconds from epoch
+        return Math.abs(ageDate.getUTCFullYear() - 1970);
+    }
+
     $('#edit-treatment-modal').on('show.bs.modal', function (e) {
         if (e.namespace === 'bs.modal') {
             $.ajax({
