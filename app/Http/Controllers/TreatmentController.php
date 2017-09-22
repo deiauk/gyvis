@@ -60,9 +60,11 @@ class TreatmentController extends Controller
         }
         $medicine = Medicine::find($request->input('medicine'));
         if($medicine) {
-            $medicine->consumed = $medicine->consumed + $request->input('medicineQuantity');
+            $medicine->consumed = $medicine->consumed + $request->input('quantity');
             $medicine->balance = $medicine->quantity - $medicine->consumed;
             $medicine->save();
+        } else {
+            return response()->json(["medicine" => ["Šis preparatas neegzistuoja."]], 200);
         }
 
         $treatment = Treatment::create([
