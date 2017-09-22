@@ -11,6 +11,10 @@ class Treatment extends Model
 
     protected $guarded = [];
 
+    protected $attributes = [
+        'medicine_id' => null
+    ];
+
     public function medicine() {
         return $this->belongsTo('App\\Medicine');
     }

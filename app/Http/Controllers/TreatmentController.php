@@ -41,7 +41,7 @@ class TreatmentController extends Controller
     {
         $validator = Validator::make($request->all(), [
             "date" => "required|date",
-            "number" => "required",
+            "number" => "required|numeric",
             "breed" => "required",
             "age" => "required|numeric",
             "color" => "required",
@@ -65,7 +65,7 @@ class TreatmentController extends Controller
             $medicine->save();
         }
 
-        Treatment::create([
+        $treatment = Treatment::create([
             "date" => $request->input('date'),
             "animalNumber" => $request->input('number'),
             "animalType" => $request->input('breed'),
@@ -79,10 +79,10 @@ class TreatmentController extends Controller
             "treatmentAndDirections" => $request->input('treatment'),
             "result" => $request->input('end'),
             "notes" => $request->input('info'),
-            "medicine" => $request->input('medicine'),
             "quantity" => $request->input('quantity'),
         ]);
-        return 1;
+        $treatment->medicine()->associate($medicine);
+        return response()->json([], 201);
     }
 
     /**
@@ -150,23 +150,23 @@ class TreatmentController extends Controller
             $treatment->notes = $request->input('notes');
 
             // if medicine ID is different
-            if ($treatment->medicine != $request->input('medicine')) {
+            if ($treatment->medicine_id != $request->input('medicine')) {
                 // reset medicine quantity to previous state
-                $this->calcMedicine($treatment->medicine, -$treatment->quantity);
+                $this->calcMedicine($treatment->medicine_id, -$treatment->quantity);
                 // set new medicine
-                $treatment->medicine = $request->input('medicine');
+                $treatment->medicine()->associate($request->input('medicine'));
                 // set new medicine quantity
-                $this->calcMedicine($treatment->medicine, $request->input('quantity'));
+                $this->calcMedicine($treatment->medicine_id, $request->input('quantity'));
             } // if ID is not different
             else {
                 // if new quantity is lower
                 if ($treatment->quantity > $request->input('quantity')) {
-                    $this->calcMedicine($treatment->medicine,
+                    $this->calcMedicine($treatment->medicine_id,
                         -($request->input('quantity') - $treatment->quantity));
                 } // if new quantity is larger
                 else {
                     if ($treatment->quantity < $request->input('quantity')) {
-                        $this->calcMedicine($treatment->medicine,
+                        $this->calcMedicine($treatment->medicine_id,
                             $treatment->quantity - $request->input('quantity'));
                     }
                 }

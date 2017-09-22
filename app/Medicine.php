@@ -11,4 +11,7 @@ class Medicine extends Model
     public function treatment() {
         return $this->hasMany('App\\Treatment');
     }
+    public function getInstance() {
+        return $this;
+    }
 }
