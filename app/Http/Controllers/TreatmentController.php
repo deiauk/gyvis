@@ -41,7 +41,7 @@ class TreatmentController extends Controller
     {
         $validator = Validator::make($request->all(), [
             "date" => "required|date",
-            "number" => "required|numeric",
+            "number" => "required",
             "breed" => "required",
             "age" => "required|numeric",
             "color" => "required",
