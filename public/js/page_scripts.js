@@ -363,6 +363,26 @@ $(document).ready(function() {
         }
     });
 
+    $('#edit-treatment').click(function () {
+        if(treatmentTableRowId !== -1) {
+            $('#edit-treatment-modal').modal('show');
+        }
+        else {
+            return false;
+        }
+    });
+
+    $('#delete-treatment').click(function () {
+        if(treatmentTableRowId !== -1) {
+            $('#confirm-delete').modal('show');
+        }
+        else {
+            return false;
+        }
+    });
+
+
+
     $('#edit-animal').on('show.bs.modal', function (e) {
         var modal = $('#edit-animal');
         if (e.namespace === 'bs.modal') {
