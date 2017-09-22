@@ -206,10 +206,10 @@ $(document).ready(function() {
     });
 
     function _calculateAge(birthday) { // birthday is a date
-        var b = new Date(birthday);
-        var ageDifMs = Date.now() - b.getTime();
-        var ageDate = new Date(ageDifMs); // miliseconds from epoch
-        return Math.abs(ageDate.getUTCFullYear() - 1970);
+        var firstDate = new Date(Date.now());
+        var secondDate = new Date(birthday);
+
+        return diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(24*60*60*1000)));
     }
 
     $('#edit-treatment-modal').on('show.bs.modal', function (e) {
