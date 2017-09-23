@@ -59,6 +59,11 @@ class TreatmentController extends Controller
             return response()->json($validator->messages(), 200);
         }
         $medicine = Medicine::find($request->input('medicine'));
+
+        if(!$this->isEnoughMedicine($medicine, $request->input('quantity'))) {
+            return response()->json(["quantity" => ["Maksimalus esamas kiekis: " .  $medicine->balance]], 200);
+        }
+
         if($medicine) {
             $medicine->consumed = $medicine->consumed + $request->input('quantity');
             $medicine->balance = $medicine->quantity - $medicine->consumed;
@@ -84,6 +89,7 @@ class TreatmentController extends Controller
             "quantity" => $request->input('quantity'),
         ]);
         $treatment->medicine()->associate($medicine);
+        $treatment->save();
         return response()->json([], 201);
     }
 
@@ -151,41 +157,64 @@ class TreatmentController extends Controller
             $treatment->result = $request->input('end');
             $treatment->notes = $request->input('notes');
 
-            // if medicine ID is different
-            if ($treatment->medicine_id != $request->input('medicine')) {
-                // reset medicine quantity to previous state
-                $this->calcMedicine($treatment->medicine_id, -$treatment->quantity);
-                // set new medicine
-                $treatment->medicine()->associate($request->input('medicine'));
-                // set new medicine quantity
-                $this->calcMedicine($treatment->medicine_id, $request->input('quantity'));
-            } // if ID is not different
+            // reset used medicine
+
+            $medicine = Medicine::find($treatment->medicine_id);
+            if(is_null($medicine)) {
+                return response()->json(["medicine" => ["Medikamentas yra ištrintas iš medikamentų žurnalo"]], 200);
+            }
+            $medicine->consumed = $medicine->consumed - $treatment->quantity;
+            $medicine->balance = $medicine->quantity - $medicine->consumed;
+            $medicine->save();
+
+            //$medicine->save();
+            // save Medicine
+
+            $medicine = Medicine::find($request->input('medicine'));
+            if(is_null($medicine)) {
+                return response()->json(["medicine" => ["Medikamentas yra ištrintas iš medikamentų žurnalo"]], 200);
+            }
             else {
-                // if new quantity is lower
-                if ($treatment->quantity > $request->input('quantity')) {
-                    $this->calcMedicine($treatment->medicine_id,
-                        -($request->input('quantity') - $treatment->quantity));
-                } // if new quantity is larger
-                else {
-                    if ($treatment->quantity < $request->input('quantity')) {
-                        $this->calcMedicine($treatment->medicine_id,
-                            $treatment->quantity - $request->input('quantity'));
-                    }
+                if($medicine->balance < $request->input('quantity')) {
+                    return ["quantity" => ["Maksimalus panaudojamas medikamento kiekis: " .  $medicine->balance]];
                 }
+            }
+            $medicine->consumed = $medicine->consumed + $request->input('quantity');
+            $medicine->balance = $medicine->quantity - $medicine->consumed;
+            $medicine->save();
+
+            // reset medicine_id
+            // reset quantity
+
+            if ($treatment->medicine_id != $request->input('medicine')) {
+                $treatment->medicine()->associate($medicine);
             }
             $treatment->quantity = $request->input('quantity');
             $treatment->save();
+
+            // save Treatment
+
+        }
+        else {
+            return response()->json([], 200);
         }
         return response()->json([], 201);
     }
 
     private function calcMedicine($id, $quantity)
     {
-        $medicine = Medicine::find($id);
+        $medicine = Medicine::find($id)->first();
         if ($medicine) {
+            if($quantity > 0 && !$this->isEnoughMedicine($medicine->balance, $quantity)) {
+                return ["quantity" => ["Maksimalus esamas kiekis: " .  $medicine->balance]];
+            }
             $medicine->consumed = $medicine->consumed + $quantity;
             $medicine->balance = $medicine->quantity - $medicine->consumed;
             $medicine->save();
+            return true;
+        }
+        else {
+            return ["medicine" => ["Tokių vaistų nėra"]];
         }
     }
 
@@ -204,5 +233,14 @@ class TreatmentController extends Controller
     function getData(Treatment $treatment)
     {
         return $treatment;
+    }
+
+    function isEnoughMedicine($balance, $quantity)
+    {
+        $quantity = $quantity < 0 ? -$quantity : $quantity;
+        if((float)$balance < (float)$quantity) {
+            return false;
+        }
+        return true;
     }
 }

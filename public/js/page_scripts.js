@@ -283,7 +283,6 @@ $(document).ready(function() {
                     $('#edit-treatment-modal').modal('toggle');
                     location.reload();
                 } else if(xhr.status === 200) {
-                    console.log(response);
                     setErrors(response);
                     return false;
                 }
