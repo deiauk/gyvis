@@ -527,9 +527,31 @@ $(document).ready(function() {
                url: 'gydymai/' + medicineTableRowId,
                method: 'DELETE', // Type of response and matches what we said in the route
                data: obj,
-               success: function(response) { // What to do if we succeed
-                   treatmentTableRowId = -1;
-                   location.reload();
+               success: function(response, textStatus, xhr) { // What to do if we succeed
+                   if(xhr.status === 202) {
+                       treatmentTableRowId = -1;
+                       location.reload();
+                   } else if(xhr.status === 200) {
+                       toastr.options = {
+                           "closeButton": false,
+                           "debug": false,
+                           "newestOnTop": false,
+                           "progressBar": false,
+                           "positionClass": "toast-top-center",
+                           "preventDuplicates": false,
+                           "onclick": null,
+                           "showDuration": "300",
+                           "hideDuration": "1000",
+                           "timeOut": "5000",
+                           "extendedTimeOut": "1000",
+                           "showEasing": "swing",
+                           "hideEasing": "linear",
+                           "showMethod": "fadeIn",
+                           "hideMethod": "fadeOut"
+                       };
+                       toastr["error"](response.medicine);
+                       return false;
+                   }
                },
                error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
                    console.log(JSON.stringify(jqXHR));
