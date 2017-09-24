@@ -155,6 +155,7 @@ $(document).ready(function() {
             sickdate : $('#sickdate').val(),
             temperature : $('#temperature').val(),
             pulse : $('#pulse').val(),
+            breath : $('#breath').val(),
             diagnosis : $('#diagnosis').val(),
             treatment : $('#treatment').val(),
             medicine : $('#medicine').val(),
@@ -220,29 +221,31 @@ $(document).ready(function() {
                 method: 'GET', // Type of response and matches what we said in the route
                 success: function (response) { // What to do if we succeed
 
-                    $('.edit-treatment-date').val(response.date);
-                    $('.edit-treatment-animalNumber').val(response.animalNumber);
-                    $('.edit-treatment-breed').val(response.animalType);
-                    $('.edit-treatment-animalAge').val(response.age);
-                    $('.edit-treatment-animalColor').val(response.color);
-                    $('.edit-treatment-sickdate').val(response.sickDate);
+                    $('.edit-treatment-date').val(response.treatment.date);
+                    $('.edit-treatment-animalNumber').val(response.treatment.animalNumber);
+                    $('.edit-treatment-breed').val(response.treatment.animalType);
+                    $('.edit-treatment-animalAge').val(response.treatment.age);
+                    $('.edit-treatment-animalColor').val(response.treatment.color);
+                    $('.edit-treatment-sickdate').val(response.treatment.sickDate);
                     //'animalResearchData' : '';
-                    $('.edit-treatment-animalPulse').val(response.pulse);
+                    $('.edit-treatment-animalTemperature').val(response.treatment.temperature);
+                    $('.edit-treatment-animalPulse').val(response.treatment.pulse);
+                    $('.breath').val(response.treatment.breath);
                     //'breath' : '';
-                    $('.edit-treatment-diagnosis').val(response.diagnosis);
-                    $('.edit-treatment-treatment').val(response.treatmentAndDirections);
-                    $('.edit-treatment-end').val(response.result);
-                    $('.edit-treatment-otherInfo').val(response.notes);
-                    $('.edit-treatment-medicine').val(response.medicine);
-                    $('.edit-treatment-quantity').val(response.medicineQuantity);
+                    $('.edit-treatment-diagnosis').val(response.treatment.diagnosis);
+                    $('.edit-treatment-treatment').val(response.treatment.treatmentAndDirections);
+                    $('.edit-treatment-end').val(response.treatment.result);
+                    $('.edit-treatment-otherInfo').val(response.treatment.notes);
+                    //$('.edit-treatment-medicine').val(response.medicine);
+                    //$('.edit-treatment-quantity').val(response.medicineQuantity);
 
-                    if(response.medicine <= 0) {
-                        $('.edit-treatment-medicine').val(-1);
-                    } else {
-                        $('.edit-treatment-medicine').val(response.medicine);
-                    }
+                    $('.edit-treatment-medicine').val(response.treatment.medicine_id).prop('selected', true);
 
-                    $('.edit-treatment-quantity').val(response.quantity);
+                    $('.edit-treatment-quantity').val(response.treatment.quantity);
+
+                    setOptions('.edit-treatment-medicine', response.medicines);
+
+                    $('.edit-treatment-medicine').val(response.treatment.medicine_id);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     console.log(jqXHR);
@@ -250,6 +253,19 @@ $(document).ready(function() {
             });
         }
     });
+
+    function setOptions(select, options) {
+        var field = $(select);
+        field.empty();
+
+        $.each(options, function(id, value) {
+            //console.log(id + " val: " + value.id);
+            field.append($('<option>', {
+                value: value.id,
+                text: value.from
+            }));
+        });
+    }
 
     $('.js-edit-treatment').click(function () {
         clearErrors('#edit-treatment-modal');
@@ -263,7 +279,7 @@ $(document).ready(function() {
             'sickdate' : $('.edit-treatment-sickdate').val(),
             'animalResearchData' : '',
             'pulse' : $('.edit-treatment-animalPulse').val(),
-            'breath' : '',
+            'breath' : $('.breath').val(),
             'temperature' : $('.edit-treatment-animalTemperature').val(),
             'diagnosis' : $('.edit-treatment-diagnosis').val(),
             'treatment' : $('.edit-treatment-treatment').val(),

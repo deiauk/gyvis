@@ -103,7 +103,7 @@
                             <td>{{$medicine->age}}</td>
                             <td>{{$medicine->color}}</td>
                             <td>{{$medicine->sickDate}}</td>
-                            <td>{{$medicine->animalResearchData}}</td>
+                            <td>{{$medicine->temperature}}</td>
                             <td>{{$medicine->pulse}}</td>
                             <td>{{$medicine->breath}}</td>
                             <td>{{$medicine->diagnosis}}</td>

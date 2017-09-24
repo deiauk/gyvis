@@ -87,6 +87,15 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="breath" class="control-label col-sm-3">Kvėpavimas</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control breath" name="breath" id="breath" required>
+                            <span class="help-block err-breath">
+                                <strong></strong>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label for="diagnosis" class="control-label col-sm-3">Diagnozė</label>
                         <div class="col-sm-8">
                             <input type="text" class="form-control edit-treatment-diagnosis" name="diagnosis" id="diagnosis" required>

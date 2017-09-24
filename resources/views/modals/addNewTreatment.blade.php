@@ -71,7 +71,7 @@
                     <div class="form-group">
                         <label for="temperature" class="control-label col-sm-3">Temperatūra</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control animalTemperature" name="temperature" id="temperature" required>
+                            <input type="number" class="form-control animalTemperature" name="temperature" id="temperature" required>
                             <span class="help-block err-temperature">
                                 <strong></strong>
                             </span>
@@ -80,8 +80,17 @@
                     <div class="form-group">
                         <label for="pulse" class="control-label col-sm-3">Pulsas</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control animalPulse" name="pulse" id="pulse" required>
+                            <input type="number" class="form-control animalPulse" name="pulse" id="pulse" required>
                             <span class="help-block err-pulse">
+                                <strong></strong>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="breath" class="control-label col-sm-3">Kvėpavimas</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control breath" name="breath" id="breath" required>
+                            <span class="help-block err-breath">
                                 <strong></strong>
                             </span>
                         </div>

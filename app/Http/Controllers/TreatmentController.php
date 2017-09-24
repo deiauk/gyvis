@@ -46,8 +46,9 @@ class TreatmentController extends Controller
             "age" => "required|numeric",
             "color" => "required",
             "sickdate" => "required|date",
-            "temperature" => "required",
-            "pulse" => "required",
+            "temperature" => "required|numeric",
+            "pulse" => "required|numeric",
+            "breath" => "required",
             "diagnosis" => "required",
             "treatment" => "required",
             "medicine" => "required|numeric|min:1",
@@ -81,7 +82,8 @@ class TreatmentController extends Controller
             "sickDate" => $request->input('sickdate'),
             "animalResearchData" => "",
             "pulse" => $request->input('pulse'),
-            "breath" => "",
+            "temperature" => $request->input('temperature'),
+            "breath" => $request->input('breath'),
             "diagnosis" => $request->input('diagnosis'),
             "treatmentAndDirections" => $request->input('treatment'),
             "result" => $request->input('end'),
@@ -131,8 +133,9 @@ class TreatmentController extends Controller
             "age" => "required|numeric",
             "color" => "required",
             "sickdate" => "required|date",
-            "temperature" => "required",
-            "pulse" => "required",
+            "temperature" => "required|numeric",
+            "pulse" => "required|numeric",
+            "breath" => "required",
             "diagnosis" => "required",
             "treatment" => "required",
             "medicine" => "required|numeric|min:1",
@@ -152,41 +155,18 @@ class TreatmentController extends Controller
             $treatment->color = $request->input('color');
             $treatment->sickDate = $request->input('sickdate');
             $treatment->pulse = $request->input('pulse');
+            $treatment->breath = $request->input('breath');
             $treatment->diagnosis = $request->input('diagnosis');
             $treatment->treatmentAndDirections = $request->input('treatment');
             $treatment->result = $request->input('end');
             $treatment->notes = $request->input('notes');
 
             // reset used medicine
-
-//            $medicine = Medicine::find($treatment->medicine_id);
-//            if(is_null($medicine)) {
-//                return response()->json(["medicine" => ["Medikamentas yra ištrintas iš medikamentų žurnalo"]], 200);
-//            }
-//            $medicine->consumed = $medicine->consumed - $treatment->quantity;
-//            $medicine->balance = $medicine->quantity - $medicine->consumed;
-//            $medicine->save();
             $backupData = [$treatment->medicine_id, $treatment->quantity];
 
             if(!$this->unsetMedicine($treatment->medicine_id, $treatment->quantity)) {
                 return response()->json(["medicine" => ["Medikamentas yra ištrintas iš medikamentų žurnalo"]], 200);
             }
-
-            //$medicine->save();
-            // save Medicine
-
-//            $medicine = Medicine::find($request->input('medicine'));
-//            if(is_null($medicine)) {
-//                return response()->json(["medicine" => ["Medikamentas yra ištrintas iš medikamentų žurnalo"]], 200);
-//            }
-//            else {
-//                if($medicine->balance < $request->input('quantity')) {
-//                    return ["quantity" => ["Maksimalus panaudojamas medikamento kiekis: " .  $medicine->balance]];
-//                }
-//            }
-//            $medicine->consumed = $medicine->consumed + $request->input('quantity');
-//            $medicine->balance = $medicine->quantity - $medicine->consumed;
-//            $medicine->save();
 
             $medicine = $this->setMedicine($request->input('medicine'), $request->input('quantity'));
 
@@ -201,18 +181,11 @@ class TreatmentController extends Controller
                         break;
                 }
             }
-
-            // reset medicine_id
-            // reset quantity
-
             if ($treatment->medicine_id != $request->input('medicine')) {
                 $treatment->medicine()->associate($medicine);
             }
             $treatment->quantity = $request->input('quantity');
             $treatment->save();
-
-            // save Treatment
-
         }
         else {
             return response()->json([], 200);
@@ -267,7 +240,12 @@ class TreatmentController extends Controller
 
     function getData(Treatment $treatment)
     {
-        return $treatment;
+        $medicines = Medicine::where('balance', '>', 0);
+        $medicine = Medicine::where('id', '=', $treatment->medicine_id);
+
+        $result = $medicines->union($medicine)->orderBy('id', 'asc')->get();
+
+        return response()->json(["treatment" => $treatment->toArray(), "medicines" => $result->toArray()], 200);
     }
 
     function isEnoughMedicine($balance, $quantity)
