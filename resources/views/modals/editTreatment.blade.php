@@ -41,7 +41,7 @@
                     <div class="form-group">
                         <label for="age" class="control-label col-sm-3">Gyvulio amžius</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control edit-treatment-animalAge" name="age" id="age" required>
+                            <input type="text" class="form-control edit-treatment-animalAge" name="age" id="age" required disabled>
                             <span class="help-block err-age">
                                 <strong></strong>
                             </span>
