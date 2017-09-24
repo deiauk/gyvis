@@ -445,7 +445,7 @@ $(document).ready(function() {
             'mother' : $("#mother-edit-val").val(),
             'father' : $("#father-edit-val").val(),
             'desc' : $("#edited-description").val(),
-            'birthday': $("#birthday").val()
+            'birthday': $("#birthday-edit-val").val()
         };
         $.ajax({
             headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
