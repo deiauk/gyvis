@@ -231,9 +231,9 @@ class TreatmentController extends Controller
     public function destroy(Treatment $treatment)
     {
         $treatment = Treatment::find(request('id'));
-        if(!$this->unsetMedicine($treatment->medicine_id, $treatment->quantity)) {
-            return response()->json(["medicine" => ["Medikamentas yra ištrintas iš medikamentų žurnalo"]], 200);
-        }
+        $this->unsetMedicine($treatment->medicine_id, $treatment->quantity);
+            //return response()->json(["medicine" => ["Medikamentas yra ištrintas iš medikamentų žurnalo"]], 200);
+
         $treatment->delete();
         return response()->json([], 202);
     }
