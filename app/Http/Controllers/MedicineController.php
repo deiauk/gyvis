@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Medicine;
+use App\MedicineCategorie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -13,10 +14,10 @@ class MedicineController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($category)
     {
-        $medicines = Medicine::paginate(15);
-        return view('menu.medicines')->withMedicines($medicines);
+        $medicines = Medicine::type($category)->get();
+        return view('menu.medicines', compact('medicines', 'category'));
     }
 
     /**
@@ -46,6 +47,7 @@ class MedicineController extends Controller
             "patientregistrationnr" => "required",
             "quantity" => "required|numeric|min:0",
             "consumed" => "required|numeric|min:0",
+            "medicine_category" => "required|numeric",
         ]);
         if($validator->fails()) {
             return response()->json($validator->messages(), 200);
@@ -95,6 +97,14 @@ class MedicineController extends Controller
         $medicament->consumed = $data['consumed'];
         $medicament->balance = $data['quantity'] - $data['consumed'];
         $medicament->save();
+
+        $category = MedicineCategorie::create([
+            "type" => $request->input('medicine_category'),
+            "medicine_id" => 0
+        ]);
+        $category->medicine()->associate($medicament);
+        $category->save();
+
         return response()->json([], 201);
     }
 
@@ -170,6 +180,7 @@ class MedicineController extends Controller
 
     function delete(Medicine $medicine) {
         $id = $medicine->id;
+        $medicine->category()->delete();
         $medicine->delete();
         return $id;
     }

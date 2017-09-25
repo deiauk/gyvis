@@ -2,6 +2,7 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <form class="form-horizontal" onsubmit="return false">
+                <input type="hidden" class="medicine_category" name="medicine_category" value="{{ $category }}">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Prdėti medikamentą</h4>

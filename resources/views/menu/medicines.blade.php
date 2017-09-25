@@ -35,9 +35,9 @@
                 <tbody>
                     @foreach($medicines as $medicine)
                         @if($medicine->balance <= 0)
-                            <tr class='clickable-med-row no-med' id='{{$medicine->id}}'>
+                            <tr class='clickable-med-row no-med' id='{{$medicine->medicine_id}}'>
                         @else
-                            <tr class='clickable-med-row' id='{{$medicine->id}}'>
+                            <tr class='clickable-med-row' id='{{$medicine->medicine_id}}'>
                         @endif
                             <td>{{$medicine->filldate}}</td>
                             <td width="30%">{{$medicine->from}}</td>
