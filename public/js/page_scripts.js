@@ -503,7 +503,7 @@ $(document).ready(function() {
            };
            $.ajax({
                headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
-               url: 'gyvunas/trinti/' + animalTableRowId,
+               url: '/gyvunas/trinti/' + animalTableRowId,
                method: 'POST', // Type of response and matches what we said in the route
                data: obj,
                success: function(response) { // What to do if we succeed
@@ -521,7 +521,7 @@ $(document).ready(function() {
            };
            $.ajax({
                headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
-               url: 'vaistai/trinti/' + medicineTableRowId,
+               url: '/vaistai/trinti/' + medicineTableRowId,
                method: 'POST', // Type of response and matches what we said in the route
                data: obj,
                success: function(response) { // What to do if we succeed
@@ -540,7 +540,7 @@ $(document).ready(function() {
            console.log("id = " +treatmentTableRowId);
            $.ajax({
                headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
-               url: 'gydymai/' + medicineTableRowId,
+               url: '/gydymai/' + medicineTableRowId,
                method: 'DELETE', // Type of response and matches what we said in the route
                data: obj,
                success: function(response, textStatus, xhr) { // What to do if we succeed
@@ -633,7 +633,7 @@ $(document).ready(function() {
 
         $.ajax({
             headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
-            url: 'medikamentai',
+            url: '/medikamentai',
             method: 'POST', // Type of response and matches what we said in the route
             data: newMedicament,
             success: function(response, textStatus, xhr) { // What to do if we succeed
@@ -656,7 +656,7 @@ $(document).ready(function() {
         if (e.namespace === 'bs.modal') {
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
-                url: 'vaistai/' + medicineTableRowId,
+                url: '/vaistai/' + medicineTableRowId,
                 method: 'GET', // Type of response and matches what we said in the route
                 success: function (response) { // What to do if we succeed
                     $(".filldate").val(response.filldate);
@@ -692,7 +692,7 @@ $(document).ready(function() {
 
         $.ajax({
             headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
-            url: 'medikamentai/' + medicineTableRowId,
+            url: '/medikamentai/' + medicineTableRowId,
             method: 'PUT', // Type of response and matches what we said in the route
             data: editedMedicament,
             success: function(response, textStatus, xhr) { // What to do if we succeed
