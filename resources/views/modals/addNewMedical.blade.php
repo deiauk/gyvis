@@ -98,7 +98,7 @@
                     {{--</div>--}}
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success btn-lg btn-block js-add-new-medicament">Išsaugoti</button>
+                    <button type="submit" class="btn btn-success btn-lg btn-block js-add-new-medicament"><i class="fa fa-floppy-o" aria-hidden="true"></i> Išsaugoti</button>
                 </div>
             </form>
         </div>

@@ -9,7 +9,7 @@
                 <p id="full-info-p"></p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Uždaryti</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Uždaryti</button>
             </div>
         </div>
 

@@ -10,8 +10,8 @@
                 <p>Įrašas bus negrįžtamai ištrintas</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Atšaukti</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirm-delete-btn">Ištrinti</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-times" aria-hidden="true"></i> Atšaukti</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" id="confirm-delete-btn"><i class="fa fa-trash" aria-hidden="true"></i> Ištrinti</button>
             </div>
         </div>
 

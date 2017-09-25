@@ -8,10 +8,10 @@
     @if(auth()->user()->hasRole('admin'))
         <div class="row crud-btns">
             {{--<button type="button" class="btn btn-danger disabled" id="delete" data-toggle="modal" data-target="#confirm-delete">Ištrinti</button>--}}
-            <button type="button" class="btn btn-danger disabled" id="delete">Ištrinti</button>
-            <button type="button" class="btn btn-warning disabled" id="edit">Redaguoti</button>
-            <button type="button" class="btn btn-info disabled" id="cure">Gydyti</button>
-            <button type="button" class="btn btn-success" id="add-new" data-toggle="modal" data-target="#add-animal">Įvesti naują</button>
+            <button type="button" class="btn btn-danger disabled" id="delete"><i class="fa fa-trash" aria-hidden="true"></i> Ištrinti</button>
+            <button type="button" class="btn btn-warning disabled" id="edit"><i class="fa fa-pencil" aria-hidden="true"></i> Redaguoti</button>
+            <button type="button" class="btn btn-info disabled" id="cure"><i class="fa fa-medkit" aria-hidden="true"></i> Gydyti</button>
+            <button type="button" class="btn btn-success" id="add-new" data-toggle="modal" data-target="#add-animal"><i class="fa fa-plus" aria-hidden="true"></i> Įvesti naują</button>
         </div>
     @endif
 
