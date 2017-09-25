@@ -164,9 +164,7 @@ class TreatmentController extends Controller
             // reset used medicine
             $backupData = [$treatment->medicine_id, $treatment->quantity];
 
-            if(!$this->unsetMedicine($treatment->medicine_id, $treatment->quantity)) {
-                return response()->json(["medicine" => ["Medikamentas yra ištrintas iš medikamentų žurnalo"]], 200);
-            }
+            if(!$this->unsetMedicine($treatment->medicine_id, $treatment->quantity));
 
             $medicine = $this->setMedicine($request->input('medicine'), $request->input('quantity'));
 
