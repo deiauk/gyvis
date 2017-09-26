@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-success btn-lg btn-block js-get-pdf"><i class="fa fa-floppy-o" aria-hidden="true"></i> Išsaugoti</button>
+                    <button type="submit" class="btn btn-success btn-lg btn-block js-get-pdf"><i class="fa fa-floppy-o" aria-hidden="true"></i> Atsisiųsti</button>
                 </div>
             </form>
         </div>
