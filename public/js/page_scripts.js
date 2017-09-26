@@ -445,11 +445,12 @@ $(document).ready(function() {
             'mother' : $("#mother-edit-val").val(),
             'father' : $("#father-edit-val").val(),
             'desc' : $("#edited-description").val(),
-            'birthday': $("#birthday-edit-val").val()
+            'birthday': $("#birthday-edit-val").val(),
+            'filldate': $("#filldate-edit-val").val()
         };
         $.ajax({
             headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
-            url: 'sarasas/' + animalTableRowId,
+            url: '/sarasas/' + animalTableRowId,
             method: 'PUT', // Type of response and matches what we said in the route
             data: editedAnimal,
             success: function(response, textStatus, xhr) { // What to do if we succeed
@@ -480,6 +481,7 @@ $(document).ready(function() {
             $(".mother").val('');
             $(".father").val('');
             $(".description-user").val('');
+            $(".date").val('');
         }
     });
 
@@ -590,7 +592,8 @@ $(document).ready(function() {
            'mother' : $(".mother").val(),
            'father' : $(".father").val(),
            'desc' : $(".description-user").val(),
-           'birthday': $(".birthday").val()
+           'birthday': $(".birthday").val(),
+           'filldate' : $(".filldate").val()
        };
 
        $.ajax({
@@ -612,6 +615,79 @@ $(document).ready(function() {
            }
        });
    });
+
+   $('.js-get-pdf').click(function () {
+       clearErrors('#get-pdf');
+
+       //console.log(RemoveBaseUrl($('#get-pdf form').prop('action')));
+
+       var newRequest = {
+           'startdate': $(".startdate").val(),
+           'enddate': $(".enddate").val()
+       };
+
+       var errors = {};
+
+       if (!isDate(newRequest.startdate)) {
+           errors.startdate = ["Neteisingai įvesta data."];
+       }
+       if (!isDate(newRequest.enddate)) {
+           errors.enddate = ["Neteisingai įvesta data."];
+       }
+       if (newRequest.startdate.length == 0) {
+           errors.startdate = ["Pasirinkite data."];
+       }
+       if (newRequest.enddate.length == 0) {
+           errors.enddate = ["Pasirinkite data."];
+       }
+       if (!isEmptyObject(errors)) {
+           setErrors(errors);
+           return false;
+       }
+       return true;
+   });
+
+       // var request = new XMLHttpRequest(), file, fileURL;
+       // request.open("POST", RemoveBaseUrl($('#get-pdf form').prop('action')));
+       // request.setRequestHeader('X-CSRF-TOKEN', $('meta[name=csrf-token]').attr('content'));
+       // request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+       // request.responseType = "arraybuffer";
+       // request.send(newRequest);
+       // request.onreadystatechange = function () {
+       //     if (request.readyState === 4 && request.status === 200) {
+       //         file = new Blob([request.response], { type: 'application/pdf' });
+       //         if (window.navigator && window.navigator.msSaveOrOpenBlob) { // IE
+       //             window.navigator.msSaveOrOpenBlob(file);
+       //         } else {
+       //             fileURL = URL.createObjectURL(file);
+       //             window.open(fileURL);
+       //         }
+       //     } else if(request.readyState === 4 && request.status === 201) {
+       //
+       //         setErrors(request.response);
+       //         return false;
+       //     }
+       // };
+
+       // $.ajax({
+       //     headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
+       //     url: RemoveBaseUrl($('#get-pdf form').prop('action')),
+       //     method: 'POST', // Type of response and matches what we said in the route
+       //     data: newRequest,
+       //     success: function(response, textStatus, xhr) { // What to do if we succeed
+       //         if(xhr.status === 201) {
+       //             $('#get-pdf').modal('toggle');
+       //             //console.log(response);
+       //             //location.reload();
+       //         } else if(xhr.status === 200) {
+       //             setErrors(response);
+       //             return false;
+       //         }
+       //     },
+       //     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+       //
+       //     }
+       // });
 
 
    //MEDICAMENTS
@@ -731,4 +807,66 @@ function clearErrors(modalId) {
     $(modalId).find('span.help-block').each(function () {
         $(this).children('strong').text('');
     });
+}
+function RemoveBaseUrl(url) {
+    /*
+     * Replace base URL in given string, if it exists, and return the result.
+     *
+     * e.g. "http://localhost:8000/api/v1/blah/" becomes "/api/v1/blah/"
+     *      "/api/v1/blah/" stays "/api/v1/blah/"
+     */
+    var baseUrlPattern = /^https?:\/\/[a-z\:0-9.]+/;
+    var result = "";
+
+    var match = baseUrlPattern.exec(url);
+    if (match != null) {
+        result = match[0];
+    }
+
+    if (result.length > 0) {
+        url = url.replace(result, "");
+    }
+
+    return url;
+}
+function isDate(txtDate)
+{
+    var currVal = txtDate;
+    if(currVal == '')
+        return false;
+
+    var rxDatePattern = /^(\d{4})(\/|-)(\d{1,2})(\/|-)(\d{1,2})$/; //Declare Regex
+    var dtArray = currVal.match(rxDatePattern); // is format OK?
+
+    if (dtArray == null)
+        return false;
+
+    //Checks for mm/dd/yyyy format.
+
+    // changed for yyyy/mm/dd format
+    dtMonth = dtArray[3];
+    dtDay= dtArray[5];
+    dtYear = dtArray[1];
+
+    if (dtMonth < 1 || dtMonth > 12)
+        return false;
+    else if (dtDay < 1 || dtDay> 31)
+        return false;
+    else if ((dtMonth==4 || dtMonth==6 || dtMonth==9 || dtMonth==11) && dtDay ==31)
+        return false;
+    else if (dtMonth == 2)
+    {
+        var isleap = (dtYear % 4 == 0 && (dtYear % 100 != 0 || dtYear % 400 == 0));
+        if (dtDay> 29 || (dtDay ==29 && !isleap))
+            return false;
+    }
+    return true;
+}
+function isEmptyObject(obj) {
+    for(var prop in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, prop)) {
+            return false;
+        }
+    }
+    return true;
 }

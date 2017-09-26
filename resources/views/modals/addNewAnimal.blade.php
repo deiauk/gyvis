@@ -10,6 +10,18 @@
 
             <div class="modal-body">
                 <div class="form-group">
+                    <label for="filldate" class="control-label col-sm-3">Data</label>
+                    <div class="col-sm-8">
+                        <div class="input-group date">
+                            <input type="text" class="date form-control filldate" name="filldate" id="filldate" required>
+                            <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                        </div>
+                        <span class="help-block err-filldate">
+                            <strong></strong>
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="number" class="control-label col-sm-3">Numerėlis</label>
                     <div class="col-sm-8">
                         <input type="text" name="number" id="number" class="form-control nr-val" required>

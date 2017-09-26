@@ -31,7 +31,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('zetonas', 'TokenController@index')->middleware('role:admin')->name('token.index');
     Route::post('zetonas', 'TokenController@store')->middleware('role:admin')->name('token.store');
 
-    Route::get('spausdinti/{route}/{category?}', 'PdfController@create')->name('pdf.create');
+    Route::post('spausdinti/{route}/{category?}', 'PdfController@create')->name('pdf.create');
 });
 
 Auth::routes();

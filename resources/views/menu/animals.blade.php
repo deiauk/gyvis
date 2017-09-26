@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+    @include('modals.pdfDateRange')
     <div class="row crud-btns">
         @if(auth()->user()->hasRole('admin'))
         {{--<button type="button" class="btn btn-danger disabled" id="delete" data-toggle="modal" data-target="#confirm-delete">Ištrinti</button>--}}
@@ -13,7 +14,7 @@
         <button type="button" class="btn btn-info disabled" id="cure"><i class="fa fa-medkit" aria-hidden="true"></i> Gydyti</button>
         <button type="button" class="btn btn-success" id="add-new" data-toggle="modal" data-target="#add-animal"><i class="fa fa-plus" aria-hidden="true"></i> Įvesti naują</button>
         @endif
-        @include('layouts.includes._print')
+        <button type="submit" class="btn btn-success" id="get-pdf" data-toggle="modal" data-target="#get-pdf"><i class="fa fa-print" aria-hidden="true"></i> Spausdinti</button>
     </div>
 
 
@@ -22,6 +23,7 @@
             <table class="table table-curved table-color">
                 <theader>
                     <tr class="align-rule">
+                        <th>Data</th>
                         <th>Numerėlis</th>
                         <th>Vardas</th>
                         <th>Gyvis</th>
@@ -37,6 +39,7 @@
                 <tbody>
                     @foreach($animals as $animal)
                         <tr class='clickable-row' id='{{$animal->id}}'>
+                            <td>{{$animal->filldate}}</td>
                             <td>{{$animal->number}}</td>
                             <td>{{$animal->name}}</td>
                             <td>{{$animal->liveBeing}}</td>

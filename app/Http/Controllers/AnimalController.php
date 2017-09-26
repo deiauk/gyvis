@@ -51,6 +51,7 @@ class AnimalController extends Controller
             "mother" => "required",
             "father" => "required",
             "desc" => "required|min:10",
+            "filldate" => "required|date"
         ]);
         if($validator->fails()) {
             return response()->json($validator->messages(), 200);
@@ -68,6 +69,7 @@ class AnimalController extends Controller
         $animal->mother = $data['mother'];
         $animal->father = $data['father'];
         $animal->comment = $data['desc'];
+        $animal->filldate = $data['filldate'];
         $animal->save();
         return response()->json([], 201);
     }
@@ -115,6 +117,7 @@ class AnimalController extends Controller
             "mother" => "required",
             "father" => "required",
             "desc" => "required|min:10",
+            "filldate" => "required|date",
         ]);
         if($validator->fails()) {
             return response()->json($validator->messages(), 200);
@@ -132,6 +135,7 @@ class AnimalController extends Controller
         $animal->mother = $data['mother'];
         $animal->father = $data['father'];
         $animal->comment = $data['desc'];
+        $animal->filldate = $data['filldate'];
         $animal->save();
         return response()->json([], 201);
     }

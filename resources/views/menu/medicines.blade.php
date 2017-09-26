@@ -10,13 +10,14 @@
         @include('modals.editMedical')
         @include('modals.confirmDelete')
     @endif
+    @include('modals.pdfDateRange')
     <div class="row crud-btns">
         @if(auth()->user()->hasRole('admin'))
             <button type="button" class="btn btn-danger disabled" id="delete-medicine"><i class="fa fa-trash" aria-hidden="true"></i> Ištrinti</button>
             <button type="button" class="btn btn-warning disabled" id="edit-medicine"><i class="fa fa-pencil" aria-hidden="true"></i> Redaguoti</button>
             <button type="button" class="btn btn-success" id="add-medicine" data-toggle="modal" data-target="#add-medicine"><i class="fa fa-plus" aria-hidden="true"></i> Pridėti</button>
         @endif
-        @include('layouts.includes._print')
+            <button type="submit" class="btn btn-success" id="get-pdf" data-toggle="modal" data-target="#get-pdf"><i class="fa fa-print" aria-hidden="true"></i> Spausdinti</button>
     </div>
 
     @if(count($medicines) > 0)

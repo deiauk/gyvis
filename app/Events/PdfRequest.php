@@ -17,17 +17,19 @@ class PdfRequest
     protected $route;
     protected $filename;
     protected $category;
+    protected $dateRange;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($filename, $route, $category = null)
+    public function __construct($filename, $route, $dateRange, $category = null)
     {
         $this->filename = $filename;
         $this->route = $route;
         $this->category = $category;
+        $this->dateRange = $dateRange;
     }
 
     /**
@@ -57,4 +59,10 @@ class PdfRequest
         }
         return $this->category;
     }
+
+    public function getDateRange()
+    {
+        return $this->dateRange;
+    }
+
 }

@@ -23,4 +23,8 @@ class Medicine extends Model
             'medicines.id', '=', 'medicine_categories.medicine_id'
         )->where('type', $type);
     }
+    public function scopedateRange($query, $dateRange)
+    {
+        return $query->whereBetween('filldate', $dateRange);
+    }
 }

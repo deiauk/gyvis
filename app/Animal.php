@@ -8,4 +8,9 @@ class Animal extends Model
 {
     //
     public $timestamps = false;
+
+    public static function dateRange($dateRange)
+    {
+        return static::whereBetween('filldate', $dateRange);
+    }
 }

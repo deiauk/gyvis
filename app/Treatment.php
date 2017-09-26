@@ -18,4 +18,8 @@ class Treatment extends Model
     public function medicine() {
         return $this->belongsTo('App\\Medicine');
     }
+    public static function dateRange($dateRange)
+    {
+        return static::whereBetween('date', $dateRange);
+    }
 }

@@ -11,6 +11,7 @@
         @include('modals.confirmDelete')
         @include('modals.showFullValue')
     @endif
+    @include('modals.pdfDateRange')
 
     <div class="row crud-btns">
         @if(auth()->user()->hasRole('admin'))
@@ -18,7 +19,7 @@
             <button type="button" class="btn btn-warning disabled" id="edit-treatment"><i class="fa fa-pencil" aria-hidden="true"></i> Redaguoti</button>
             <button type="button" class="btn btn-success" id="add-treatment" data-toggle="modal" data-target="#add-treatment"><i class="fa fa-plus" aria-hidden="true"></i> Pridėti</button>
         @endif
-        @include('layouts.includes._print')
+            <button type="submit" class="btn btn-success" id="get-pdf" data-toggle="modal" data-target="#get-pdf"><i class="fa fa-print" aria-hidden="true"></i> Spausdinti</button>
     </div>
 
     {{--<div class="table-responsive">--}}
