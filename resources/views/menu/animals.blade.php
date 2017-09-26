@@ -14,7 +14,7 @@
         <button type="button" class="btn btn-info disabled" id="cure"><i class="fa fa-medkit" aria-hidden="true"></i> Gydyti</button>
         <button type="button" class="btn btn-success" id="add-new" data-toggle="modal" data-target="#add-animal"><i class="fa fa-plus" aria-hidden="true"></i> Įvesti naują</button>
         @endif
-        <button type="submit" class="btn btn-success" id="get-pdf" data-toggle="modal" data-target="#get-pdf"><i class="fa fa-print" aria-hidden="true"></i> Spausdinti</button>
+        <button type="submit" class="btn btn-success" id="get-pdf-btn" data-toggle="modal" data-target="#get-pdf"><i class="fa fa-print" aria-hidden="true"></i> Spausdinti</button>
     </div>
 
 

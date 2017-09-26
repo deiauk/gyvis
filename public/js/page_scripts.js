@@ -644,6 +644,7 @@ $(document).ready(function() {
            setErrors(errors);
            return false;
        }
+       $('#get-pdf').modal('toggle');
        return true;
    });
 

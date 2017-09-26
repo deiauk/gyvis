@@ -17,7 +17,7 @@
             <button type="button" class="btn btn-warning disabled" id="edit-medicine"><i class="fa fa-pencil" aria-hidden="true"></i> Redaguoti</button>
             <button type="button" class="btn btn-success" id="add-medicine" data-toggle="modal" data-target="#add-medicine"><i class="fa fa-plus" aria-hidden="true"></i> Pridėti</button>
         @endif
-            <button type="submit" class="btn btn-success" id="get-pdf" data-toggle="modal" data-target="#get-pdf"><i class="fa fa-print" aria-hidden="true"></i> Spausdinti</button>
+            <button type="submit" class="btn btn-success" id="get-pdf-btn" data-toggle="modal" data-target="#get-pdf"><i class="fa fa-print" aria-hidden="true"></i> Spausdinti</button>
     </div>
 
     @if(count($medicines) > 0)
