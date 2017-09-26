@@ -391,3 +391,8 @@ tr {
     padding: 15px;
     margin: 0 20px;
 }
+form#pdf-form {
+    display: inline-block;
+    float: right;
+    margin-right: 25px;
+}

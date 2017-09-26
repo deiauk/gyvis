@@ -17,7 +17,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('vaistai/trinti/{medicine}', 'MedicineController@delete')->middleware('role:admin')->name('medicine.delete');
     Route::get('vaistai/{medicine}', 'MedicineController@getData')->name('medicine.get.data');
 
-    Route::get('medikamentai/{categorie}', 'MedicineController@index')->name('medicine.index');
+    Route::get('medikamentai/{categorie}', 'MedicineController@index')->name('medikamentai');
 
     Route::resource('medikamentai', 'MedicineController');
 
@@ -30,6 +30,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('zetonas', 'TokenController@index')->middleware('role:admin')->name('token.index');
     Route::post('zetonas', 'TokenController@store')->middleware('role:admin')->name('token.store');
+
+    Route::get('spausdinti/{route}/{category?}', 'PdfController@create')->name('pdf.create');
 });
 
 Auth::routes();

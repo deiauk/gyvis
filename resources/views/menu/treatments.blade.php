@@ -6,18 +6,20 @@
 
 @section('content')
     @if(auth()->user()->hasRole('admin'))
-
         @include('modals.addNewTreatment')
         @include('modals.editTreatment')
         @include('modals.confirmDelete')
         @include('modals.showFullValue')
+    @endif
 
-        <div class="row crud-btns">
+    <div class="row crud-btns">
+        @if(auth()->user()->hasRole('admin'))
             <button type="button" class="btn btn-danger disabled" id="delete-treatment"><i class="fa fa-trash" aria-hidden="true"></i> Ištrinti</button>
             <button type="button" class="btn btn-warning disabled" id="edit-treatment"><i class="fa fa-pencil" aria-hidden="true"></i> Redaguoti</button>
             <button type="button" class="btn btn-success" id="add-treatment" data-toggle="modal" data-target="#add-treatment"><i class="fa fa-plus" aria-hidden="true"></i> Pridėti</button>
-        </div>
-    @endif
+        @endif
+        @include('layouts.includes._print')
+    </div>
 
     {{--<div class="table-responsive">--}}
         {{--<table class="table table-curved table-color">--}}

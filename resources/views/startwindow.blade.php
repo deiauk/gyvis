@@ -21,12 +21,12 @@
             <span class="right"></span>Ruja
         </a>
 
-        <a href="{{ route('medicine.index', ["category" => 1]) }}" class="menu-btn d">
+        <a href="{{ route('medikamentai', ["category" => 1]) }}" class="menu-btn d">
             <span class="icon icon-gear"></span>
             <span class="right"></span>V. Rasimo medikamentai
         </a>
 
-        <a href="{{ route('medicine.index', ["category" => 2]) }}" class="menu-btn d">
+        <a href="{{ route('medikamentai', ["category" => 2]) }}" class="menu-btn d">
             <span class="icon icon-gear"></span>
             <span class="right"></span>R. Knašio medikamentai
         </a>

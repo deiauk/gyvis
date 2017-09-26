@@ -17,8 +17,8 @@
                 <li class="{{ Route::currentRouteNamed('sarasas') ? 'active' : '' }}"><a href="{{ route('sarasas') }}">Sąrašas</a></li>
                 <li class="{{ Route::currentRouteNamed('gydymai') ? 'active' : '' }}"><a href="{{ route('gydymai') }}">Gydymas</a></li>
                 <li class="{{ Route::currentRouteNamed('ruja') ? 'active' : '' }}"><a href="#">Ruja</a></li>
-                <li class="{{ Route::currentRouteNamed('medicine.index') && $category == 1 ? 'active' : '' }}"><a href="{{ route('medicine.index', ['category' => 1]) }}">V. Rasimo medikamentai</a></li>
-                <li class="{{ Route::currentRouteNamed('medicine.index') && $category == 2 ? 'active' : '' }}"><a href="{{ route('medicine.index', ['category' => 2]) }}">R. Knašio medikamentai</a></li>
+                <li class="{{ Route::currentRouteNamed('medikamentai') && $category == 1 ? 'active' : '' }}"><a href="{{ route('medikamentai', ['category' => 1]) }}">V. Rasimo medikamentai</a></li>
+                <li class="{{ Route::currentRouteNamed('medikamentai') && $category == 2 ? 'active' : '' }}"><a href="{{ route('medikamentai', ['category' => 2]) }}">R. Knašio medikamentai</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @if(auth()->user()->hasRole('admin'))
