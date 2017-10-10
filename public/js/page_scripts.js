@@ -948,7 +948,43 @@ $(document).ready(function() {
             $('#search').val(ui.item.value);
         }
     });
-});
+    $('#form-edit-heat').on('change', formEditHeatHandler);
+    $('#form-edit-heat').on('input', formEditHeatHandler);
+
+    $('#form-add-heat').on('change', formAddHeatHandler);
+    $('#form-add-heat').on('input', formAddHeatHandler);
+})
+
+function formEditHeatHandler(e) {
+    if(e.target.id == "edit-heat-calving_date" || e.target.id == "edit-heat-heat_date") {
+        var field = $('#edit-heat-calving_date_expected');
+        var dates = [$('#edit-heat-calving_date'), $('#edit-heat-heat_date')];
+        calcCowExpectedDate(field, dates);
+    }
+}
+function formAddHeatHandler(e) {
+    if(e.target.id == "calving_date" || e.target.id == "heat_date") {
+        var field = $('#calving_date_expected');
+        var dates = [$('#calving_date'), $('#heat_date')];
+        calcCowExpectedDate(field, dates);
+    }
+}
+
+function calcCowExpectedDate(field, dates) {
+    var d;
+    if(dates[1].val().length == 0) {
+        d = new Date(dates[0].val());
+        d.setDate(d.getDate() + 320);
+    } else {
+        d = new Date(dates[1].val());
+        d.setDate(d.getDate() + 275);
+    }
+    if ( !isNaN( d.getTime() ) ) {
+        field.val(d.getFullYear() + "-" + ('0' + (d.getMonth() + 1)).slice(-2) + "-" + ('0' + d.getDate()).slice(-2));
+        return true;
+    }
+    field.val('');
+}
 
 function setErrors(errors) {
     $.each(errors, function (name, value) {

@@ -1,7 +1,7 @@
 <div id="edit-heat-modal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="form-horizontal" onsubmit="return false">
+            <form class="form-horizontal" id="form-edit-heat" onsubmit="return false">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Redaguoti rujos įrašą</h4>
@@ -45,7 +45,7 @@
                         <label for="edit-heat-calving_date_expected" class="control-label col-sm-3">Apsiveršiavimo data</label>
                         <div class="col-sm-8">
                             <div class="input-group date">
-                                <input type="text" class="date form-control calving_date_expected" name="calving_date_expected" id="edit-heat-calving_date_expected" required>
+                                <input type="text" class="date form-control calving_date_expected" name="calving_date_expected" id="edit-heat-calving_date_expected" required disabled>
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                             </div>
                             <span class="help-block err-calving_date_expected">
