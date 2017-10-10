@@ -24,6 +24,8 @@ class PdfController extends Controller
 
         $filename = $this->directory . uniqid() . '.pdf';
 
+        $route = $route == "heat.search" ? "ruja" : $route;
+
         if(isset($category)) {
             event(new PdfRequest($filename, $route, $dateRange, $category));
         }
