@@ -16,7 +16,7 @@
             <span class="right"></span>Gydymas
         </a>
 
-        <a href="{{ route('gydymai') }}" class="menu-btn c">
+        <a href="{{ route('ruja') }}" class="menu-btn c">
             <span class="icon icon-gear"></span>
             <span class="right"></span>Ruja
         </a>

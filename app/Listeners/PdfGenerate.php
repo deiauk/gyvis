@@ -9,6 +9,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Repositories\AnimalsTable;
 use App\Repositories\MedicinesTable;
 use App\Repositories\TreatmentsTable;
+use App\Repositories\HeatsTable;
 
 class PdfGenerate
 {
@@ -49,6 +50,9 @@ class PdfGenerate
             case "medikamentai":
                 $obj = new MedicinesTable($event->getCategory(), $event->getDateRange());
                 return $obj->getView("pdf.medicines", $obj->getData());
+            case "ruja":
+                $obj = new HeatsTable($event->getDateRange());
+                return $obj->getView("pdf.heats", $obj->getData());
 
 //                switch ($event->getCategory()) {
 //                    case 1:

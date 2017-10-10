@@ -32,6 +32,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('zetonas', 'TokenController@store')->middleware('role:admin')->name('token.store');
 
     Route::post('spausdinti/{route}/{category?}', 'PdfController@create')->name('pdf.create');
+
+    Route::resource('ruja', 'HeatController', [
+        'names' => [
+            'index' => 'ruja'
+        ]
+    ]);
 });
 
 Auth::routes();
