@@ -17,7 +17,12 @@ class HeatController extends Controller
         }
         else {
             $search = request('search');
-            $heats = Heat::where('number', 'LIKE', $search . '%')->get();
+
+            $heats = Heat::join(
+                'animals',
+                'heats.animal_id', '=', 'animals.id'
+            )->where('animals.number', 'LIKE', $search . '%')
+            ->get();
         }
         $numbers = Animal::all();
         return view('menu.heats', compact('heats', 'search', 'numbers'));
@@ -66,14 +71,22 @@ class HeatController extends Controller
     public function autocomplete()
     {
         $results = [];
-        $heats = Heat::where('number', 'LIKE', request('term') . '%')
+
+        $heats = Heat::join(
+            'animals',
+            'heats.animal_id', '=', 'animals.id')
+            ->where('animals.number', 'LIKE', request('term') . '%')
             ->take(5)
             ->get();
+
+//        $heats = Heat::where('number', 'LIKE', request('term') . '%')
+//            ->take(5)
+//            ->get();
 
         foreach($heats as $heat) {
             $results[] = [
                 "id" => $heat->id,
-                "value" => $heat->number
+                "value" => $heat->animal->number
             ];
         }
         return response()->json($results);
