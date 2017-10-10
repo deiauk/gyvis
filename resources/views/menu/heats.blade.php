@@ -52,7 +52,7 @@
                         <tbody>
                         @foreach($heats as $heat)
                             <tr class='clickable-heat-row' id='{{$heat->id}}'>
-                                <td>{{$heat->number}}</td>
+                                <td>{{$heat->animal->number}}</td>
                                 <td>{{$heat->calving_date}}</td>
                                 <td>{{$heat->heat_date}}</td>
                                 <td>{{$heat->calving_date_expected}}</td>

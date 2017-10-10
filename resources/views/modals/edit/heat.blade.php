@@ -11,7 +11,14 @@
                     <div class="form-group">
                         <label for="edit-heat-number" class="control-label col-sm-3">Karvės numeris</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control number" id="edit-heat-number" name="number" required>
+                            <select name="number" id="edit-heat-number" class="form-control number">
+                                <option value="-1">---</option>
+                                @if(!empty($numbers))
+                                    @foreach($numbers as $number)
+                                        <option value="{{ $number->id }}">{{ $number->number }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
                             <span class="help-block err-number">
                                 <strong></strong>
                             </span>

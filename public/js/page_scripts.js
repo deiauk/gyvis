@@ -867,7 +867,8 @@ $(document).ready(function() {
                 url: '/ruja/' + heatTableRowId,
                 method: 'GET', // Type of response and matches what we said in the route
                 success: function (response) { // What to do if we succeed
-                    $(".number").val(response.number);
+                    $(".number").val(response.animal_id).prop('selected', true);
+
                     $(".calving_date").val(response.calving_date);
                     $(".heat_date").val(response.heat_date);
                     $(".calving_date_expected").val(response.calving_date_expected);
