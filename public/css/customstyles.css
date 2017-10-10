@@ -395,3 +395,12 @@ button#get-pdf-btn{
     float: right;
     margin-right: 25px;
 }
+.no-padding-right {
+    padding-right: 0;
+}
+.no-padding-left {
+    padding-left: 0;
+}
+.row-search {
+    margin-left: -5px;
+}

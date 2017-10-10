@@ -33,6 +33,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::post('spausdinti/{route}/{category?}', 'PdfController@create')->name('pdf.create');
 
+    Route::post('ruja/trinti/{heat}', 'HeatController@delete')->middleware('role:admin')->name('heat.delete');
+    Route::get('/ruja/autocomplete', 'HeatController@autocomplete')->name('heat.autocomplete');
+    Route::get('ruja/{heat}', 'HeatController@getData')->name('heat.get.data');
+    Route::post('ruja/ieskoti', 'HeatController@index')->name('heat.search');
     Route::resource('ruja', 'HeatController', [
         'names' => [
             'index' => 'ruja'

@@ -2,6 +2,7 @@ $(document).ready(function() {
     var animalTableRowId = -1;
     var medicineTableRowId = -1;
     var treatmentTableRowId = -1;
+    var heatTableRowId = -1;
     
    $('.clickable-row').click(function () {
        var selectedClass = $('.selected-table-row');
@@ -47,6 +48,26 @@ $(document).ready(function() {
         }
     });
 
+    $('.clickable-heat-row').click(function () {
+        var selectedClass = $('.selected-table-row');
+        heatTableRowId = this.id;
+        $('tr').removeClass('selected-table-row-danger');
+        if($(this).hasClass('selected-table-row')) {
+            $(this).removeClass('selected-table-row');
+
+            resetHeatBtnStates();
+        } else {
+            selectedClass.removeClass('selected-table-row');
+            $(this).toggleClass("selected-table-row");
+            if($('.selected-table-row').length === 0) {
+                resetHeatBtnStates();
+            } else {
+                $('#delete-heat').removeClass('disabled');
+                $('#edit-heat').removeClass('disabled');
+            }
+        }
+    });
+
     $('.clickable-treat-row').click(function () {
         var selectedClass = $('.selected-table-row');
         treatmentTableRowId = this.id;
@@ -56,12 +77,7 @@ $(document).ready(function() {
             resetTreatmentStates();
         } else {
             selectedClass.removeClass('selected-table-row');
-            if($(this).hasClass('no-med')) {
-                $(this).toggleClass("selected-table-row-danger");
-                $(this).toggleClass("selected-table-row");
-            } else {
-                $(this).toggleClass("selected-table-row");
-            }
+            $(this).toggleClass("selected-table-row");
             if($('.selected-table-row').length === 0) {
                 resetTreatmentStates();
             } else {
@@ -340,6 +356,12 @@ $(document).ready(function() {
         $('#edit-medicine').addClass('disabled');
     }
 
+    function resetHeatBtnStates() {
+        heatTableRowId = -1;
+        $('#delete-heat').addClass('disabled');
+        $('#edit-heat').addClass('disabled');
+    }
+
     function resetTreatmentStates() {
         treatmentTableRowId = -1;
         $('#delete-treatment').addClass('disabled');
@@ -374,6 +396,18 @@ $(document).ready(function() {
 
     $('#delete-medicine').click(function () {
         if(medicineTableRowId !== -1) {
+            $('#confirm-delete').modal('show');
+        }
+    });
+
+    $('#edit-heat').click(function () {
+        if(heatTableRowId !== -1) {
+            $('#edit-heat-modal').modal('show');
+        }
+    });
+
+    $('#delete-heat').click(function () {
+        if(heatTableRowId !== -1) {
             $('#confirm-delete').modal('show');
         }
     });
@@ -528,6 +562,24 @@ $(document).ready(function() {
                data: obj,
                success: function(response) { // What to do if we succeed
                    medicineTableRowId = -1;
+                   location.reload();
+               },
+               error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+                   console.log(JSON.stringify(jqXHR));
+                   console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+               }
+           });
+       } else if (heatTableRowId !== -1) {
+           var obj = {
+               id: heatTableRowId
+           };
+           $.ajax({
+               headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
+               url: '/ruja/trinti/' + heatTableRowId,
+               method: 'POST', // Type of response and matches what we said in the route
+               data: obj,
+               success: function(response) { // What to do if we succeed
+                   heatTableRowId = -1;
                    location.reload();
                },
                error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
@@ -796,6 +848,105 @@ $(document).ready(function() {
 
     $('.date').datepicker({
         format: 'yyyy-mm-dd'
+    });
+
+    /* HEAT */
+    $('#add-heat').on('show.bs.modal', function (e) {
+        if (e.namespace === 'bs.modal') {
+            $(".number").val('');
+            $(".calving_date").val('');
+            $(".heat_date").val('');
+            $(".calving_date_expected").val('');
+            $(".notes").val('');
+        }
+    });
+    $('#edit-heat-modal').on('show.bs.modal', function (e) {
+        if (e.namespace === 'bs.modal') {
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
+                url: '/ruja/' + heatTableRowId,
+                method: 'GET', // Type of response and matches what we said in the route
+                success: function (response) { // What to do if we succeed
+                    $(".number").val(response.number);
+                    $(".calving_date").val(response.calving_date);
+                    $(".heat_date").val(response.heat_date);
+                    $(".calving_date_expected").val(response.calving_date_expected);
+                    $(".notes").val(response.notes);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                }
+            });
+        }
+    });
+    $('.js-add-new-heat').click(function () {
+        clearErrors('#add-heat');
+
+        var newHeat = {
+            'number' : $('.number').val(),
+            'calving_date' : $('.calving_date').val(),
+            'heat_date' : $('.heat_date').val(),
+            'calving_date_expected' : $('.calving_date_expected').val(),
+            'notes' : $('.notes').val()
+        };
+
+        $.ajax({
+            headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
+            url: '/ruja',
+            method: 'POST', // Type of response and matches what we said in the route
+            data: newHeat,
+            success: function(response, textStatus, xhr) { // What to do if we succeed
+                if(xhr.status === 201) {
+                    $('#add-medicine').modal('toggle');
+                    location.reload();
+                } else if(xhr.status === 200) {
+                    setErrors(response);
+                    return false;
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+                console.log(JSON.stringify(jqXHR));
+                console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+            }
+        });
+    });
+    $('.js-edit-heat').click(function () {
+        clearErrors('#edit-heat-modal');
+        var editHeat = {
+            'rowId': heatTableRowId,
+            'number' : $('#edit-heat-number').val(),
+            'calving_date' : $('#edit-heat-calving_date').val(),
+            'heat_date' : $('#edit-heat-heat_date').val(),
+            'calving_date_expected' : $('#edit-heat-calving_date_expected').val(),
+            'notes' : $('#edit-heat-notes').val()
+        };
+
+        $.ajax({
+            headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
+            url: '/ruja/' + medicineTableRowId,
+            method: 'PUT', // Type of response and matches what we said in the route
+            data: editHeat,
+            success: function(response, textStatus, xhr) { // What to do if we succeed
+                if(xhr.status === 201) {
+                    $('#edit-heat-modal').modal('toggle');
+                    location.reload();
+                } else if(xhr.status === 200) {
+                    setErrors(response);
+                    return false;
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+                console.log(JSON.stringify(jqXHR));
+                console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+            }
+        });
+    });
+    $('#search').autocomplete({
+        source: '/ruja/autocomplete',
+        minLength : 1,
+        select : function(event, ui) {
+            $('#search').val(ui.item.value);
+        }
     });
 });
 
