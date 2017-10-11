@@ -12,7 +12,8 @@ class HeatController extends Controller
     public function index()
     {
         $search = '';
-        if(request('search') == null) {
+        $animal = null;
+        if(request('search') == null || is_null(request('search'))) {
             $heats = Heat::all();
         }
         else {
@@ -23,9 +24,12 @@ class HeatController extends Controller
                 'heats.animal_id', '=', 'animals.id'
             )->where('animals.number', 'LIKE', $search . '%')
             ->get();
+
+            $animal = Animal::where('number', 'LIKE', $search . '%')
+                ->first();
         }
         $numbers = Animal::all();
-        return view('menu.heats', compact('heats', 'search', 'numbers'));
+        return view('menu.heats', compact('heats', 'search', 'numbers', 'animal'));
     }
     public function store()
     {
