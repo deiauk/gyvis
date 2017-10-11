@@ -9,9 +9,9 @@ class Animal extends Model
     //
     public $timestamps = false;
 
-    public function heat()
+    public function heats()
     {
-        return $this->hasOne('App\\Heat');
+        return $this->hasMany('App\\Heat');
     }
     public static function dateRange($dateRange)
     {

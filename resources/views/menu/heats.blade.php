@@ -38,49 +38,34 @@
         </div>
         <div class="col-lg-9">
             @if(!is_null($animal))
-                <table class="table table-curved table-color">
-                    <theader>
-                        <tr class="align-rule">
-                            <th>Data</th>
-                            <th>Numerėlis</th>
-                            <th>Vardas</th>
-                            <th>Gyvis</th>
-                            <th>Veislės vardas</th>
-                            <th>Lytis</th>
-                            <th>Spava</th>
-                            <th>Gimtadienis</th>
-                            <th>Mama</th>
-                            <th>Tėtis</th>
-                            <th>Komentaras</th>
-                        </tr>
-                    </theader>
-                    <tbody>
-                        <tr>
-                            <td>{{$animal->filldate}}</td>
-                            <td>{{$animal->number}}</td>
-                            <td>{{$animal->name}}</td>
-                            <td>{{$animal->liveBeing}}</td>
-                            <td>{{$animal->breedName}}</td>
-                            @if($animal->sex == 2)
-                                <td>Moteris</td>
-                            @elseif($animal->sex == 1)
-                                <td>Vyras</td>
-                            @else
-                                <td>-</td>
-                            @endif
-
-                            <td>{{$animal->color}}</td>
-                            <td>{{$animal->birthday}}</td>
-                            <td>{{$animal->mother}}</td>
-                            <td>{{$animal->father}}</td>
-                            <td class="fullinfo" data-comment="{{$animal->comment}}">
-                                <a>
-                                    {{ str_limit($animal->comment, $limit = 20, $end = '...') }}
-                                </a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div class="table-responsive">
+                    <table class="table table-curved table-color">
+                        <theader>
+                            <tr class="align-rule">
+                                <th>Numerėlis</th>
+                                <th>Vardas</th>
+                                <th>Gyvis</th>
+                                <th>Veislės vardas</th>
+                                <th>Spava</th>
+                                <th>Gimtadienis</th>
+                                <th>Mama</th>
+                                <th>Tėtis</th>
+                            </tr>
+                        </theader>
+                        <tbody>
+                            <tr>
+                                <td>{{$animal->number}}</td>
+                                <td>{{$animal->name}}</td>
+                                <td>{{$animal->liveBeing}}</td>
+                                <td>{{$animal->breedName}}</td>
+                                <td>{{$animal->color}}</td>
+                                <td>{{$animal->birthday}}</td>
+                                <td>{{$animal->mother}}</td>
+                                <td>{{$animal->father}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             @endif
             @if(count($heats) > 0)
                 <div class="table-responsive">

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Heat;
 use App\Animal;
@@ -19,14 +18,11 @@ class HeatController extends Controller
         else {
             $search = request('search');
 
-            $heats = Heat::join(
-                'animals',
-                'heats.animal_id', '=', 'animals.id'
-            )->where('animals.number', 'LIKE', $search . '%')
-            ->get();
-
             $animal = Animal::where('number', 'LIKE', $search . '%')
+                ->where('sex', '=', 2)
                 ->first();
+
+            $heats = $animal->heats;
         }
         $numbers = Animal::all();
         return view('menu.heats', compact('heats', 'search', 'numbers', 'animal'));
@@ -55,9 +51,8 @@ class HeatController extends Controller
         if($validator->fails()) {
             return response()->json($validator->messages(), 200);
         }
-        //Heat::create(request());
+
         $heat = Heat::find(request('rowId'));
-        //$heat->number = request('number');
         $heat->calving_date = request('calving_date');
         $heat->heat_date = request('heat_date');
         $heat->calving_date_expected = request('calving_date_expected');
@@ -76,21 +71,15 @@ class HeatController extends Controller
     {
         $results = [];
 
-        $heats = Heat::join(
-            'animals',
-            'heats.animal_id', '=', 'animals.id')
-            ->where('animals.number', 'LIKE', request('term') . '%')
+        $animals = Animal::where('number', 'LIKE', request('term') . '%')
+            ->where('sex', '=', 2)
             ->take(5)
             ->get();
 
-//        $heats = Heat::where('number', 'LIKE', request('term') . '%')
-//            ->take(5)
-//            ->get();
-
-        foreach($heats as $heat) {
+        foreach($animals as $animal) {
             $results[] = [
-                "id" => $heat->id,
-                "value" => $heat->animal->number
+                "id" => $animal->id,
+                "value" => $animal->number
             ];
         }
         return response()->json($results);
