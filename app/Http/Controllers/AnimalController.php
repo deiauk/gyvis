@@ -41,7 +41,7 @@ class AnimalController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            "number" => "required",
+            "number" => "required|unique:animals",
             "name" => "required",
             "livebeing" => "required",
             "breed" => "required",
