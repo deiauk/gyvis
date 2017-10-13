@@ -11,10 +11,14 @@
                     <div class="form-group">
                         <label for="number" class="control-label col-sm-3">Karvės numeris</label>
                         <div class="col-sm-8">
-                            <select name="number" id="number" class="form-control number">
+                            <select name="number" id="number" class="form-control number" autocomplete="off">
                                 @if(!empty($numbers))
+                                    @php($first = true)
                                     @foreach($numbers as $number)
-                                        <option value="{{ $number->id }}">{{ $number->number }}</option>
+                                        <option value="{{ $number->id }}" {{ $first == true ? 'selected=selected"' : '' }}>{{ $number->number }}</option>
+                                        @if($first)
+                                            @php($first = false)
+                                        @endif
                                     @endforeach
                                 @endif
                             </select>

@@ -12,8 +12,10 @@ class HeatController extends Controller
     {
         $search = '';
         $animal = null;
+        $numbers = null;
         if(request('search') == null || is_null(request('search'))) {
             $heats = Heat::all();
+            $numbers = Animal::where('sex', '=', 2)->get();
         }
         else {
             $search = request('search');
@@ -23,8 +25,9 @@ class HeatController extends Controller
                 ->first();
 
             $heats = $animal->heats;
+
+            $numbers = [$animal];
         }
-        $numbers = Animal::where('sex', '=', 2)->get();
         return view('menu.heats', compact('heats', 'search', 'numbers', 'animal'));
     }
     public function store()
@@ -91,7 +94,6 @@ class HeatController extends Controller
             "calving_date" => "required|date",
             "heat_date" => "required|date",
             "calving_date_expected" => "required|date",
-            "notes" => "required",
         ]);
     }
     public function getData(Heat $heat) {
