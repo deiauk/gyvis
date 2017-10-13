@@ -24,7 +24,7 @@ class HeatController extends Controller
 
             $heats = $animal->heats;
         }
-        $numbers = Animal::all();
+        $numbers = Animal::where('sex', '=', 2)->get();
         return view('menu.heats', compact('heats', 'search', 'numbers', 'animal'));
     }
     public function store()

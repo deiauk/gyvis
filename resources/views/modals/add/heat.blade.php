@@ -12,7 +12,6 @@
                         <label for="number" class="control-label col-sm-3">Karvės numeris</label>
                         <div class="col-sm-8">
                             <select name="number" id="number" class="form-control number">
-                                <option value="-1" selected="selected">---</option>
                                 @if(!empty($numbers))
                                     @foreach($numbers as $number)
                                         <option value="{{ $number->id }}">{{ $number->number }}</option>
