@@ -37,43 +37,37 @@
             </form>
         </div>
         <div class="col-lg-9">
-
-            @if(!empty($heats) && count($heats) > 0)
+            @if(!empty($animal))
                 <div class="table-responsive">
                     <table class="table table-curved table-color">
                         <theader>
                             <tr class="align-rule">
-                                <th>Karvės numeris</th>
-                                <th>Karvės veršiavimosi data</th>
-                                <th>Pastebėta ruja</th>
-                                <th>Apsiveršiavimo data</th>
-                                <th>Pastebėjimai</th>
+                                <th>Numerėlis</th>
+                                <th>Vardas</th>
+                                <th>Gyvis</th>
+                                <th>Veislės vardas</th>
+                                <th>Spava</th>
+                                <th>Gimtadienis</th>
+                                <th>Mama</th>
+                                <th>Tėtis</th>
                             </tr>
                         </theader>
                         <tbody>
-                        @foreach($heats as $heat)
-                            <tr class='clickable-heat-row' id='{{$heat->id}}'>
-                                <td>{{$heat->animal->number}}</td>
-                                <td>{{$heat->calving_date}}</td>
-                                <td>{{$heat->heat_date}}</td>
-                                <td>{{$heat->calving_date_expected}}</td>
-                                <td>{{$heat->notes}}</td>
+                            <tr>
+                                <td>{{$animal->number}}</td>
+                                <td>{{$animal->name}}</td>
+                                <td>{{$animal->liveBeing}}</td>
+                                <td>{{$animal->breedName}}</td>
+                                <td>{{$animal->color}}</td>
+                                <td>{{$animal->birthday}}</td>
+                                <td>{{$animal->mother}}</td>
+                                <td>{{$animal->father}}</td>
                             </tr>
-                        @endforeach
                         </tbody>
                     </table>
                 </div>
-            @else
-                <div class="jumbotron vertical-center">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-4 col-lg-offset-4">
-                                <h2 class="white-txt">Duomenų nėra...</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             @endif
+
         </div>
     </div>
 @endsection
