@@ -6,8 +6,8 @@
 
 @section('content')
     @if(auth()->user()->hasRole('admin'))
-        @include('modals.add.heat')
-        @include('modals.edit.heat')
+        {{--@include('modals.add.heat')--}}
+        {{--@include('modals.edit.heat')--}}
         @include('modals.confirmDelete')
     @endif
     @include('modals.pdfDateRange')

@@ -28,7 +28,6 @@ class HeatController extends Controller
 
             $numbers = [$animal];
         }
-        dd($animal);
         return view('menu.heats', compact('heats', 'search', 'numbers', 'animal'));
     }
     public function store()
