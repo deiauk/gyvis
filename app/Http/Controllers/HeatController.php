@@ -91,8 +91,8 @@ class HeatController extends Controller
     {
         return Validator::make(request()->all(), [
             "number" => "required|min:0",
-            "calving_date" => "required|date",
-            "heat_date" => "required|date",
+            "calving_date" => "required_without:heat_date|sometimes|nullable|date",
+            "heat_date" => "required_without:calving_date|sometimes|nullable|date",
             "calving_date_expected" => "required|date",
         ]);
     }

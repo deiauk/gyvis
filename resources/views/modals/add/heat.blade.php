@@ -31,7 +31,7 @@
                         <label for="calving_date" class="control-label col-sm-3">Karvės veršiavimosi data</label>
                         <div class="col-sm-8">
                             <div class="input-group date">
-                                <input type="text" class="date form-control calving_date" name="calving_date" id="calving_date" required>
+                                <input type="text" class="date form-control calving_date" name="calving_date" id="calving_date">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                             </div>
                             <span class="help-block err-calving_date">
@@ -43,7 +43,7 @@
                         <label for="heat_date" class="control-label col-sm-3">Pastebėta ruja</label>
                         <div class="col-sm-8">
                             <div class="input-group date">
-                                <input type="text" class="date form-control heat_date" name="heat_date" id="heat_date" required >
+                                <input type="text" class="date form-control heat_date" name="heat_date" id="heat_date">
                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                             </div>
                             <span class="help-block err-heat_date">
