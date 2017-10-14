@@ -1,45 +1,45 @@
-$(document).ready(function() {
+$(document).ready(function () {
     var animalTableRowId = -1;
     var medicineTableRowId = -1;
     var treatmentTableRowId = -1;
     var heatTableRowId = -1;
-    
-   $('.clickable-row').click(function () {
-       var selectedClass = $('.selected-table-row');
-       animalTableRowId = this.id;
-       if($(this).hasClass('selected-table-row')) {
-           $(this).removeClass('selected-table-row');
-           resetBtnStates();
-       } else {
-           selectedClass.removeClass('selected-table-row');
-           $(this).toggleClass("selected-table-row");
-           if($('.selected-table-row').length === 0) {
-               resetBtnStates();
-           } else {
-               $('#delete').removeClass('disabled');
-               $('#edit').removeClass('disabled');
-               $('#cure').removeClass('disabled');
-           }
-       }
-   });
+
+    $('.clickable-row').click(function () {
+        var selectedClass = $('.selected-table-row');
+        animalTableRowId = this.id;
+        if ($(this).hasClass('selected-table-row')) {
+            $(this).removeClass('selected-table-row');
+            resetBtnStates();
+        } else {
+            selectedClass.removeClass('selected-table-row');
+            $(this).toggleClass("selected-table-row");
+            if ($('.selected-table-row').length === 0) {
+                resetBtnStates();
+            } else {
+                $('#delete').removeClass('disabled');
+                $('#edit').removeClass('disabled');
+                $('#cure').removeClass('disabled');
+            }
+        }
+    });
 
     $('.clickable-med-row').click(function () {
         var selectedClass = $('.selected-table-row');
         medicineTableRowId = this.id;
         $('tr').removeClass('selected-table-row-danger');
-        if($(this).hasClass('selected-table-row')) {
+        if ($(this).hasClass('selected-table-row')) {
             $(this).removeClass('selected-table-row');
 
             resetMedBtnStates();
         } else {
             selectedClass.removeClass('selected-table-row');
-            if($(this).hasClass('no-med')) {
+            if ($(this).hasClass('no-med')) {
                 $(this).toggleClass("selected-table-row-danger");
                 $(this).toggleClass("selected-table-row");
             } else {
                 $(this).toggleClass("selected-table-row");
             }
-            if($('.selected-table-row').length === 0) {
+            if ($('.selected-table-row').length === 0) {
                 resetMedBtnStates();
             } else {
                 $('#delete-medicine').removeClass('disabled');
@@ -52,14 +52,14 @@ $(document).ready(function() {
         var selectedClass = $('.selected-table-row');
         heatTableRowId = this.id;
         $('tr').removeClass('selected-table-row-danger');
-        if($(this).hasClass('selected-table-row')) {
+        if ($(this).hasClass('selected-table-row')) {
             $(this).removeClass('selected-table-row');
 
             resetHeatBtnStates();
         } else {
             selectedClass.removeClass('selected-table-row');
             $(this).toggleClass("selected-table-row");
-            if($('.selected-table-row').length === 0) {
+            if ($('.selected-table-row').length === 0) {
                 resetHeatBtnStates();
             } else {
                 $('#delete-heat').removeClass('disabled');
@@ -72,13 +72,13 @@ $(document).ready(function() {
         var selectedClass = $('.selected-table-row');
         treatmentTableRowId = this.id;
 
-        if($(this).hasClass('selected-table-row')) {
+        if ($(this).hasClass('selected-table-row')) {
             $(this).removeClass('selected-table-row');
             resetTreatmentStates();
         } else {
             selectedClass.removeClass('selected-table-row');
             $(this).toggleClass("selected-table-row");
-            if($('.selected-table-row').length === 0) {
+            if ($('.selected-table-row').length === 0) {
                 resetTreatmentStates();
             } else {
                 $('#delete-treatment').removeClass('disabled');
@@ -135,7 +135,7 @@ $(document).ready(function() {
     });
 
     $('#medicine').change(function () {
-        if(this.value !== -1) {
+        if (this.value !== -1) {
             console.log("vaistas: " + this.value);
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
@@ -150,7 +150,7 @@ $(document).ready(function() {
                     // $(".animalAge").val(age);
                     console.log(response);
                     $('#quantity').attr({
-                        "max" : response.balance
+                        "max": response.balance
                     });
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -163,21 +163,21 @@ $(document).ready(function() {
     $('.js-add-new-treatment').click(function () {
         clearErrors('#add-treatment')
         var newTreatment = {
-            date : $('#date').val(),
-            number : $('.animalNumber').val(),
-            breed : $('#breed').val(),
-            age : $('#age').val(),
-            color : $('.animalColor').val(),
-            sickdate : $('#sickdate').val(),
-            temperature : $('#temperature').val(),
-            pulse : $('#pulse').val(),
-            breath : $('#breath').val(),
-            diagnosis : $('#diagnosis').val(),
-            treatment : $('#treatment').val(),
-            medicine : $('#medicine').val(),
-            quantity : $('#quantity').val(),
-            end : $('#end').val(),
-            info : $('#info').val()
+            date: $('#date').val(),
+            number: $('.animalNumber').val(),
+            breed: $('#breed').val(),
+            age: $('#age').val(),
+            color: $('.animalColor').val(),
+            sickdate: $('#sickdate').val(),
+            temperature: $('#temperature').val(),
+            pulse: $('#pulse').val(),
+            breath: $('#breath').val(),
+            diagnosis: $('#diagnosis').val(),
+            treatment: $('#treatment').val(),
+            medicine: $('#medicine').val(),
+            quantity: $('#quantity').val(),
+            end: $('#end').val(),
+            info: $('#info').val()
         };
 
         $.ajax({
@@ -185,18 +185,18 @@ $(document).ready(function() {
             url: 'gydymai',
             method: 'POST', // Type of response and matches what we said in the route
             data: newTreatment,
-            success: function(response, textStatus, xhr) { // What to do if we succeed
+            success: function (response, textStatus, xhr) { // What to do if we succeed
                 //location.reload();
                 //console.log(response);
-                if(xhr.status === 201) {
+                if (xhr.status === 201) {
                     $('#add-treatment').modal('toggle');
                     location.reload();
-                } else if(xhr.status === 200) {
+                } else if (xhr.status === 200) {
                     setErrors(response);
                     return false;
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+            error: function (jqXHR, textStatus, errorThrown) { // What to do if we fail
                 console.log(JSON.stringify(jqXHR));
                 console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
             }
@@ -226,7 +226,7 @@ $(document).ready(function() {
         var firstDate = new Date(Date.now());
         var secondDate = new Date(birthday);
 
-        return diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime())/(24*60*60*1000)));
+        return diffDays = Math.round(Math.abs((firstDate.getTime() - secondDate.getTime()) / (24 * 60 * 60 * 1000)));
     }
 
     $('#edit-treatment-modal').on('show.bs.modal', function (e) {
@@ -274,7 +274,7 @@ $(document).ready(function() {
         var field = $(select);
         field.empty();
 
-        $.each(options, function(id, value) {
+        $.each(options, function (id, value) {
             //console.log(id + " val: " + value.id);
             field.append($('<option>', {
                 value: value.id,
@@ -287,22 +287,22 @@ $(document).ready(function() {
         clearErrors('#edit-treatment-modal');
         var editedTreatment = {
             'rowId': treatmentTableRowId,
-            'date' : $('.edit-treatment-date').val(),
-            'number' : $('.edit-treatment-animalNumber').val(),
-            'breed' : $('.edit-treatment-breed').val(),
-            'age' : $('.edit-treatment-animalAge').val(),
-            'color' : $('.edit-treatment-animalColor').val(),
-            'sickdate' : $('.edit-treatment-sickdate').val(),
-            'animalResearchData' : '',
-            'pulse' : $('.edit-treatment-animalPulse').val(),
-            'breath' : $('.breath').val(),
-            'temperature' : $('.edit-treatment-animalTemperature').val(),
-            'diagnosis' : $('.edit-treatment-diagnosis').val(),
-            'treatment' : $('.edit-treatment-treatment').val(),
-            'end' : $('.edit-treatment-end').val(),
-            'notes' : $('.edit-treatment-otherInfo').val(),
-            'medicine' : $('.edit-treatment-medicine').val(),
-            'quantity' : $('.edit-treatment-quantity').val()
+            'date': $('.edit-treatment-date').val(),
+            'number': $('.edit-treatment-animalNumber').val(),
+            'breed': $('.edit-treatment-breed').val(),
+            'age': $('.edit-treatment-animalAge').val(),
+            'color': $('.edit-treatment-animalColor').val(),
+            'sickdate': $('.edit-treatment-sickdate').val(),
+            'animalResearchData': '',
+            'pulse': $('.edit-treatment-animalPulse').val(),
+            'breath': $('.breath').val(),
+            'temperature': $('.edit-treatment-animalTemperature').val(),
+            'diagnosis': $('.edit-treatment-diagnosis').val(),
+            'treatment': $('.edit-treatment-treatment').val(),
+            'end': $('.edit-treatment-end').val(),
+            'notes': $('.edit-treatment-otherInfo').val(),
+            'medicine': $('.edit-treatment-medicine').val(),
+            'quantity': $('.edit-treatment-quantity').val()
         };
 
         $.ajax({
@@ -310,16 +310,16 @@ $(document).ready(function() {
             url: 'gydymai/' + treatmentTableRowId,
             method: 'PUT', // Type of response and matches what we said in the route
             data: editedTreatment,
-            success: function(response, textStatus, xhr) { // What to do if we succeed
-                if(xhr.status === 201) {
+            success: function (response, textStatus, xhr) { // What to do if we succeed
+                if (xhr.status === 201) {
                     $('#edit-treatment-modal').modal('toggle');
                     location.reload();
-                } else if(xhr.status === 200) {
+                } else if (xhr.status === 200) {
                     setErrors(response);
                     return false;
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+            error: function (jqXHR, textStatus, errorThrown) { // What to do if we fail
                 console.log(JSON.stringify(jqXHR));
                 console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
             }
@@ -333,22 +333,22 @@ $(document).ready(function() {
         var str = date.getUTCDate() - 1;
         var stra = date.getUTCMonth() - 1;
         var straa = date.getUTCDate() - 1;
-        console.log(str  + " " + stra + " " + straa);
+        console.log(str + " " + stra + " " + straa);
     }
 
     function getCurrentDate() {
         var d = new Date();
         var month = d.getMonth() + 1;
         var day = d.getDate();
-        return d.getFullYear() + '-' + (month<10 ? '0' : '') + month + '-' + (day<10 ? '0' : '') + day;
+        return d.getFullYear() + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
     }
 
-   function resetBtnStates() {
-       animalTableRowId = -1;
-       $('#delete').addClass('disabled');
-       $('#edit').addClass('disabled');
-       $('#cure').addClass('disabled');
-   }
+    function resetBtnStates() {
+        animalTableRowId = -1;
+        $('#delete').addClass('disabled');
+        $('#edit').addClass('disabled');
+        $('#cure').addClass('disabled');
+    }
 
     function resetMedBtnStates() {
         medicineTableRowId = -1;
@@ -368,52 +368,52 @@ $(document).ready(function() {
         $('#edit-treatment').addClass('disabled');
     }
 
-   // $('#delete').click(function () {
-   //    if(animalTableRowId !== -1) {
-   //
-   //        animalTableRowId = -1;
-   //    }
-   // });
+    // $('#delete').click(function () {
+    //    if(animalTableRowId !== -1) {
+    //
+    //        animalTableRowId = -1;
+    //    }
+    // });
 
     $('#delete').click(function () {
-        if(animalTableRowId !== -1) {
+        if (animalTableRowId !== -1) {
             $('#confirm-delete').modal('show');
             //animalTableRowId = -1;
         }
     });
 
     $('#edit').click(function () {
-        if(animalTableRowId !== -1) {
+        if (animalTableRowId !== -1) {
             $('#edit-animal').modal('show');
         }
     });
 
     $('#edit-medicine').click(function () {
-        if(medicineTableRowId !== -1) {
+        if (medicineTableRowId !== -1) {
             $('#edit-medicine-modal').modal('show');
         }
     });
 
     $('#delete-medicine').click(function () {
-        if(medicineTableRowId !== -1) {
+        if (medicineTableRowId !== -1) {
             $('#confirm-delete').modal('show');
         }
     });
 
     $('#edit-heat').click(function () {
-        if(heatTableRowId !== -1) {
+        if (heatTableRowId !== -1) {
             $('#edit-heat-modal').modal('show');
         }
     });
 
     $('#delete-heat').click(function () {
-        if(heatTableRowId !== -1) {
+        if (heatTableRowId !== -1) {
             $('#confirm-delete').modal('show');
         }
     });
 
     $('#edit-treatment').click(function () {
-        if(treatmentTableRowId !== -1) {
+        if (treatmentTableRowId !== -1) {
             $('#edit-treatment-modal').modal('show');
         }
         else {
@@ -422,14 +422,13 @@ $(document).ready(function() {
     });
 
     $('#delete-treatment').click(function () {
-        if(treatmentTableRowId !== -1) {
+        if (treatmentTableRowId !== -1) {
             $('#confirm-delete').modal('show');
         }
         else {
             return false;
         }
     });
-
 
 
     $('#edit-animal').on('show.bs.modal', function (e) {
@@ -470,15 +469,15 @@ $(document).ready(function() {
 
         var editedAnimal = {
             'rowId': animalTableRowId,
-            'number' : $("#nr-edit-val").val(),
-            'name' : $("#description-edit-val").val(),
-            'livebeing' : $("#live-being-edit-val").val(),
-            'breed' : $("#breed-being-edit-val").val(),
-            'gender' : $('input[name=gender]:checked', '#edit-animal').val(),
-            'color' : $("#color-edit-val").val(),
-            'mother' : $("#mother-edit-val").val(),
-            'father' : $("#father-edit-val").val(),
-            'desc' : $("#edited-description").val(),
+            'number': $("#nr-edit-val").val(),
+            'name': $("#description-edit-val").val(),
+            'livebeing': $("#live-being-edit-val").val(),
+            'breed': $("#breed-being-edit-val").val(),
+            'gender': $('input[name=gender]:checked', '#edit-animal').val(),
+            'color': $("#color-edit-val").val(),
+            'mother': $("#mother-edit-val").val(),
+            'father': $("#father-edit-val").val(),
+            'desc': $("#edited-description").val(),
             'birthday': $("#birthday-edit-val").val(),
             'filldate': $("#filldate-edit-val").val()
         };
@@ -487,16 +486,16 @@ $(document).ready(function() {
             url: '/sarasas/' + animalTableRowId,
             method: 'PUT', // Type of response and matches what we said in the route
             data: editedAnimal,
-            success: function(response, textStatus, xhr) { // What to do if we succeed
-                if(xhr.status === 201) {
+            success: function (response, textStatus, xhr) { // What to do if we succeed
+                if (xhr.status === 201) {
                     $('#edit-animal').modal('toggle');
                     location.reload();
-                } else if(xhr.status === 200) {
+                } else if (xhr.status === 200) {
                     setErrors(response);
                     return false;
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 //console.log(jqXHR);
             }
         });
@@ -532,232 +531,232 @@ $(document).ready(function() {
         }
     });
 
-   $('#confirm-delete-btn').click(function () {
-       if(animalTableRowId !== -1) {
-           var obj = {
-               id: animalTableRowId
-           };
-           $.ajax({
-               headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
-               url: '/gyvunas/trinti/' + animalTableRowId,
-               method: 'POST', // Type of response and matches what we said in the route
-               data: obj,
-               success: function(response) { // What to do if we succeed
-                   animalTableRowId = -1;
-                   location.reload();
-               },
-               error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
-                   console.log(JSON.stringify(jqXHR));
-                   console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
-               }
-           });
-       } else if (medicineTableRowId !== -1) {
-           var obj = {
-               id: medicineTableRowId
-           };
-           $.ajax({
-               headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
-               url: '/vaistai/trinti/' + medicineTableRowId,
-               method: 'POST', // Type of response and matches what we said in the route
-               data: obj,
-               success: function(response) { // What to do if we succeed
-                   medicineTableRowId = -1;
-                   location.reload();
-               },
-               error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
-                   console.log(JSON.stringify(jqXHR));
-                   console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
-               }
-           });
-       } else if (heatTableRowId !== -1) {
-           var obj = {
-               id: heatTableRowId
-           };
-           $.ajax({
-               headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
-               url: '/ruja/trinti/' + heatTableRowId,
-               method: 'POST', // Type of response and matches what we said in the route
-               data: obj,
-               success: function(response) { // What to do if we succeed
-                   heatTableRowId = -1;
-                   location.reload();
-               },
-               error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
-                   console.log(JSON.stringify(jqXHR));
-                   console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
-               }
-           });
-       } else if(treatmentTableRowId !== -1) {
-           var obj = {
-               id: treatmentTableRowId
-           };
-           console.log("id = " +treatmentTableRowId);
-           $.ajax({
-               headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
-               url: '/gydymai/' + medicineTableRowId,
-               method: 'DELETE', // Type of response and matches what we said in the route
-               data: obj,
-               success: function(response, textStatus, xhr) { // What to do if we succeed
-                   if(xhr.status === 202) {
-                       treatmentTableRowId = -1;
-                       location.reload();
-                   } else if(xhr.status === 200) {
-                       toastr.options = {
-                           "closeButton": false,
-                           "debug": false,
-                           "newestOnTop": false,
-                           "progressBar": false,
-                           "positionClass": "toast-top-center",
-                           "preventDuplicates": false,
-                           "onclick": null,
-                           "showDuration": "300",
-                           "hideDuration": "1000",
-                           "timeOut": "5000",
-                           "extendedTimeOut": "1000",
-                           "showEasing": "swing",
-                           "hideEasing": "linear",
-                           "showMethod": "fadeIn",
-                           "hideMethod": "fadeOut"
-                       };
-                       toastr["error"](response.medicine);
-                       return false;
-                   }
-               },
-               error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
-                   console.log(JSON.stringify(jqXHR));
-                   console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
-               }
-           });
-       }
-   });
+    $('#confirm-delete-btn').click(function () {
+        if (animalTableRowId !== -1) {
+            var obj = {
+                id: animalTableRowId
+            };
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
+                url: '/gyvunas/trinti/' + animalTableRowId,
+                method: 'POST', // Type of response and matches what we said in the route
+                data: obj,
+                success: function (response) { // What to do if we succeed
+                    animalTableRowId = -1;
+                    location.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown) { // What to do if we fail
+                    console.log(JSON.stringify(jqXHR));
+                    console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+                }
+            });
+        } else if (medicineTableRowId !== -1) {
+            var obj = {
+                id: medicineTableRowId
+            };
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
+                url: '/vaistai/trinti/' + medicineTableRowId,
+                method: 'POST', // Type of response and matches what we said in the route
+                data: obj,
+                success: function (response) { // What to do if we succeed
+                    medicineTableRowId = -1;
+                    location.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown) { // What to do if we fail
+                    console.log(JSON.stringify(jqXHR));
+                    console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+                }
+            });
+        } else if (heatTableRowId !== -1) {
+            var obj = {
+                id: heatTableRowId
+            };
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
+                url: '/ruja/trinti/' + heatTableRowId,
+                method: 'POST', // Type of response and matches what we said in the route
+                data: obj,
+                success: function (response) { // What to do if we succeed
+                    heatTableRowId = -1;
+                    location.reload();
+                },
+                error: function (jqXHR, textStatus, errorThrown) { // What to do if we fail
+                    console.log(JSON.stringify(jqXHR));
+                    console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+                }
+            });
+        } else if (treatmentTableRowId !== -1) {
+            var obj = {
+                id: treatmentTableRowId
+            };
+            console.log("id = " + treatmentTableRowId);
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
+                url: '/gydymai/' + medicineTableRowId,
+                method: 'DELETE', // Type of response and matches what we said in the route
+                data: obj,
+                success: function (response, textStatus, xhr) { // What to do if we succeed
+                    if (xhr.status === 202) {
+                        treatmentTableRowId = -1;
+                        location.reload();
+                    } else if (xhr.status === 200) {
+                        toastr.options = {
+                            "closeButton": false,
+                            "debug": false,
+                            "newestOnTop": false,
+                            "progressBar": false,
+                            "positionClass": "toast-top-center",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "300",
+                            "hideDuration": "1000",
+                            "timeOut": "5000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        };
+                        toastr["error"](response.medicine);
+                        return false;
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) { // What to do if we fail
+                    console.log(JSON.stringify(jqXHR));
+                    console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+                }
+            });
+        }
+    });
 
-   $('.js-save-new-animal').click(function () {
-       clearErrors('#add-animal');
+    $('.js-save-new-animal').click(function () {
+        clearErrors('#add-animal');
 
-       var newAnimal = {
-           'number' : $(".nr-val").val(),
-           'name' : $(".description-val").val(),
-           'livebeing' : $(".live-being").val(),
-           'breed' : $(".breed-being").val(),
-           'gender' : $('input[name=gender]:checked', '#add-animal').val(),
-           'color' : $(".color").val(),
-           'mother' : $(".mother").val(),
-           'father' : $(".father").val(),
-           'desc' : $(".description-user").val(),
-           'birthday': $(".birthday").val(),
-           'filldate' : $(".filldate").val()
-       };
+        var newAnimal = {
+            'number': $(".nr-val").val(),
+            'name': $(".description-val").val(),
+            'livebeing': $(".live-being").val(),
+            'breed': $(".breed-being").val(),
+            'gender': $('input[name=gender]:checked', '#add-animal').val(),
+            'color': $(".color").val(),
+            'mother': $(".mother").val(),
+            'father': $(".father").val(),
+            'desc': $(".description-user").val(),
+            'birthday': $(".birthday").val(),
+            'filldate': $(".filldate").val()
+        };
 
-       $.ajax({
-           headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
-           url: 'sarasas',
-           method: 'POST', // Type of response and matches what we said in the route
-           data: newAnimal,
-           success: function(response, textStatus, xhr) { // What to do if we succeed
-               if(xhr.status === 201) {
-                   $('#add-animal').modal('toggle');
-                   location.reload();
-               } else if(xhr.status === 200) {
-                   setErrors(response);
-                   return false;
-               }
-           },
-           error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+        $.ajax({
+            headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
+            url: 'sarasas',
+            method: 'POST', // Type of response and matches what we said in the route
+            data: newAnimal,
+            success: function (response, textStatus, xhr) { // What to do if we succeed
+                if (xhr.status === 201) {
+                    $('#add-animal').modal('toggle');
+                    location.reload();
+                } else if (xhr.status === 200) {
+                    setErrors(response);
+                    return false;
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) { // What to do if we fail
 
-           }
-       });
-   });
+            }
+        });
+    });
 
-   $('.js-get-pdf').click(function () {
-       clearErrors('#get-pdf');
+    $('.js-get-pdf').click(function () {
+        clearErrors('#get-pdf');
 
-       //console.log(RemoveBaseUrl($('#get-pdf form').prop('action')));
+        //console.log(RemoveBaseUrl($('#get-pdf form').prop('action')));
 
-       var newRequest = {
-           'startdate': $(".startdate").val(),
-           'enddate': $(".enddate").val()
-       };
+        var newRequest = {
+            'startdate': $(".startdate").val(),
+            'enddate': $(".enddate").val()
+        };
 
-       var errors = {};
+        var errors = {};
 
-       if (!isDate(newRequest.startdate)) {
-           errors.startdate = ["Neteisingai įvesta data."];
-       }
-       if (!isDate(newRequest.enddate)) {
-           errors.enddate = ["Neteisingai įvesta data."];
-       }
-       if (newRequest.startdate.length == 0) {
-           errors.startdate = ["Pasirinkite data."];
-       }
-       if (newRequest.enddate.length == 0) {
-           errors.enddate = ["Pasirinkite data."];
-       }
-       if (!isEmptyObject(errors)) {
-           setErrors(errors);
-           return false;
-       }
-       $('#get-pdf').modal('toggle');
-       return true;
-   });
+        if (!isDate(newRequest.startdate)) {
+            errors.startdate = ["Neteisingai įvesta data."];
+        }
+        if (!isDate(newRequest.enddate)) {
+            errors.enddate = ["Neteisingai įvesta data."];
+        }
+        if (newRequest.startdate.length == 0) {
+            errors.startdate = ["Pasirinkite data."];
+        }
+        if (newRequest.enddate.length == 0) {
+            errors.enddate = ["Pasirinkite data."];
+        }
+        if (!isEmptyObject(errors)) {
+            setErrors(errors);
+            return false;
+        }
+        $('#get-pdf').modal('toggle');
+        return true;
+    });
 
-       // var request = new XMLHttpRequest(), file, fileURL;
-       // request.open("POST", RemoveBaseUrl($('#get-pdf form').prop('action')));
-       // request.setRequestHeader('X-CSRF-TOKEN', $('meta[name=csrf-token]').attr('content'));
-       // request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-       // request.responseType = "arraybuffer";
-       // request.send(newRequest);
-       // request.onreadystatechange = function () {
-       //     if (request.readyState === 4 && request.status === 200) {
-       //         file = new Blob([request.response], { type: 'application/pdf' });
-       //         if (window.navigator && window.navigator.msSaveOrOpenBlob) { // IE
-       //             window.navigator.msSaveOrOpenBlob(file);
-       //         } else {
-       //             fileURL = URL.createObjectURL(file);
-       //             window.open(fileURL);
-       //         }
-       //     } else if(request.readyState === 4 && request.status === 201) {
-       //
-       //         setErrors(request.response);
-       //         return false;
-       //     }
-       // };
+    // var request = new XMLHttpRequest(), file, fileURL;
+    // request.open("POST", RemoveBaseUrl($('#get-pdf form').prop('action')));
+    // request.setRequestHeader('X-CSRF-TOKEN', $('meta[name=csrf-token]').attr('content'));
+    // request.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    // request.responseType = "arraybuffer";
+    // request.send(newRequest);
+    // request.onreadystatechange = function () {
+    //     if (request.readyState === 4 && request.status === 200) {
+    //         file = new Blob([request.response], { type: 'application/pdf' });
+    //         if (window.navigator && window.navigator.msSaveOrOpenBlob) { // IE
+    //             window.navigator.msSaveOrOpenBlob(file);
+    //         } else {
+    //             fileURL = URL.createObjectURL(file);
+    //             window.open(fileURL);
+    //         }
+    //     } else if(request.readyState === 4 && request.status === 201) {
+    //
+    //         setErrors(request.response);
+    //         return false;
+    //     }
+    // };
 
-       // $.ajax({
-       //     headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
-       //     url: RemoveBaseUrl($('#get-pdf form').prop('action')),
-       //     method: 'POST', // Type of response and matches what we said in the route
-       //     data: newRequest,
-       //     success: function(response, textStatus, xhr) { // What to do if we succeed
-       //         if(xhr.status === 201) {
-       //             $('#get-pdf').modal('toggle');
-       //             //console.log(response);
-       //             //location.reload();
-       //         } else if(xhr.status === 200) {
-       //             setErrors(response);
-       //             return false;
-       //         }
-       //     },
-       //     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
-       //
-       //     }
-       // });
+    // $.ajax({
+    //     headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
+    //     url: RemoveBaseUrl($('#get-pdf form').prop('action')),
+    //     method: 'POST', // Type of response and matches what we said in the route
+    //     data: newRequest,
+    //     success: function(response, textStatus, xhr) { // What to do if we succeed
+    //         if(xhr.status === 201) {
+    //             $('#get-pdf').modal('toggle');
+    //             //console.log(response);
+    //             //location.reload();
+    //         } else if(xhr.status === 200) {
+    //             setErrors(response);
+    //             return false;
+    //         }
+    //     },
+    //     error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+    //
+    //     }
+    // });
 
 
-   //MEDICAMENTS
+    //MEDICAMENTS
 
     $('.js-add-new-medicament').click(function () {
         clearErrors('#add-medicine');
 
         var newMedicament = {
-            'filldate' : $('.filldate').val(),
-            'medicname' : $('.medicname').val(),
-            'productiondate' : $('.productiondate').val(),
-            'expirydate' : $('.expirydate').val(),
-            'series' : $('.series').val(),
-            'patientregistrationnr' : $('.patientregistrationnr').val(),
-            'quantity' : $('.quantity').val(),
-            'consumed' : $('.consumed').val(),
-            'medicine_category' : $('.medicine_category').val()
+            'filldate': $('.filldate').val(),
+            'medicname': $('.medicname').val(),
+            'productiondate': $('.productiondate').val(),
+            'expirydate': $('.expirydate').val(),
+            'series': $('.series').val(),
+            'patientregistrationnr': $('.patientregistrationnr').val(),
+            'quantity': $('.quantity').val(),
+            'consumed': $('.consumed').val(),
+            'medicine_category': $('.medicine_category').val()
         };
 
         $.ajax({
@@ -765,16 +764,16 @@ $(document).ready(function() {
             url: '/medikamentai',
             method: 'POST', // Type of response and matches what we said in the route
             data: newMedicament,
-            success: function(response, textStatus, xhr) { // What to do if we succeed
-                if(xhr.status === 201) {
+            success: function (response, textStatus, xhr) { // What to do if we succeed
+                if (xhr.status === 201) {
                     $('#add-medicine').modal('toggle');
                     location.reload();
-                } else if(xhr.status === 200) {
+                } else if (xhr.status === 200) {
                     setErrors(response);
                     return false;
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+            error: function (jqXHR, textStatus, errorThrown) { // What to do if we fail
                 console.log(JSON.stringify(jqXHR));
                 console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
             }
@@ -809,14 +808,14 @@ $(document).ready(function() {
         clearErrors('#edit-medicine-modal');
         var editedMedicament = {
             'rowId': medicineTableRowId,
-            'filldate' : $('#edit-med-date').val(),
-            'medicname' : $('#edit-med-medicname').val(),
-            'productiondate' : $('#edit-med-productiondate').val(),
-            'expirydate' : $('#edit-med-expirydate').val(),
-            'series' : $('#edit-med-series').val(),
-            'patientregistrationnr' : $('#edit-med-patientregistrationnr').val(),
-            'quantity' : $('#edit-med-quantity').val(),
-            'consumed' : $('#edit-med-consumed').val()
+            'filldate': $('#edit-med-date').val(),
+            'medicname': $('#edit-med-medicname').val(),
+            'productiondate': $('#edit-med-productiondate').val(),
+            'expirydate': $('#edit-med-expirydate').val(),
+            'series': $('#edit-med-series').val(),
+            'patientregistrationnr': $('#edit-med-patientregistrationnr').val(),
+            'quantity': $('#edit-med-quantity').val(),
+            'consumed': $('#edit-med-consumed').val()
         };
 
         $.ajax({
@@ -824,16 +823,16 @@ $(document).ready(function() {
             url: '/medikamentai/' + medicineTableRowId,
             method: 'PUT', // Type of response and matches what we said in the route
             data: editedMedicament,
-            success: function(response, textStatus, xhr) { // What to do if we succeed
-                if(xhr.status === 201) {
+            success: function (response, textStatus, xhr) { // What to do if we succeed
+                if (xhr.status === 201) {
                     $('#edit-medicine-modal').modal('toggle');
                     location.reload();
-                } else if(xhr.status === 200) {
+                } else if (xhr.status === 200) {
                     setErrors(response);
                     return false;
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+            error: function (jqXHR, textStatus, errorThrown) { // What to do if we fail
                 console.log(JSON.stringify(jqXHR));
                 console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
             }
@@ -853,7 +852,7 @@ $(document).ready(function() {
     /* HEAT */
     $('#add-heat').on('show.bs.modal', function (e) {
         if (e.namespace === 'bs.modal') {
-            $(".number").val('');
+            //$(".number").val('');
             $(".calving_date").val('');
             $(".heat_date").val('');
             $(".calving_date_expected").val('');
@@ -884,11 +883,11 @@ $(document).ready(function() {
         clearErrors('#add-heat');
 
         var newHeat = {
-            'number' : $('.number').val(),
-            'calving_date' : $('.calving_date').val(),
-            'heat_date' : $('.heat_date').val(),
-            'calving_date_expected' : $('.calving_date_expected').val(),
-            'notes' : $('.notes').val()
+            'number': $('.number').val(),
+            'calving_date': $('.calving_date').val(),
+            'heat_date': $('.heat_date').val(),
+            'calving_date_expected': $('.calving_date_expected').val(),
+            'notes': $('.notes').val()
         };
 
         $.ajax({
@@ -896,16 +895,16 @@ $(document).ready(function() {
             url: '/ruja',
             method: 'POST', // Type of response and matches what we said in the route
             data: newHeat,
-            success: function(response, textStatus, xhr) { // What to do if we succeed
-                if(xhr.status === 201) {
+            success: function (response, textStatus, xhr) { // What to do if we succeed
+                if (xhr.status === 201) {
                     $('#add-medicine').modal('toggle');
                     location.reload();
-                } else if(xhr.status === 200) {
+                } else if (xhr.status === 200) {
                     setErrors(response);
                     return false;
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+            error: function (jqXHR, textStatus, errorThrown) { // What to do if we fail
                 console.log(JSON.stringify(jqXHR));
                 console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
             }
@@ -915,11 +914,11 @@ $(document).ready(function() {
         clearErrors('#edit-heat-modal');
         var editHeat = {
             'rowId': heatTableRowId,
-            'number' : $('#edit-heat-number').val(),
-            'calving_date' : $('#edit-heat-calving_date').val(),
-            'heat_date' : $('#edit-heat-heat_date').val(),
-            'calving_date_expected' : $('#edit-heat-calving_date_expected').val(),
-            'notes' : $('#edit-heat-notes').val()
+            'number': $('#edit-heat-number').val(),
+            'calving_date': $('#edit-heat-calving_date').val(),
+            'heat_date': $('#edit-heat-heat_date').val(),
+            'calving_date_expected': $('#edit-heat-calving_date_expected').val(),
+            'notes': $('#edit-heat-notes').val()
         };
 
         $.ajax({
@@ -927,16 +926,16 @@ $(document).ready(function() {
             url: '/ruja/' + medicineTableRowId,
             method: 'PUT', // Type of response and matches what we said in the route
             data: editHeat,
-            success: function(response, textStatus, xhr) { // What to do if we succeed
-                if(xhr.status === 201) {
+            success: function (response, textStatus, xhr) { // What to do if we succeed
+                if (xhr.status === 201) {
                     $('#edit-heat-modal').modal('toggle');
                     location.reload();
-                } else if(xhr.status === 200) {
+                } else if (xhr.status === 200) {
                     setErrors(response);
                     return false;
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) { // What to do if we fail
+            error: function (jqXHR, textStatus, errorThrown) { // What to do if we fail
                 console.log(JSON.stringify(jqXHR));
                 console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
             }
@@ -944,8 +943,8 @@ $(document).ready(function() {
     });
     $('#search').autocomplete({
         source: '/ruja/autocomplete',
-        minLength : 1,
-        select : function(event, ui) {
+        minLength: 1,
+        select: function (event, ui) {
             $('#search').val(ui.item.value);
         }
     });
@@ -957,14 +956,15 @@ $(document).ready(function() {
 })
 
 function formEditHeatHandler(e) {
-    if(e.target.id == "edit-heat-calving_date" || e.target.id == "edit-heat-heat_date") {
+    if (e.target.id == "edit-heat-calving_date" || e.target.id == "edit-heat-heat_date") {
         var field = $('#edit-heat-calving_date_expected');
         var dates = [$('#edit-heat-calving_date'), $('#edit-heat-heat_date')];
         calcCowExpectedDate(field, dates);
     }
 }
+
 function formAddHeatHandler(e) {
-    if(e.target.id == "calving_date" || e.target.id == "heat_date") {
+    if (e.target.id == "calving_date" || e.target.id == "heat_date") {
         var field = $('#calving_date_expected');
         var dates = [$('#calving_date'), $('#heat_date')];
         calcCowExpectedDate(field, dates);
@@ -973,14 +973,14 @@ function formAddHeatHandler(e) {
 
 function calcCowExpectedDate(field, dates) {
     var d;
-    if(dates[1].val().length == 0) {
+    if (dates[1].val().length == 0) {
         d = new Date(dates[0].val());
         d.setDate(d.getDate() + 320);
     } else {
         d = new Date(dates[1].val());
         d.setDate(d.getDate() + 275);
     }
-    if ( !isNaN( d.getTime() ) ) {
+    if (!isNaN(d.getTime())) {
         field.val(d.getFullYear() + "-" + ('0' + (d.getMonth() + 1)).slice(-2) + "-" + ('0' + d.getDate()).slice(-2));
         return true;
     }
@@ -992,11 +992,13 @@ function setErrors(errors) {
         $('span.err-' + name).children('strong').text(value[0]);
     });
 }
+
 function clearErrors(modalId) {
     $(modalId).find('span.help-block').each(function () {
         $(this).children('strong').text('');
     });
 }
+
 function RemoveBaseUrl(url) {
     /*
      * Replace base URL in given string, if it exists, and return the result.
@@ -1018,10 +1020,10 @@ function RemoveBaseUrl(url) {
 
     return url;
 }
-function isDate(txtDate)
-{
+
+function isDate(txtDate) {
     var currVal = txtDate;
-    if(currVal == '')
+    if (currVal == '')
         return false;
 
     var rxDatePattern = /^(\d{4})(\/|-)(\d{1,2})(\/|-)(\d{1,2})$/; //Declare Regex
@@ -1034,25 +1036,25 @@ function isDate(txtDate)
 
     // changed for yyyy/mm/dd format
     dtMonth = dtArray[3];
-    dtDay= dtArray[5];
+    dtDay = dtArray[5];
     dtYear = dtArray[1];
 
     if (dtMonth < 1 || dtMonth > 12)
         return false;
-    else if (dtDay < 1 || dtDay> 31)
+    else if (dtDay < 1 || dtDay > 31)
         return false;
-    else if ((dtMonth==4 || dtMonth==6 || dtMonth==9 || dtMonth==11) && dtDay ==31)
+    else if ((dtMonth == 4 || dtMonth == 6 || dtMonth == 9 || dtMonth == 11) && dtDay == 31)
         return false;
-    else if (dtMonth == 2)
-    {
+    else if (dtMonth == 2) {
         var isleap = (dtYear % 4 == 0 && (dtYear % 100 != 0 || dtYear % 400 == 0));
-        if (dtDay> 29 || (dtDay ==29 && !isleap))
+        if (dtDay > 29 || (dtDay == 29 && !isleap))
             return false;
     }
     return true;
 }
+
 function isEmptyObject(obj) {
-    for(var prop in obj) {
+    for (var prop in obj) {
         if (Object.prototype.hasOwnProperty.call(obj, prop)) {
             return false;
         }
