@@ -6,8 +6,8 @@
 
 @section('content')
     @if(auth()->user()->hasRole('admin'))
-        {{--@include('modals.add.heat')--}}
-        {{--@include('modals.edit.heat')--}}
+        @include('modals.add.heat')
+        @include('modals.edit.heat')
         @include('modals.confirmDelete')
     @endif
     @include('modals.pdfDateRange')
@@ -37,36 +37,7 @@
             </form>
         </div>
         <div class="col-lg-9">
-            @if(!empty($animal))
-                <div class="table-responsive">
-                    <table class="table table-curved table-color">
-                        <theader>
-                            <tr class="align-rule">
-                                <th>Numerėlis</th>
-                                <th>Vardas</th>
-                                <th>Gyvis</th>
-                                <th>Veislės vardas</th>
-                                <th>Spava</th>
-                                <th>Gimtadienis</th>
-                                <th>Mama</th>
-                                <th>Tėtis</th>
-                            </tr>
-                        </theader>
-                        <tbody>
-                            <tr>
-                                <td>{{$animal->number}}</td>
-                                <td>{{$animal->name}}</td>
-                                <td>{{$animal->liveBeing}}</td>
-                                <td>{{$animal->breedName}}</td>
-                                <td>{{$animal->color}}</td>
-                                <td>{{$animal->birthday}}</td>
-                                <td>{{$animal->mother}}</td>
-                                <td>{{$animal->father}}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            @endif
+
             @if(!empty($heats) && count($heats) > 0)
                 <div class="table-responsive">
                     <table class="table table-curved table-color">
