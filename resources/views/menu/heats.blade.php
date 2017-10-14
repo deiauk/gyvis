@@ -37,7 +37,7 @@
             </form>
         </div>
         <div class="col-lg-9">
-            @if(!is_null($animal))
+            @if(!empty($animal))
                 <div class="table-responsive">
                     <table class="table table-curved table-color">
                         <theader>
@@ -67,7 +67,7 @@
                     </table>
                 </div>
             @endif
-            @if(count($heats) > 0)
+            @if(!empty($heats) && count($heats) > 0)
                 <div class="table-responsive">
                     <table class="table table-curved table-color">
                         <theader>
