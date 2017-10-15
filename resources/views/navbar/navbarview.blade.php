@@ -17,8 +17,16 @@
                 <li class="{{ Route::currentRouteNamed('sarasas') ? 'active' : '' }}"><a href="{{ route('sarasas') }}">Sąrašas</a></li>
                 <li class="{{ Route::currentRouteNamed('gydymai') ? 'active' : '' }}"><a href="{{ route('gydymai') }}">Gydymas</a></li>
                 <li class="{{ (Route::currentRouteNamed('ruja') || Route::currentRouteNamed('heat.search') ) ? 'active' : '' }}"><a href="{{ route('ruja') }}">Ruja</a></li>
-                <li class="{{ Route::currentRouteNamed('medikamentai') && $category == 1 ? 'active' : '' }}"><a href="{{ route('medikamentai', ['category' => 1]) }}">V. Rasimo medikamentai</a></li>
-                <li class="{{ Route::currentRouteNamed('medikamentai') && $category == 2 ? 'active' : '' }}"><a href="{{ route('medikamentai', ['category' => 2]) }}">R. Knašio medikamentai</a></li>
+                <li class="{{ (Route::currentRouteNamed('ruja') || Route::currentRouteNamed('heat.search') ) ? 'active' : '' }}"><a href="{{ route('ruja') }}">Ruja</a></li>
+                <li class="{{ Route::currentRouteNamed('medikamentai') ? 'active' : '' }}">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">Medikamentai <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li class="{{ Route::currentRouteNamed('medikamentai') && $category == 1 ? 'active' : '' }}"><a href="{{ route('medikamentai', ['category' => 1]) }}">V. Rasimo medikamentai</a></li>
+                        <li class="{{ Route::currentRouteNamed('medikamentai') && $category == 2 ? 'active' : '' }}"><a href="{{ route('medikamentai', ['category' => 2]) }}">R. Knašio medikamentai</a></li>
+                    </ul>
+                </li>
+
+
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @if(auth()->user()->hasRole('admin'))
