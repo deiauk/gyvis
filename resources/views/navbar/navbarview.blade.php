@@ -26,7 +26,10 @@
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                @if(auth()->user()->hasRole('admin'))
+                <li>
+                    <a href="{{ route('galerija') }}">Galerija</a>
+                </li>
+                @if(auth()->check() && auth()->user()->hasRole('admin'))
                     <li>
                         <a href="{{ route('token.index') }}">Siųsti pakvietimą</a>
                     </li>

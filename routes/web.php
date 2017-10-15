@@ -42,6 +42,9 @@ Route::group(['middleware' => 'auth'], function () {
             'index' => 'ruja'
         ]
     ]);
+
+    Route::post('galerija', 'GalleryController@create')->middleware('role:admin')->name('gallery.create');
+    Route::delete('galerija/{gallery}', 'GalleryController@delete')->middleware('role:admin')->name('gallery.delete');
 });
 
 Auth::routes();
@@ -51,3 +54,5 @@ Route::get('prisijungti', 'HomeController@index')->name('auth.login');
 //Route::get('registruotis', 'HomeController@index')->name('auth.register');
 
 Route::get('zetonas/{token}', 'TokenController@create')->name('token.create');
+
+Route::get('galerija', 'GalleryController@index')->name('galerija');

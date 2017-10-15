@@ -3,6 +3,7 @@ $(document).ready(function () {
     var medicineTableRowId = -1;
     var treatmentTableRowId = -1;
     var heatTableRowId = -1;
+    var galleryTableRowId = -1;
 
     $('.clickable-row').click(function () {
         var selectedClass = $('.selected-table-row');
@@ -627,6 +628,29 @@ $(document).ready(function () {
                     console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
                 }
             });
+        } else if (galleryTableRowId !== -1) {
+            var obj = {
+                id: galleryTableRowId
+            };
+
+            $.ajax({
+                headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
+                url: '/galerija/' + galleryTableRowId,
+                method: 'DELETE', // Type of response and matches what we said in the route
+                data: obj,
+                success: function (response, textStatus, xhr) { // What to do if we succeed
+                    if (xhr.status === 202) {
+                        galleryTableRowId = -1;
+                        location.reload();
+                    } else if (xhr.status === 200) {
+                        return false;
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) { // What to do if we fail
+                    console.log(JSON.stringify(jqXHR));
+                    console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+                }
+            });
         }
     });
 
@@ -956,12 +980,36 @@ $(document).ready(function () {
             $('#search').val(ui.item.value);
         }
     });
+
     $('#form-edit-heat').on('change', formEditHeatHandler);
     $('#form-edit-heat').on('input', formEditHeatHandler);
 
     $('#form-add-heat').on('change', formAddHeatHandler);
     $('#form-add-heat').on('input', formAddHeatHandler);
-})
+
+    /* GALLERY */
+    $('#gallery-upload').on('show.bs.modal', function (e) {
+        if (e.namespace === 'bs.modal') {
+            $("#file").val('');
+        }
+    });
+    $("#file").change(function(){
+        readURL(this);
+    });
+    $('.gallery-delete').click(function() {
+        galleryTableRowId = $(this).data('id');
+        $('#confirm-delete').modal('show');
+    });
+});
+function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            $('#upload-preview').attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
+}
 function disableByValue(inputVal, inputResult) {
     if(inputVal.value == '') {
         inputResult.prop('disabled', false);
