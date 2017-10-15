@@ -68,5 +68,13 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <a href="{{ route('galerija') }}" class="menu-btn a">
+                <span class="icon icon-gear"></span>
+                <span class="right"></span>Galerija
+            </a>
+        </div>
+    </div>
 </div>
 @endsection
