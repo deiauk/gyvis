@@ -871,6 +871,14 @@ $(document).ready(function () {
                     $(".calving_date").val(response.calving_date);
                     $(".heat_date").val(response.heat_date);
                     $(".calving_date_expected").val(response.calving_date_expected);
+
+                    if(response.calving_date != null) {
+                        $(".heat_date").prop('disabled', 'true');
+                    }
+                    if(response.heat_date != null) {
+                        $(".calving_date").prop('disabled', 'true');
+                    }
+
                     $(".notes").val(response.notes);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -954,11 +962,25 @@ $(document).ready(function () {
     $('#form-add-heat').on('change', formAddHeatHandler);
     $('#form-add-heat').on('input', formAddHeatHandler);
 })
-
+function disableByValue(inputVal, inputResult) {
+    if(inputVal.value == '') {
+        inputResult.prop('disabled', false);
+    }
+    else {
+        inputResult.val('').prop('disabled', true);
+    }
+}
 function formEditHeatHandler(e) {
     if (e.target.id == "edit-heat-calving_date" || e.target.id == "edit-heat-heat_date") {
         var field = $('#edit-heat-calving_date_expected');
         var dates = [$('#edit-heat-calving_date'), $('#edit-heat-heat_date')];
+
+        if(e.target.id == "edit-heat-calving_date") {
+            disableByValue(e.target, dates[1]);
+        }
+        if(e.target.id == "edit-heat-heat_date") {
+            disableByValue(e.target, dates[0]);
+        }
         calcCowExpectedDate(field, dates);
     }
 }
@@ -967,6 +989,14 @@ function formAddHeatHandler(e) {
     if (e.target.id == "calving_date" || e.target.id == "heat_date") {
         var field = $('#calving_date_expected');
         var dates = [$('#calving_date'), $('#heat_date')];
+
+        if(e.target.id == "calving_date") {
+            disableByValue(e.target, dates[1]);
+        }
+        if(e.target.id == "heat_date") {
+            disableByValue(e.target, dates[0]);
+        }
+
         calcCowExpectedDate(field, dates);
     }
 }
