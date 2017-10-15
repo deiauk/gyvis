@@ -9,12 +9,12 @@
 @section('content')
 
     @if(auth()->check() && auth()->user()->hasRole('admin'))
+        @include('modals.gallery.upload');
         @include('modals.confirmDelete')
     @endif
 
     <div class="row crud-btns">
         @if(auth()->check() && auth()->user()->hasRole('admin'))
-            <button type="button" class="btn btn-danger disabled" id="gallery-delete"><i class="fa fa-trash" aria-hidden="true"></i> Ištrinti</button>
             <button type="button" class="btn btn-success" id="gallery-upload" data-toggle="modal" data-target="#gallery-upload"><i class="fa fa-upload" aria-hidden="true"></i> Įkelti nuotrauką</button>
         @endif
     </div>
