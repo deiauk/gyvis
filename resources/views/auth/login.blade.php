@@ -1,4 +1,8 @@
-@extends('layouts.app')
+@extends('welcome')
+
+@section('navbar')
+    @include('navbar.navbarview-guest')
+@endsection
 
 @section('content')
 <div class="container">

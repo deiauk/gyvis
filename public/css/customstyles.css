@@ -412,3 +412,6 @@ button#get-pdf-btn{
     max-width: 100%;
     margin-bottom: 15px;
 }
+.lb-nav a {
+    margin: 0;
+}

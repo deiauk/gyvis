@@ -1000,6 +1000,12 @@ $(document).ready(function () {
         galleryTableRowId = $(this).data('id');
         $('#confirm-delete').modal('show');
     });
+
+    /* LIGHTBOX */
+    lightbox.option({
+        'wrapAround': true,
+        'showImageNumberLabel' : false
+    })
 });
 function readURL(input) {
     if (input.files && input.files[0]) {

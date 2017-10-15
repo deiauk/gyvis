@@ -3,13 +3,15 @@
 @section('navbar')
     @if(auth()->check())
         @include('navbar.navbarview')
+    @else
+        @include('navbar.navbarview-guest')
     @endif
 @endsection
 
 @section('content')
 
     @if(auth()->check() && auth()->user()->hasRole('admin'))
-        @include('modals.gallery.upload');
+        @include('modals.gallery.upload')
         @include('modals.confirmDelete')
     @endif
 
@@ -25,7 +27,9 @@
             @if($i == 0)<div class="row">@endif
 
             <div class="col-lg-3">
-                <img class="gallery-img" src="{{ asset('uploads/gallery/' . $gallery->filename) }}">
+                <a data-lightbox="lightbox" href="{{ asset('uploads/gallery/' . $gallery->filename) }}">
+                    <img class="gallery-img" src="{{ asset('uploads/gallery/' . $gallery->filename) }}">
+                </a>
                 @if(auth()->check() && auth()->user()->hasRole('admin'))
                     <a class="gallery-delete" data-id="{{ $gallery->id }}" href="#">Ištrinti</a>
                 @endif

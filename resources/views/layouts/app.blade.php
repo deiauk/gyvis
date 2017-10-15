@@ -44,6 +44,7 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
+                            <li class="{{ Route::currentRouteNamed('galerija') ? 'active' : '' }}"><a href="{{ route('galerija') }}">Galerija</a></li>
                             <li class="{{ Route::currentRouteNamed('login') ? 'active' : '' }}"><a href="{{ route('login') }}">Prisijungti</a></li>
                         @else
                             <li class="dropdown">
