@@ -18,4 +18,9 @@ class Heat extends Model
     {
         return static::whereBetween('calving_date', $dateRange);
     }
+
+    public static function dateRangeExpected($dateRange)
+    {
+        return static::whereBetween('calving_date_expected', $dateRange);
+    }
 }

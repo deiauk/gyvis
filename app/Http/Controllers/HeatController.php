@@ -99,4 +99,27 @@ class HeatController extends Controller
     public function getData(Heat $heat) {
         return $heat;
     }
+    public function indexCalving()
+    {
+        $search = '';
+        if(!empty(request('search'))) {
+            $this->validate(request(), [
+                'search' => 'numeric'
+            ]);
+            $search = request('search');
+        }
+
+        $months = [];
+        for($i = 0; $i < 12; $i++) {
+            $months[$i] = [];
+        }
+        $year = empty($search) ? date('Y') : $search;
+
+        $heats = Heat::whereYear('calving_date_expected', '=', $year)->get();
+        foreach ($heats as $heat) {
+            $months[date('m', strtotime($heat->calving_date_expected)) - 1][] = $heat;
+        }
+        //dd($heats);
+        return view('menu.calving', compact('months', 'search'));
+    }
 }

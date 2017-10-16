@@ -17,6 +17,7 @@ class PdfRequest
     protected $route;
     protected $filename;
     protected $category;
+    protected $search;
     protected $dateRange;
 
     /**
@@ -24,11 +25,12 @@ class PdfRequest
      *
      * @return void
      */
-    public function __construct($filename, $route, $dateRange, $category = null)
+    public function __construct($filename, $route, $dateRange, $category = null, $search = null)
     {
         $this->filename = $filename;
         $this->route = $route;
         $this->category = $category;
+        $this->search = $search;
         $this->dateRange = $dateRange;
     }
 
@@ -58,6 +60,14 @@ class PdfRequest
             return false;
         }
         return $this->category;
+    }
+
+    public function getSearch()
+    {
+        if(is_null($this->search)) {
+            return false;
+        }
+        return $this->search;
     }
 
     public function getDateRange()

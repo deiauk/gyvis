@@ -10,6 +10,7 @@ use App\Repositories\AnimalsTable;
 use App\Repositories\MedicinesTable;
 use App\Repositories\TreatmentsTable;
 use App\Repositories\HeatsTable;
+use App\Repositories\CalvingTable;
 
 class PdfGenerate
 {
@@ -51,7 +52,10 @@ class PdfGenerate
                 $obj = new MedicinesTable($event->getCategory(), $event->getDateRange());
                 return $obj->getView("pdf.medicines", $obj->getData());
             case "ruja":
-                $obj = new HeatsTable($event->getDateRange());
+                $obj = new HeatsTable($event->getSearch(), $event->getDateRange());
+                return $obj->getView("pdf.heats", $obj->getData());
+            case "versiavimasis":
+                $obj = new CalvingTable($event->getDateRange());
                 return $obj->getView("pdf.heats", $obj->getData());
 
 //                switch ($event->getCategory()) {

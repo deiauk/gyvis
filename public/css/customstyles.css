@@ -428,3 +428,10 @@ input#file {
 .lb-nav a {
     margin: 0;
 }
+h2#calving-year {
+    font-size: 25px;
+    margin: 15px;
+    padding: 15px;
+    color: white;
+    text-align: center;
+}

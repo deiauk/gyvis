@@ -3,6 +3,9 @@
         <div class="modal-content">
             <form class="form-horizontal" target="_blank" method="post" action="{{ isset($category) ? route('pdf.create', ["route" => Route::currentRouteName(), "category" => $category]) : route('pdf.create', ["route" => Route::currentRouteName()]) }}">
                 {{ csrf_field() }}
+                @if(!empty($search) && !$errors->has('search'))
+                    <input type="hidden" name="search" value="{{ $search }}">
+                @endif
                 <div class="modal-header" >
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">Spausdinti</h4>

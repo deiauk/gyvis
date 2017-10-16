@@ -24,6 +24,9 @@
                         <li class="{{ Route::currentRouteNamed('medikamentai') && $category == 2 ? 'active' : '' }}"><a href="{{ route('medikamentai', ['category' => 2]) }}">R. Knašio medikamentai</a></li>
                     </ul>
                 </li>
+                <li class="{{ Route::currentRouteNamed('heat.calving.index') ? 'active' : '' }}">
+                    <a href="{{ route('heat.calving.index') }}">Veršiavimaisi</a>
+                </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li>

@@ -5,14 +5,14 @@
 @endsection
 
 @section('content')
-    @if(auth()->user()->hasRole('user'))
+    @if(auth()->user()->hasRole('user') || auth()->user()->hasRole('admin'))
         @include('modals.add.heat')
         @include('modals.edit.heat')
         @include('modals.confirmDelete')
     @endif
     @include('modals.pdfDateRange')
     <div class="row crud-btns">
-        @if(auth()->user()->hasRole('user'))
+        @if(auth()->user()->hasRole('user') || auth()->user()->hasRole('admin'))
             <button type="button" class="btn btn-danger disabled" id="delete-heat"><i class="fa fa-trash" aria-hidden="true"></i> Ištrinti</button>
             <button type="button" class="btn btn-warning disabled" id="edit-heat"><i class="fa fa-pencil" aria-hidden="true"></i> Redaguoti</button>
             <button type="button" class="btn btn-success" id="add-heat" data-toggle="modal" data-target="#add-heat"><i class="fa fa-plus" aria-hidden="true"></i> Pridėti</button>

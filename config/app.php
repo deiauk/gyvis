@@ -232,6 +232,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
 
         'PDF' => Barryvdh\DomPDF\Facade::class,
+        'GeneralHelper' => App\Helpers\GeneralHelper::class,
     ],
 
 ];

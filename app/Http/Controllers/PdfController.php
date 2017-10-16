@@ -10,9 +10,8 @@ class PdfController extends Controller
 {
     private $directory = '\public\uploads\pdf\\';
 
-    public function create($route, $category = null)
+    public function create($route, $category = null, $search = null)
     {
-        //dd(request()->all());
         $validator = Validator::make(request()->all(), [
             "startdate" => "required|date",
             "enddate" => "required|date",
@@ -25,12 +24,23 @@ class PdfController extends Controller
         $filename = $this->directory . uniqid() . '.pdf';
 
         $route = $route == "heat.search" ? "ruja" : $route;
+        $route = ($route == "heat.calving.index" || $route == "heat.calving.search") ? "versiavimasis" : $route;
 
         if(isset($category)) {
-            event(new PdfRequest($filename, $route, $dateRange, $category));
+            if(!empty(request('search'))) {
+                event(new PdfRequest($filename, $route, $dateRange, $category, request('search')));
+            }
+            else {
+                event(new PdfRequest($filename, $route, $dateRange, $category));
+            }
         }
         else {
-            event(new PdfRequest($filename, $route, $dateRange));
+            if(!empty(request('search'))) {
+                event(new PdfRequest($filename, $route, $dateRange, -1, request('search')));
+            }
+            else {
+                event(new PdfRequest($filename, $route, $dateRange));
+            }
         }
 
         $response = response()
