@@ -20,6 +20,11 @@ class PdfController extends Controller
         if($validator->fails()) {
             return response()->json($validator->messages(), 200);
         }
+
+        if (!File::exists(base_path() . $this->directory)) {
+            File::makeDirectory(base_path() . $this->directory, $mode = 0777, true, true);
+        }
+
         $dateRange = [request('startdate'), request('enddate')];
 
         $filename = $this->directory . uniqid() . '.pdf';
@@ -42,12 +47,6 @@ class PdfController extends Controller
             else {
                 event(new PdfRequest($filename, $route, $dateRange));
             }
-        }
-
-        if (!file_exists($this->directory)) {
-            //mkdir('path/to/directory', 0777, tru
-            //e);
-            File::makeDirectory($this->directory, $mode = 0777, true, true);
         }
 
         $response = response()
