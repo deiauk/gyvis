@@ -31,9 +31,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('zetonas', 'TokenController@index')->middleware('role:admin')->name('token.index');
     Route::post('zetonas', 'TokenController@store')->middleware('role:admin')->name('token.store');
 
+    Route::post('galerija', 'GalleryController@create')->middleware('role:admin')->name('gallery.create');
+    Route::delete('galerija/{gallery}', 'GalleryController@delete')->middleware('role:admin')->name('gallery.delete');
+});
+
+Route::group(['middleware' => 'role:user'], function() {
     Route::post('spausdinti/{route}/{category?}', 'PdfController@create')->name('pdf.create');
 
-    Route::post('ruja/trinti/{heat}', 'HeatController@delete')->middleware('role:admin')->name('heat.delete');
+    Route::post('ruja/trinti/{heat}', 'HeatController@delete')->middleware('role:user')->name('heat.delete');
     Route::get('/ruja/autocomplete', 'HeatController@autocomplete')->name('heat.autocomplete');
     Route::get('ruja/{heat}', 'HeatController@getData')->name('heat.get.data');
     Route::post('ruja/ieskoti', 'HeatController@index')->name('heat.search');
@@ -42,9 +47,6 @@ Route::group(['middleware' => 'auth'], function () {
             'index' => 'ruja'
         ]
     ]);
-
-    Route::post('galerija', 'GalleryController@create')->middleware('role:admin')->name('gallery.create');
-    Route::delete('galerija/{gallery}', 'GalleryController@delete')->middleware('role:admin')->name('gallery.delete');
 });
 
 Auth::routes();
