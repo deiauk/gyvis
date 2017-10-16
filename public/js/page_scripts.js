@@ -641,7 +641,7 @@ $(document).ready(function () {
                 success: function (response, textStatus, xhr) { // What to do if we succeed
                     if (xhr.status === 202) {
                         galleryTableRowId = -1;
-                        location.reload();
+                        window.location.href = window.location.href;
                     } else if (xhr.status === 200) {
                         return false;
                     }
@@ -996,9 +996,11 @@ $(document).ready(function () {
     $("#file").change(function(){
         readURL(this);
     });
-    $('.gallery-delete').click(function() {
+    $('.gallery-delete').click(function(e) {
+        e.preventDefault();
         galleryTableRowId = $(this).data('id');
         $('#confirm-delete').modal('show');
+        console.log(galleryTableRowId);
     });
 
     /* LIGHTBOX */

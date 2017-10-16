@@ -28,12 +28,14 @@
 
             <div class="col-lg-3">
                 <a data-lightbox="lightbox" href="{{ asset('uploads/gallery/' . $gallery->filename) }}">
-                    <img class="gallery-img" src="{{ asset('uploads/gallery/' . $gallery->filename) }}">
+                    <div class="gallery-bg" style="background-image: url('{{ asset('uploads/gallery/' . $gallery->filename) }}')"></div>
+                    {{--<img class="gallery-img" src="{{ asset('uploads/gallery/' . $gallery->filename) }}">--}}
                 </a>
                 @if(auth()->check() && auth()->user()->hasRole('admin'))
-                    <a class="gallery-delete" data-id="{{ $gallery->id }}" href="#">Ištrinti</a>
+                    <a class="gallery-delete" data-id="{{ $gallery->id }}">Ištrinti</a>
                 @endif
             </div>
+
             @if($i == 3)</div>@endif
 
             @if($i >= 3)

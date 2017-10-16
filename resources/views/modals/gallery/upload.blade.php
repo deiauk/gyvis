@@ -23,7 +23,7 @@
                                     @endif
                                 </strong>
                             </span>
-                            <img src="#" id="upload-preview">
+                            <img src="" id="upload-preview">
                         </div>
                     </div>
                 </div>
