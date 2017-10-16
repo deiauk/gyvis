@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Events\PdfRequest;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class PdfController extends Controller
@@ -41,6 +42,12 @@ class PdfController extends Controller
             else {
                 event(new PdfRequest($filename, $route, $dateRange));
             }
+        }
+
+        if (!file_exists($this->directory)) {
+            //mkdir('path/to/directory', 0777, tru
+            //e);
+            File::makeDirectory($this->directory, $mode = 0777, true, true);
         }
 
         $response = response()
