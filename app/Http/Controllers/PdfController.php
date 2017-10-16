@@ -10,7 +10,7 @@ class PdfController extends Controller
 {
     private $directory = '\public\uploads\pdf\\';
 
-    public function create($route, $category = null, $search = null)
+    public function create($route, $category = null)
     {
         $validator = Validator::make(request()->all(), [
             "startdate" => "required|date",

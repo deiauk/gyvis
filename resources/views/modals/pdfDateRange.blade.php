@@ -1,7 +1,7 @@
 <div id="get-pdf" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form class="form-horizontal" target="_blank" method="post" action="{{ isset($category) ? route('pdf.create', ["route" => Route::currentRouteName(), "category" => $category]) : route('pdf.create', ["route" => Route::currentRouteName()]) }}">
+            <form class="form-horizontal" target="_blank" method="POST" action="{{ isset($category) ? route('pdf.create', ["route" => Route::currentRouteName(), "category" => $category]) : route('pdf.create', ["route" => Route::currentRouteName()]) }}">
                 {{ csrf_field() }}
                 @if(!empty($search) && !$errors->has('search'))
                     <input type="hidden" name="search" value="{{ $search }}">
