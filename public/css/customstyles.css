@@ -435,3 +435,8 @@ h2#calving-year {
     color: white;
     text-align: center;
 }
+@media screen and (max-width: 768px) {
+    .crud-btns button {
+        margin-bottom: 15px;
+    }
+}
