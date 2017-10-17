@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\GeneralHelper;
 use Illuminate\Support\Facades\Validator;
 use App\Heat;
 use App\Animal;
@@ -110,16 +111,26 @@ class HeatController extends Controller
         }
 
         $months = [];
+
+        $year = empty($search) ? date('Y') : $search;
         for($i = 0; $i < 12; $i++) {
             $months[$i] = [];
-        }
-        $year = empty($search) ? date('Y') : $search;
+            $heats = Heat::whereYear('calving_date_expected', '=', $year)
+                ->whereMonth('calving_date_expected', '=', ($i+1))
+                ->get();
 
-        $heats = Heat::whereYear('calving_date_expected', '=', $year)->get();
-        foreach ($heats as $heat) {
-            $months[date('m', strtotime($heat->calving_date_expected)) - 1][] = $heat;
+            foreach ($heats as $heat) {
+                if(empty($months[$i][$heat->animal_id])) {
+                    $months[$i][$heat->animal_id] = $heat;
+                }
+                else {
+                    if(date('j', strtotime($months[$i][$heat->animal_id]->calving_date_expected)) < date('j', strtotime($heat->calving_date_expected))) {
+                        $months[$i][$heat->animal_id] = $heat;
+                    }
+                }
+            }
         }
-        //dd($heats);
+
         return view('menu.calving', compact('months', 'search'));
     }
 }

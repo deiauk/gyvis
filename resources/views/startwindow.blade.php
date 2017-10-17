@@ -30,5 +30,10 @@
             <span class="icon icon-gear"></span>
             <span class="right"></span>R. Knašio medikamentai
         </a>
+
+        <a href="{{ route('heat.calving.index') }}" class="menu-btn e">
+            <span class="icon icon-gear"></span>
+            <span class="right"></span>Veršiavimaisi ({{ GeneralHelper::getCalvingsThisMonthCount() }})
+        </a>
     </div>
 @stop

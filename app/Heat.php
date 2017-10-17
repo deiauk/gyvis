@@ -23,4 +23,13 @@ class Heat extends Model
     {
         return static::whereBetween('calving_date_expected', $dateRange);
     }
+
+    public static function calvingsThisMonth()
+    {
+        return static::select('animal_id', \DB::raw('MAX(calving_date_expected)'))
+            ->whereYear('calving_date_expected', '=', date('Y'))
+            ->whereMonth('calving_date_expected', '=', date('j'))
+            ->groupBy('animal_id')
+            ->get();
+    }
 }

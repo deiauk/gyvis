@@ -1,6 +1,8 @@
 <?php
 namespace App\Helpers;
 
+use App\Heat;
+
 class GeneralHelper
 {
     public static function getMonth($month)
@@ -32,5 +34,9 @@ class GeneralHelper
                 return "Gruodis";
         }
         return "Blogas skaičius!";
+    }
+    public static function getCalvingsThisMonthCount()
+    {
+        return count(Heat::calvingsThisMonth());
     }
 }

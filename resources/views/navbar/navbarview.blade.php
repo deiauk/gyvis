@@ -25,7 +25,7 @@
                     </ul>
                 </li>
                 <li class="{{ Route::currentRouteNamed('heat.calving.index') ? 'active' : '' }}">
-                    <a href="{{ route('heat.calving.index') }}">Veršiavimaisi</a>
+                    <a href="{{ route('heat.calving.index') }}">Veršiavimaisi ({{ GeneralHelper::getCalvingsThisMonthCount() }})</a>
                 </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
