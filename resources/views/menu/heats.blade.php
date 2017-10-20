@@ -11,6 +11,7 @@
         @include('modals.confirmDelete')
     @endif
     @include('modals.pdfDateRange')
+    @include('modals.showFullValue')
     <div class="row crud-btns">
         @if(auth()->user()->hasRole('user') || auth()->user()->hasRole('admin'))
             <button type="button" class="btn btn-danger disabled" id="delete-heat"><i class="fa fa-trash" aria-hidden="true"></i> Ištrinti</button>
@@ -87,7 +88,11 @@
                                     <td>{{$heat->calving_date}}</td>
                                     <td>{{$heat->heat_date}}</td>
                                     <td>{{$heat->calving_date_expected}}</td>
-                                    <td>{{$heat->notes}}</td>
+                                    <td class="fullinfo" data-comment="{{$heat->notes}}">
+                                        <a>
+                                            {{ str_limit($heat->notes, 20, '...') }}
+                                        </a>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

@@ -58,7 +58,7 @@
                             <td>{{$animal->father}}</td>
                             <td class="fullinfo" data-comment="{{$animal->comment}}">
                                 <a>
-                                    {{ str_limit($animal->comment, $limit = 20, $end = '...') }}
+                                    {{ str_limit($animal->comment, 20, '...') }}
                                 </a>
                             </td>
                         </tr>
@@ -83,7 +83,7 @@
         @include('modals.confirmDelete')
         @include('modals.editAnimal')
         @include('modals.addNewTreatment')
-        @include('modals.showFullValue')
     @endif
+    @include('modals.showFullValue')
 @endsection
 
