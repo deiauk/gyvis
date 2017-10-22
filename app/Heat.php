@@ -28,7 +28,7 @@ class Heat extends Model
     {
         return static::select('animal_id', \DB::raw('MAX(calving_date_expected)'))
             ->whereYear('calving_date_expected', '=', date('Y'))
-            ->whereMonth('calving_date_expected', '=', date('j'))
+            ->whereMonth('calving_date_expected', '=', date('n'))
             ->groupBy('animal_id')
             ->get();
     }
