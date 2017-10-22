@@ -121,12 +121,28 @@ class HeatController extends Controller
 
             foreach ($heats as $heat) {
                 if(empty($months[$i][$heat->animal_id])) {
-                    $months[$i][$heat->animal_id] = $heat;
+                    $months[$i][$heat->animal_id][0] = $heat;
                 }
                 else {
-                    if(date('j', strtotime($months[$i][$heat->animal_id]->calving_date_expected)) < date('j', strtotime($heat->calving_date_expected))) {
-                        $months[$i][$heat->animal_id] = $heat;
+
+                    if(is_null($months[$i][$heat->animal_id][0]->heat_date)) {
+                        if(!is_null($heat->heat_date)) {
+                            $months[$i][$heat->animal_id] = null;
+                            $months[$i][$heat->animal_id][0] = $heat;
+                        }
+                        else {
+                            $months[$i][$heat->animal_id][] = $heat;
+                        }
                     }
+                    else {
+                        if(!is_null($heat->heat_date) && date('j', strtotime($months[$i][$heat->animal_id]->calving_date_expected)) < date('j', strtotime($heat->calving_date_expected))) {
+                            $months[$i][$heat->animal_id] = null;
+                            $months[$i][$heat->animal_id][0] = $heat;
+                        }
+                    }
+//                    if($months[$i][$heat->animal_id]->id < $heat->id) {
+//                        $months[$i][$heat->animal_id] = $heat;
+//                    }
                 }
             }
         }

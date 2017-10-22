@@ -6,6 +6,7 @@
 
 @section('content')
     @include('modals.pdfDateRange')
+    @include('modals.showFullValue')
 
     <div class="row crud-btns">
         <div class="col-lg-4 no-padding-left">
@@ -58,11 +59,17 @@
                                             </theader>
                                             <tbody>
                                             @foreach($heats as $heat)
-                                                <tr>
-                                                    <td>{{ !empty($heat->animal) ? $heat->animal->number : '' }}</td>
-                                                    <td>{{$heat->calving_date_expected}}</td>
-                                                    <td>{{$heat->notes}}</td>
-                                                </tr>
+                                                @foreach($heat as $item)
+                                                    <tr>
+                                                        <td>{{ !empty($item->animal) ? $item->animal->number : '' }}</td>
+                                                        <td>{{$item->calving_date_expected}}</td>
+                                                        <td class="fullinfo" data-comment="{{$item->notes}}">
+                                                            <a>
+                                                                {{ str_limit($item->notes, 20, '...') }}
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                             @endforeach
                                             </tbody>
                                         </table>
