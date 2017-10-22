@@ -15,7 +15,9 @@ class HeatController extends Controller
         $animal = null;
         $numbers = null;
         if(request('search') == null || is_null(request('search'))) {
-            $heats = Heat::all();
+            $heats = Heat::orderBy('animal_id', 'ASC')
+                ->orderBy('calving_date_expected', 'ASC')
+                ->get();
             $numbers = Animal::where('sex', '=', 2)->get();
         }
         else {
@@ -140,9 +142,6 @@ class HeatController extends Controller
                             $months[$i][$heat->animal_id][0] = $heat;
                         }
                     }
-//                    if($months[$i][$heat->animal_id]->id < $heat->id) {
-//                        $months[$i][$heat->animal_id] = $heat;
-//                    }
                 }
             }
         }
