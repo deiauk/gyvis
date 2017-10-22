@@ -16,7 +16,7 @@ class MedicineController extends Controller
      */
     public function index($category)
     {
-        $medicines = Medicine::type($category)->get();
+        $medicines = Medicine::type($category)->paginate(15);
         return view('menu.medicines', compact('medicines', 'category'));
     }
 

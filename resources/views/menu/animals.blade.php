@@ -66,6 +66,7 @@
                 </tbody>
             </table>
         </div>
+        {{ $animals->links() }}
     @else
         <div class="jumbotron vertical-center">
             <div class="container-fluid">

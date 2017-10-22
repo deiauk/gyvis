@@ -128,6 +128,7 @@
                 </tbody>
             </table>
         </div>
+        {{ $treatments->links() }}
     @else
         <div class="jumbotron vertical-center">
             <div class="container-fluid">

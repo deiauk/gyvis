@@ -17,7 +17,7 @@ class HeatController extends Controller
         if(request('search') == null || is_null(request('search'))) {
             $heats = Heat::orderBy('animal_id', 'ASC')
                 ->orderBy('calving_date_expected', 'ASC')
-                ->get();
+                ->paginate(30);
             $numbers = Animal::where('sex', '=', 2)->get();
         }
         else {
