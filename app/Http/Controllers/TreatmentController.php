@@ -212,6 +212,24 @@ class TreatmentController extends Controller
             }
             $treatment->quantity = $request->input('quantity');
             $treatment->save();
+
+            $log = MedicineLog::where('registration_num', '=', $treatment->id)->first();
+
+            $log->used = -$treatment->quantity;
+            $log->save();
+
+            $logs = MedicineLog::where('medicine_id', '=', $log->medicine_id)
+                ->where('id', '>', $log->id)
+                ->get();
+
+            $beforeQ = $log->quantity;
+            $beforeU = $log->used;
+            foreach($logs as $item) {
+                $item->quantity = $beforeQ + $beforeU;
+                $item->save();
+                $beforeQ = $item->quantity;
+                $beforeU = $item->used;
+            }
         }
         else {
             return response()->json([], 200);
