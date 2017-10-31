@@ -45,6 +45,7 @@ $(document).ready(function () {
             } else {
                 $('#delete-medicine').removeClass('disabled');
                 $('#edit-medicine').removeClass('disabled');
+                $('#med-quantity').removeClass('disabled');
             }
         }
     });
@@ -355,6 +356,7 @@ $(document).ready(function () {
         medicineTableRowId = -1;
         $('#delete-medicine').addClass('disabled');
         $('#edit-medicine').addClass('disabled');
+        $('#med-quantity').addClass('disabled');
     }
 
     function resetHeatBtnStates() {
@@ -398,6 +400,12 @@ $(document).ready(function () {
     $('#delete-medicine').click(function () {
         if (medicineTableRowId !== -1) {
             $('#confirm-delete').modal('show');
+        }
+    });
+
+    $('#med-quantity').click(function () {
+        if (medicineTableRowId !== -1) {
+            $('#add-med-quantity').modal('show');
         }
     });
 
@@ -529,6 +537,12 @@ $(document).ready(function () {
             $(".patientregistrationnr").val('');
             $(".quantity").val('');
             $(".consumed").val(0);
+        }
+    });
+
+    $('#add-med-quantity').on('show.bs.modal', function (e) {
+        if (e.namespace === 'bs.modal') {
+            $(".quantity").val('');
         }
     });
 
@@ -791,6 +805,36 @@ $(document).ready(function () {
             success: function (response, textStatus, xhr) { // What to do if we succeed
                 if (xhr.status === 201) {
                     $('#add-medicine').modal('toggle');
+                    location.reload();
+                } else if (xhr.status === 200) {
+                    setErrors(response);
+                    return false;
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) { // What to do if we fail
+                console.log(JSON.stringify(jqXHR));
+                console.log("AJAX error: " + textStatus + ' : ' + errorThrown);
+            }
+        });
+    });
+
+    $('.js-add-med-quantity').click(function () {
+        console.log("click");
+        clearErrors('#add-med-quantity');
+
+        var newMed = {
+            'quantity': $('.med-quantity').val(),
+        };
+
+        $.ajax({
+            headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
+            url: '/vaistai/prideti/' + medicineTableRowId,
+            method: 'POST', // Type of response and matches what we said in the route
+            data: newMed,
+            success: function (response, textStatus, xhr) { // What to do if we succeed
+                console.log(response);
+                if (xhr.status === 201) {
+                    $('#add-med-quantity').modal('toggle');
                     location.reload();
                 } else if (xhr.status === 200) {
                     setErrors(response);

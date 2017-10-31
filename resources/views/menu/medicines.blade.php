@@ -9,6 +9,7 @@
         @include('modals.addNewMedical')
         @include('modals.editMedical')
         @include('modals.confirmDelete')
+        @include('modals.add.medicineQuantity')
     @endif
     @include('modals.pdfDateRange')
     <div class="row crud-btns">
@@ -16,6 +17,7 @@
             <button type="button" class="btn btn-danger disabled" id="delete-medicine"><i class="fa fa-trash" aria-hidden="true"></i> Ištrinti</button>
             <button type="button" class="btn btn-warning disabled" id="edit-medicine"><i class="fa fa-pencil" aria-hidden="true"></i> Redaguoti</button>
             <button type="button" class="btn btn-success" id="add-medicine" data-toggle="modal" data-target="#add-medicine"><i class="fa fa-plus" aria-hidden="true"></i> Pridėti</button>
+            <button type="button" class="btn btn-success disabled" id="med-quantity"><i class="fa fa-plus" aria-hidden="true"></i> Pridėti kiekį</button>
         @endif
             <button type="submit" class="btn btn-success" id="get-pdf-btn" data-toggle="modal" data-target="#get-pdf"><i class="fa fa-print" aria-hidden="true"></i> Spausdinti</button>
     </div>
@@ -99,11 +101,11 @@
                 </theader>
                 <tbody>
                 @foreach($logs as $log)
-                    <tr>
+                    <tr class="{{ $log->type == 2 ? "row-green" : "" }}">
                         <td width="30%">{{ $log->medicine->from }}</td>
-                        <td>{{ $log->registration_num }}</td>
+                        <td>{{ $log->registration_num > -1 ? $log->registration_num : "Pridedamas kiekis" }}</td>
                         <td>{{ $log->quantity }}</td>
-                        <td>{{ abs($log->used) }}</td>
+                        <td>{{ $log->used > 0 ? "+" : "" }}{{ $log->used }}</td>
                         <td>{{ $log->quantity + $log->used }}</td>
                     </tr>
                 @endforeach

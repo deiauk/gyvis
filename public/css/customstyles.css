@@ -384,6 +384,14 @@ tr {
     background-color: rgb(255, 140, 132);
 }
 
+.row-green {
+    background-color: #DCFFDF;
+}
+
+.row-green:hover {
+    background-color: #BFF2C4;
+}
+
 .selected-table-row-danger {
     background-color: rgb(255, 185, 185);
 }

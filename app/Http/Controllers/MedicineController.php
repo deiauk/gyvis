@@ -228,4 +228,36 @@ class MedicineController extends Controller
         }
         return response()->json($results);
     }
+
+    public function add(Request $request, Medicine $medicine)
+    {
+        $validator = Validator::make($request->all(), [
+            'quantity' => "required|numeric|min:0"
+        ]);
+        if ($validator->fails()) {
+            return response()->json($validator->messages(), 200);
+        }
+        $medicine->quantity += request('quantity');
+        $medicine->balance += request('quantity');
+        $medicine->save();
+
+        if(count($medicine->log) > 0) {
+            $lastRecord = $medicine->log()->last();
+
+            if($lastRecord != null) {
+                $quantity = $lastRecord->quantity + $lastRecord->used;
+            }
+        }
+
+        MedicineLog::create([
+            'medicine_id' => $medicine->id,
+            'type' => 2,
+            'category' => $medicine->category[0]->type,
+            'quantity' => $quantity,
+            'used' => $request->input('quantity'),
+            'registration_num' => -1
+        ]);
+
+        return response()->json([], 201);
+    }
 }
