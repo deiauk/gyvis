@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Medicine;
 use App\Treatment;
+use App\MedicineLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -66,9 +67,26 @@ class TreatmentController extends Controller
         }
 
         if($medicine) {
+            $quantity = $medicine->balance;
+
             $medicine->consumed = $medicine->consumed + $request->input('quantity');
             $medicine->balance = $medicine->quantity - $medicine->consumed;
             $medicine->save();
+
+            $lastRecord = $medicine->log()->last();
+
+            if($lastRecord != null) {
+                $quantity = $lastRecord->quantity + $lastRecord->used;
+            }
+
+            MedicineLog::create([
+                'medicine_id' => $medicine->id,
+                'type' => 1,
+                'category' => $medicine->category[0]->type,
+                'quantity' => $quantity,
+                'used' => -$request->input('quantity')
+            ]);
+
         } else {
             return response()->json(["medicine" => ["Šis preparatas neegzistuoja."]], 200);
         }
@@ -92,6 +110,7 @@ class TreatmentController extends Controller
         ]);
         $treatment->medicine()->associate($medicine);
         $treatment->save();
+        dd("ok");
         return response()->json([], 201);
     }
 

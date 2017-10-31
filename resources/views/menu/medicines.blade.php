@@ -20,6 +20,24 @@
             <button type="submit" class="btn btn-success" id="get-pdf-btn" data-toggle="modal" data-target="#get-pdf"><i class="fa fa-print" aria-hidden="true"></i> Spausdinti</button>
     </div>
 
+    <div class="row">
+        <div class="col-lg-4">
+            <form action="{{ route('medicine.search', ['category' => $category]) }}" method="post">
+                {{ csrf_field() }}
+                <div class="form-group">
+                    <div class="row row-search">
+                        <div class="col-sm-8 no-padding-right">
+                            <input type="text" class="form-control" name="search" id="search" value="">
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn btn-success">Ieškoti</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
     @if(count($medicines) > 0)
         <div class="table-responsive">
             <table class="table table-curved table-color">

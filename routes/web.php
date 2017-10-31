@@ -18,6 +18,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('vaistai/{medicine}', 'MedicineController@getData')->name('medicine.get.data');
 
     Route::get('medikamentai/{categorie}', 'MedicineController@index')->name('medikamentai');
+    Route::post('medikamentai/ieskoti/{category}', 'MedicineController@index')->name('medicine.search');
 
     Route::resource('medikamentai', 'MedicineController');
 

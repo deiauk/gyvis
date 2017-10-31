@@ -16,8 +16,18 @@ class MedicineController extends Controller
      */
     public function index($category)
     {
-        $medicines = Medicine::type($category)->paginate(15);
-        return view('menu.medicines', compact('medicines', 'category'));
+        $search = '';
+        $medicines = null;
+        $numbers = null;
+        if(!is_null(request('search'))) {
+            $search = request('search');
+
+            $medicines = Medicine::type($category)
+                ->where('from', 'like', '%' . $search . '%')
+                ->paginate(15);
+        }
+
+        return view('menu.medicines', compact('medicines', 'category', 'search'));
     }
 
     /**
@@ -33,7 +43,7 @@ class MedicineController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -49,7 +59,7 @@ class MedicineController extends Controller
             "consumed" => "required|numeric|min:0",
             "medicine_category" => "required|numeric",
         ]);
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return response()->json($validator->messages(), 200);
         }
 ////        $this->validate($request, [
@@ -111,7 +121,7 @@ class MedicineController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Medicine  $medicine
+     * @param  \App\Medicine $medicine
      * @return \Illuminate\Http\Response
      */
     public function show(Medicine $medicine)
@@ -122,7 +132,7 @@ class MedicineController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Medicine  $medicine
+     * @param  \App\Medicine $medicine
      * @return \Illuminate\Http\Response
      */
     public function edit(Medicine $medicine)
@@ -133,8 +143,8 @@ class MedicineController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Medicine  $medicine
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Medicine $medicine
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
@@ -149,7 +159,7 @@ class MedicineController extends Controller
             "quantity" => "required|numeric|min:0",
             "consumed" => "required|numeric|min:0",
         ]);
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return response()->json($validator->messages(), 200);
         }
         $data = $request->all();
@@ -170,7 +180,7 @@ class MedicineController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Medicine  $medicine
+     * @param  \App\Medicine $medicine
      * @return \Illuminate\Http\Response
      */
     public function destroy(Medicine $medicine)
@@ -178,14 +188,16 @@ class MedicineController extends Controller
         //
     }
 
-    function delete(Medicine $medicine) {
+    function delete(Medicine $medicine)
+    {
         $id = $medicine->id;
         $medicine->category()->delete();
         $medicine->delete();
         return $id;
     }
 
-    public function getData(Medicine $medicine) {
+    public function getData(Medicine $medicine)
+    {
         return $medicine;
     }
 }
