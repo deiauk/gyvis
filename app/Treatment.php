@@ -15,9 +15,11 @@ class Treatment extends Model
         'medicine_id' => null
     ];
 
-    public function medicine() {
+    public function medicine()
+    {
         return $this->belongsTo('App\\Medicine');
     }
+
     public static function dateRange($dateRange)
     {
         return static::whereBetween('date', $dateRange);

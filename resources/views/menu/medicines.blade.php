@@ -38,7 +38,7 @@
         </div>
     </div>
 
-    @if(count($medicines) > 0)
+    @if(!is_null($medicine))
         <div class="table-responsive">
             <table class="table table-curved table-color">
                 <theader>
@@ -55,27 +55,61 @@
                     </tr>
                 </theader>
                 <tbody>
-                    @foreach($medicines as $medicine)
-                        @if($medicine->balance <= 0)
-                            <tr class='clickable-med-row no-med' id='{{$medicine->medicine_id}}'>
-                        @else
-                            <tr class='clickable-med-row' id='{{$medicine->medicine_id}}'>
-                        @endif
-                            <td>{{$medicine->filldate}}</td>
-                            <td width="30%">{{$medicine->from}}</td>
-                            <td>{{$medicine->productiondate}}</td>
-                            <td>{{$medicine->expirydate}}</td>
-                            <td>{{$medicine->series}}</td>
-                            <td width="12%">{{$medicine->patientregistrationnr}}</td>
-                            <td>{{$medicine->quantity}}</td>
-                            <td>{{$medicine->consumed}}</td>
-                            <td>{{$medicine->balance}}</td>
-                        </tr>
-                    @endforeach
+                    @if($medicine->balance <= 0)
+                        <tr class='clickable-med-row no-med' id='{{$medicine->medicine_id}}'>
+                    @else
+                        <tr class='clickable-med-row' id='{{$medicine->medicine_id}}'>
+                    @endif
+                        <td>{{$medicine->filldate}}</td>
+                        <td width="30%">{{$medicine->from}}</td>
+                        <td>{{$medicine->productiondate}}</td>
+                        <td>{{$medicine->expirydate}}</td>
+                        <td>{{$medicine->series}}</td>
+                        <td width="12%">{{$medicine->patientregistrationnr}}</td>
+                        <td>{{$medicine->quantity}}</td>
+                        <td>{{$medicine->consumed}}</td>
+                        <td>{{$medicine->balance}}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
-        {{ $medicines->links() }}
+    @else
+        <div class="jumbotron vertical-center">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-4 col-lg-offset-4">
+                        <h2 class="white-txt">Duomenų nėra...</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
+
+    @if(count($logs) > 0)
+        <div class="table-responsive">
+            <table class="table table-curved table-color">
+                <theader>
+                    <tr class="align-rule">
+                        <th>Vaistas</th>
+                        <th>Pacientų registracijos nr.</th>
+                        <th>Kiekis</th>
+                        <th>Sunaudota</th>
+                        <th>Likutis</th>
+                    </tr>
+                </theader>
+                <tbody>
+                @foreach($logs as $log)
+                    <tr>
+                        <td width="30%">{{ $log->medicine->from }}</td>
+                        <td>{{ $log->registration_num }}</td>
+                        <td>{{ $log->quantity }}</td>
+                        <td>{{ abs($log->used) }}</td>
+                        <td>{{ $log->quantity + $log->used }}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+        </div>
     @else
         <div class="jumbotron vertical-center">
             <div class="container-fluid">

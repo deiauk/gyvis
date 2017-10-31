@@ -11,7 +11,8 @@ class MedicineCategorie extends Model
 
     protected $guarded = [];
 
-    public function medicine() {
+    public function medicine()
+    {
         return $this->belongsTo('App\\Medicine');
     }
 }

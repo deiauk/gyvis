@@ -66,6 +66,8 @@ class TreatmentController extends Controller
             return response()->json(["quantity" => ["Maksimalus esamas kiekis: " .  $medicine->balance]], 200);
         }
 
+        $log = null;
+
         if($medicine) {
             $quantity = $medicine->balance;
 
@@ -73,18 +75,21 @@ class TreatmentController extends Controller
             $medicine->balance = $medicine->quantity - $medicine->consumed;
             $medicine->save();
 
-            $lastRecord = $medicine->log()->last();
+            if(count($medicine->log) > 0) {
+                $lastRecord = $medicine->log()->last();
 
-            if($lastRecord != null) {
-                $quantity = $lastRecord->quantity + $lastRecord->used;
+                if($lastRecord != null) {
+                    $quantity = $lastRecord->quantity + $lastRecord->used;
+                }
             }
 
-            MedicineLog::create([
+            $log = MedicineLog::create([
                 'medicine_id' => $medicine->id,
                 'type' => 1,
                 'category' => $medicine->category[0]->type,
                 'quantity' => $quantity,
-                'used' => -$request->input('quantity')
+                'used' => -$request->input('quantity'),
+                'registration_num' => -1
             ]);
 
         } else {
@@ -110,6 +115,10 @@ class TreatmentController extends Controller
         ]);
         $treatment->medicine()->associate($medicine);
         $treatment->save();
+
+        $log->registration_num = $treatment->id;
+        $log->save();
+
         dd("ok");
         return response()->json([], 201);
     }

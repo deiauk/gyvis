@@ -18,14 +18,14 @@ class Medicine extends Model
         return $this->hasMany('App\\MedicineCategorie');
     }
 
+    public function log()
+    {
+        return $this->hasMany('App\\MedicineLog', 'medicine_id');
+    }
+
     public function getInstance()
     {
         return $this;
-    }
-
-    public function log()
-    {
-        return $this->hasMany('App\\MedicineLog');
     }
 
     public static function type($type)

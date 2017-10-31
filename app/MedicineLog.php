@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class MedicineLog extends Model
 {
+    protected $table = 'medicine_logs';
     protected $fillable = [
-        'id', 'medicine_id', 'type', 'category', 'quantity', 'used'
+        'id', 'medicine_id', 'type', 'category', 'quantity', 'used', 'registration_num'
     ];
 
     public $timestamps = false;
@@ -16,5 +17,10 @@ class MedicineLog extends Model
     {
         return $query->orderBy('id', 'desc')
             ->first();
+    }
+
+    public function medicine()
+    {
+        return $this->belongsTo('App\\Medicine');
     }
 }

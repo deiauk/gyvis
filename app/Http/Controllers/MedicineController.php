@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Medicine;
 use App\MedicineCategorie;
+use App\MedicineLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -17,17 +18,22 @@ class MedicineController extends Controller
     public function index($category)
     {
         $search = '';
-        $medicines = null;
-        $numbers = null;
+        $medicine = null;
+        $logs = null;
+
         if(!is_null(request('search'))) {
             $search = request('search');
 
-            $medicines = Medicine::type($category)
+            $medicine = Medicine::type($category)
                 ->where('from', 'like', '%' . $search . '%')
-                ->paginate(15);
+                ->first();
+
+            if($medicine) {
+                $logs = Medicine::with('log')->find($medicine->medicine_id)->log()->orderBy('id', 'asc')->get();
+            }
         }
 
-        return view('menu.medicines', compact('medicines', 'category', 'search'));
+        return view('menu.medicines', compact('medicine', 'logs', 'category', 'search'));
     }
 
     /**
