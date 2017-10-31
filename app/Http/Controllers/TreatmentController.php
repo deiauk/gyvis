@@ -119,7 +119,6 @@ class TreatmentController extends Controller
         $log->registration_num = $treatment->id;
         $log->save();
 
-        dd("ok");
         return response()->json([], 201);
     }
 
