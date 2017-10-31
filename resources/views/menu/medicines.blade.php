@@ -27,7 +27,7 @@
                 <div class="form-group">
                     <div class="row row-search">
                         <div class="col-sm-8 no-padding-right">
-                            <input type="text" class="form-control" name="search" id="search" value="">
+                            <input type="text" class="form-control" name="search" id="search-medicine" value="">
                         </div>
                         <div class="col-sm-4">
                             <button type="submit" class="btn btn-success">Ieškoti</button>
@@ -121,4 +121,18 @@
             </div>
         </div>
     @endif
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#search-medicine').autocomplete({
+                source: '/medikamentai/autocomplete/{{ $category }}',
+                minLength: 1,
+                select: function (event, ui) {
+                    $('#search-medicine').val(ui.item.value);
+                }
+            });
+        });
+    </script>
 @endsection

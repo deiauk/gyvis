@@ -29,7 +29,11 @@ class MedicineController extends Controller
                 ->first();
 
             if($medicine) {
-                $logs = Medicine::with('log')->find($medicine->medicine_id)->log()->orderBy('id', 'asc')->get();
+                $logs = Medicine::with('log')
+                    ->find($medicine->medicine_id)
+                    ->log()
+                    ->orderBy('id', 'asc')
+                    ->get();
             }
         }
 
@@ -205,5 +209,23 @@ class MedicineController extends Controller
     public function getData(Medicine $medicine)
     {
         return $medicine;
+    }
+
+    public function autocomplete($category)
+    {
+        $results = [];
+
+        $medicines = Medicine::type($category)
+            ->where('from', 'LIKE', '%' . request('term') . '%')
+            ->take(5)
+            ->get();
+
+        foreach($medicines as $medicine) {
+            $results[] = [
+                "id" => $medicine->id,
+                "value" => $medicine->from
+            ];
+        }
+        return response()->json($results);
     }
 }

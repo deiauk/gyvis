@@ -19,6 +19,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('medikamentai/{categorie}', 'MedicineController@index')->name('medikamentai');
     Route::post('medikamentai/ieskoti/{category}', 'MedicineController@index')->name('medicine.search');
+    Route::get('/medikamentai/autocomplete/{category}', 'MedicineController@autocomplete')->name('medicine.autocomplete');
 
     Route::resource('medikamentai', 'MedicineController');
 
