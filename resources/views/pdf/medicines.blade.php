@@ -36,6 +36,7 @@
 <body>
 <table>
     <tr>
+        <th rowspan="2">Eil. Nr</th>
         <th>Data</th>
         <th>Pavadinimas</th>
         <th>Pagaminimo data</th>
@@ -48,6 +49,7 @@
     </tr>
     @foreach($data as $medicine)
         <tr>
+            <td>{{$medicine->id}}</td>
             <td>{{$medicine->filldate}}</td>
             <td width="30%">{{$medicine->from}}</td>
             <td>{{$medicine->productiondate}}</td>

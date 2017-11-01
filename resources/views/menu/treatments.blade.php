@@ -96,10 +96,9 @@
                     </tr>
                 </theader>
                 <tbody>
-                    @php($index = 1)
                     @foreach($treatments as $medicine)
                         <tr class='clickable-treat-row' id='{{$medicine->id}}'>
-                            <td>{{$index++}}</td>
+                            <td>{{$medicine->id}}</td>
                             <td>{{$medicine->date}}</td>
                             <td>{{$medicine->animalNumber}}</td>
                             <td>{{$medicine->animalType}}</td>
@@ -127,8 +126,8 @@
                     @endforeach
                 </tbody>
             </table>
+            {{ $treatments->links() }}
         </div>
-        {{ $treatments->links() }}
     @else
         <div class="jumbotron vertical-center">
             <div class="container-fluid">
