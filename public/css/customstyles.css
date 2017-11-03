@@ -459,6 +459,15 @@ h2#calving-year {
     color: white;
     text-align: center;
 }
+#created-med {
+    display: none;
+}
+#created-med h2 {
+    text-align: center;
+    color: white;
+    font-size: 1.5em;
+    padding-bottom: 15px;
+}
 @media screen and (max-width: 768px) {
     .crud-btns button {
         margin-bottom: 15px;

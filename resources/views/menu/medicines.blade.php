@@ -40,6 +40,40 @@
         </div>
     </div>
 
+    <div id="created-med">
+        <h2>Sukurtas medikamentas</h2>
+        <div id="med-table-ajax" class="table-responsive">
+            <table class="table table-curved table-color">
+                <theader>
+                    <tr class="align-rule">
+                        <th>Data</th>
+                        <th>Pavadinimas</th>
+                        <th>Pagaminimo data</th>
+                        <th>Galioja</th>
+                        <th>Serija</th>
+                        <th>Pacientų registracijos nr.</th>
+                        <th>Gauta</th>
+                        <th>Sunaudota</th>
+                        <th>Likutis</th>
+                    </tr>
+                </theader>
+                <tbody>
+                    <tr class='clickable-med-row' id=''>
+                        <td class="filldate"></td>
+                        <td width="30%" class="from"></td>
+                        <td class="productiondate"></td>
+                        <td class="expirydate"></td>
+                        <td class="series"></td>
+                        <td width="12%" class="patientregistrationnr"></td>
+                        <td class="quantity"></td>
+                        <td class="consumed"></td>
+                        <td class="balance"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
     @if(!is_null($medicine))
         <div class="table-responsive">
             <table class="table table-curved table-color">

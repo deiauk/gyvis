@@ -125,7 +125,7 @@ class MedicineController extends Controller
         $category->medicine()->associate($medicament);
         $category->save();
 
-        return response()->json([], 201);
+        return response()->json($medicament->toArray(), 201);
     }
 
     /**

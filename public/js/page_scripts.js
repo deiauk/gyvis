@@ -804,8 +804,13 @@ $(document).ready(function () {
             data: newMedicament,
             success: function (response, textStatus, xhr) { // What to do if we succeed
                 if (xhr.status === 201) {
+                    $('#med-table-ajax tbody > tr > td').each(function(index, value) {
+                        var className = $(value).attr('class');
+                        $(value).text(response[className]);
+                    });
                     $('#add-medicine').modal('toggle');
-                    location.reload();
+                    $('#created-med').css('display', 'block');
+                    //location.reload();
                 } else if (xhr.status === 200) {
                     setErrors(response);
                     return false;
