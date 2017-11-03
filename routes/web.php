@@ -15,7 +15,7 @@ Route::group(['middleware' => 'auth'], function () {
     ]);
 
     Route::post('vaistai/trinti/{medicine}', 'MedicineController@delete')->middleware('role:admin')->name('medicine.delete');
-    Route::get('vaistai/{medicine}', 'MedicineController@getData')->name('medicine.get.data');
+    Route::get('vaistas/{medicine}', 'MedicineController@getData')->name('medicine.get.data');
     Route::post('vaistai/prideti/{medicine}', 'MedicineController@add')->name('medicine.add');
 
     Route::get('medikamentai/{categorie}', 'MedicineController@index')->name('medikamentai');

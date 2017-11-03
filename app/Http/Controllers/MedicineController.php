@@ -206,9 +206,13 @@ class MedicineController extends Controller
         return $id;
     }
 
-    public function getData(Medicine $medicine)
+    public function getData($medicine)
     {
-        return $medicine;
+        $medicine = Medicine::find($medicine);
+        if($medicine == null) {
+            return response()->json([], 200);
+        }
+        return $medicine->first();
     }
 
     public function autocomplete($category)

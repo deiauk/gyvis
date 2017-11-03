@@ -99,15 +99,12 @@ $(document).ready(function () {
 
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
-                url: 'vaistai/' + animalTableRowId,
+                url: 'gyvunas/' + animalTableRowId,
                 method: 'GET', // Type of response and matches what we said in the route
                 success: function (response) { // What to do if we succeed
-                    console.log(response);
                     $(".animalNumber").val(response.number);
                     $(".breed").val(response.name);
-                    var birthday = new Date(response.birthday).getTime();
-                    var age = getAge(birthday);
-                    $(".animalAge").val(age);
+                    $(".animalAge").val(_calculateAge(response.birthday)).prop('disabled', true);
                     // $(".nr-val").val(response.number);
                     // $(".description-val").val(response.name);
                     // $(".live-being").val(response.liveBeing);
@@ -137,11 +134,12 @@ $(document).ready(function () {
     });
 
     $('#medicine').change(function () {
-        if (this.value !== -1) {
+        console.log(this.value);
+        if (this.value != -1) {
             console.log("vaistas: " + this.value);
             $.ajax({
                 headers: {'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content')},
-                url: 'vaistai/' + this.value,
+                url: 'vaistas/' + this.value,
                 method: 'GET', // Type of response and matches what we said in the route
                 success: function (response) { // What to do if we succeed
                     // console.log(response);
@@ -150,7 +148,6 @@ $(document).ready(function () {
                     // var birthday = new Date(response.birthday).getTime();
                     // var age = getAge(birthday);
                     // $(".animalAge").val(age);
-                    console.log(response);
                     $('#quantity').attr({
                         "max": response.balance
                     });
@@ -328,15 +325,15 @@ $(document).ready(function () {
         });
     });
 
-    function getAge(birtdayMillis) {
-        var current = new Date(getCurrentDate()).getTime();
-        console.log("sdfdsffdsf " + current + " " + birtdayMillis + " ");
-        var date = new Date((current - birthday));
-        var str = date.getUTCDate() - 1;
-        var stra = date.getUTCMonth() - 1;
-        var straa = date.getUTCDate() - 1;
-        console.log(str + " " + stra + " " + straa);
-    }
+    // function getAge(birtdayMillis) {
+    //     var current = new Date(getCurrentDate()).getTime();
+    //     console.log("sdfdsffdsf " + current + " " + birtdayMillis + " ");
+    //     var date = new Date((current - birthday));
+    //     var str = date.getUTCDate() - 1;
+    //     var stra = date.getUTCMonth() - 1;
+    //     var straa = date.getUTCDate() - 1;
+    //     console.log(str + " " + stra + " " + straa);
+    // }
 
     function getCurrentDate() {
         var d = new Date();
