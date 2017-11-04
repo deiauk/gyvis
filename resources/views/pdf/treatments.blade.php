@@ -6,7 +6,7 @@
     <style type="text/css" >
         *{
             font-family: DejaVu Sans !important;
-            font-size: 13px;
+            font-size: 12px;
         }
         .table {
             display: table;

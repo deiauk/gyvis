@@ -9,8 +9,9 @@
             font-size: 13px;
         }
 
-        .table {
+        table {
             display: table;
+            width: 100%;
         }
 
         .tr {

@@ -10,6 +10,7 @@
         }
         .table {
             display: table;
+            width: 100%;
         }
         .tr {
             display: table-row;
@@ -34,7 +35,7 @@
     </style>
 </head>
 <body>
-<table>
+<table class="table">
     <tr>
         <th rowspan="2">Eil. Nr</th>
         <th>Data</th>

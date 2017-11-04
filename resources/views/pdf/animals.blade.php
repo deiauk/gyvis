@@ -10,6 +10,7 @@
         }
         .table {
             display: table;
+            max-width: 100%;
         }
         .tr {
             display: table-row;
