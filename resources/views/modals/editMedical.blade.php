@@ -65,7 +65,7 @@
                     <div class="form-group">
                         <label for="edit-med-patientregistrationnr" class="control-label col-sm-3">Pacientų registracijos nr.</label>
                         <div class="col-sm-8">
-                            <input type="number" class="form-control patientregistrationnr" min="0" name="patientregistrationnr" id="edit-med-patientregistrationnr" required>
+                            <input type="number" class="form-control patientregistrationnr" min="0" name="patientregistrationnr" id="edit-med-patientregistrationnr">
                             <span class="help-block err-patientregistrationnr">
                                 <strong></strong>
                             </span>

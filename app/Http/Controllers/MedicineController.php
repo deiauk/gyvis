@@ -64,7 +64,7 @@ class MedicineController extends Controller
             "productiondate" => "required|date",
             "expirydate" => "required|date",
             "series" => "required",
-            "patientregistrationnr" => "required",
+            //"patientregistrationnr" => "required",
             "quantity" => "required|numeric|min:0",
             "consumed" => "required|numeric|min:0",
             "medicine_category" => "required|numeric",
@@ -165,7 +165,7 @@ class MedicineController extends Controller
             "productiondate" => "required|date",
             "expirydate" => "required|date",
             "series" => "required",
-            "patientregistrationnr" => "required",
+            //"patientregistrationnr" => "required",
             "quantity" => "required|numeric|min:0",
             "consumed" => "required|numeric|min:0",
         ]);
