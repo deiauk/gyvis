@@ -49,7 +49,8 @@ class PdfGenerate
                 return $obj->getView("pdf.treatments", $obj->getData());
                 break;
             case "medikamentai":
-                $obj = new MedicinesTable($event->getCategory(), $event->getDateRange());
+                $obj = new MedicinesTable($event->getId());
+                //$obj = new MedicinesTable($event->getCategory(), $event->getDateRange());
                 return $obj->getView("pdf.medicines", $obj->getData());
             case "ruja":
                 $obj = new HeatsTable($event->getSearch(), $event->getDateRange());

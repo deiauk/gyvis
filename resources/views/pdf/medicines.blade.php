@@ -37,31 +37,50 @@
 <body>
 <table class="table">
     <tr>
-        <th rowspan="2">Eil. Nr</th>
+        <th>Eil. Nr</th>
         <th>Data</th>
         <th>Pavadinimas</th>
         <th>Pagaminimo data</th>
         <th>Galioja</th>
         <th>Serija</th>
-        <th>Pacientų registracijos nr.</th>
         <th>Gauta</th>
         <th>Sunaudota</th>
         <th>Likutis</th>
     </tr>
-    @foreach($data as $medicine)
+    @if($data->medicine)
         <tr>
-            <td>{{$medicine->id}}</td>
-            <td>{{$medicine->filldate}}</td>
-            <td width="30%">{{$medicine->from}}</td>
-            <td>{{$medicine->productiondate}}</td>
-            <td>{{$medicine->expirydate}}</td>
-            <td>{{$medicine->series}}</td>
-            <td width="12%">{{$medicine->patientregistrationnr}}</td>
-            <td>{{$medicine->quantity}}</td>
-            <td>{{$medicine->consumed}}</td>
-            <td>{{$medicine->balance}}</td>
+            <td>{{$data->medicine->id}}</td>
+            <td>{{$data->medicine->filldate}}</td>
+            <td width="30%">{{$data->medicine->from}}</td>
+            <td>{{$data->medicine->productiondate}}</td>
+            <td>{{$data->medicine->expirydate}}</td>
+            <td>{{$data->medicine->series}}</td>
+            <td>{{$data->medicine->quantity}}</td>
+            <td>{{$data->medicine->consumed}}</td>
+            <td>{{$data->medicine->balance}}</td>
+        </tr>
+    @endif
+</table>
+<br>
+@if($data->log)
+<table class="table">
+    <tr>
+        <th>Vaistas</th>
+        <th>Pacientų registracijos nr.</th>
+        <th>Kiekis</th>
+        <th>Sunaudota</th>
+        <th>Likutis</th>
+    </tr>
+    @foreach($data->log as $log)
+        <tr>
+            <td width="30%">{{ $log->medicine->from }}</td>
+            <td>{{ $log->registration_num > -1 ? $log->registration_num : "Pridedamas kiekis" }}</td>
+            <td>{{ $log->quantity }}</td>
+            <td>{{ $log->used > 0 ? "+" : "" }}{{ $log->used }}</td>
+            <td>{{ $log->quantity + $log->used }}</td>
         </tr>
     @endforeach
 </table>
+@endif
 </body>
 </html>

@@ -16,22 +16,30 @@ class PdfRequest
 
     protected $route;
     protected $filename;
-    protected $category;
-    protected $search;
-    protected $dateRange;
+    protected $category = null;
+    protected $search = null;
+    protected $dateRange = null;
+    protected $id = null;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($filename, $route, $dateRange, $category = null, $search = null)
+    public function __construct($filename, $route, $data = [])
     {
         $this->filename = $filename;
         $this->route = $route;
-        $this->category = $category;
-        $this->search = $search;
-        $this->dateRange = $dateRange;
+        $this->dateRange = $data['dateRange'];
+        if(array_key_exists('category', $data)) {
+            $this->category = $data['category'];
+        }
+        if(array_key_exists('search', $data)) {
+            $this->search = $data['search'];
+        }
+        if(array_key_exists('id', $data)) {
+            $this->id = $data['id'];
+        }
     }
 
     /**
@@ -68,6 +76,14 @@ class PdfRequest
             return false;
         }
         return $this->search;
+    }
+
+    public function getId()
+    {
+        if(is_null($this->id)) {
+            return false;
+        }
+        return $this->id;
     }
 
     public function getDateRange()

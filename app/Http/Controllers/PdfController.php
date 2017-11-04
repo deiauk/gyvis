@@ -14,8 +14,8 @@ class PdfController extends Controller
     public function create($route, $category = null)
     {
         $validator = Validator::make(request()->all(), [
-            "startdate" => "required|date",
-            "enddate" => "required|date",
+            "startdate" => "required_without:med|date",
+            "enddate" => "required_without:med|date",
         ]);
         if($validator->fails()) {
             return response()->json($validator->messages(), 200);
@@ -31,23 +31,21 @@ class PdfController extends Controller
 
         $route = $route == "heat.search" ? "ruja" : $route;
         $route = ($route == "heat.calving.index" || $route == "heat.calving.search") ? "versiavimasis" : $route;
+        $route = $route == "medicine.search" ? "medikamentai" : $route;
+
+        $data['dateRange'] = $dateRange;
 
         if(isset($category)) {
-            if(!empty(request('search'))) {
-                event(new PdfRequest($filename, $route, $dateRange, $category, request('search')));
-            }
-            else {
-                event(new PdfRequest($filename, $route, $dateRange, $category));
-            }
+            $data['category'] = $category;
         }
-        else {
-            if(!empty(request('search'))) {
-                event(new PdfRequest($filename, $route, $dateRange, -1, request('search')));
-            }
-            else {
-                event(new PdfRequest($filename, $route, $dateRange));
-            }
+        if(!empty(request('search'))) {
+            $data['search'] = request('search');
         }
+        if(!empty(request('med'))) {
+            $data['id'] = request('med');
+        }
+
+        event(new PdfRequest($filename, $route, $data));
 
         $response = response()
             ->make(file_get_contents(base_path() . $filename), 201,

@@ -11,7 +11,6 @@
         @include('modals.confirmDelete')
         @include('modals.add.medicineQuantity')
     @endif
-    @include('modals.pdfDateRange')
     <div class="row crud-btns">
         @if(auth()->user()->hasRole('admin'))
             <button type="button" class="btn btn-danger disabled" id="delete-medicine"><i class="fa fa-trash" aria-hidden="true"></i> Ištrinti</button>
@@ -19,7 +18,13 @@
             <button type="button" class="btn btn-success" id="add-medicine" data-toggle="modal" data-target="#add-medicine"><i class="fa fa-plus" aria-hidden="true"></i> Pridėti</button>
             <button type="button" class="btn btn-success disabled" id="med-quantity"><i class="fa fa-plus" aria-hidden="true"></i> Pridėti kiekį</button>
         @endif
-            <button type="submit" class="btn btn-success" id="get-pdf-btn" data-toggle="modal" data-target="#get-pdf"><i class="fa fa-print" aria-hidden="true"></i> Spausdinti</button>
+            <button type="submit" class="btn btn-success" id="get-pdf-btn" {{ is_null($medicine) ? "disabled=disabled" : "" }}><i class="fa fa-print" aria-hidden="true"></i> Spausdinti</button>
+            @if(!is_null($medicine))
+                <form id="med-form" style="display: none" method="post" target="_blank" action="{{ isset($category) ? route('pdf.create', ["route" => Route::currentRouteName(), "category" => $category]) : route('pdf.create', ["route" => Route::currentRouteName()]) }}">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="med" value="{{ $medicine->medicine_id }}">
+                </form>
+            @endif
     </div>
 
     <div class="row">
@@ -168,6 +173,9 @@
                 select: function (event, ui) {
                     $('#search-medicine').val(ui.item.value);
                 }
+            });
+            $('#get-pdf-btn').on('click', function () {
+                $('#med-form').submit();
             });
         });
     </script>
