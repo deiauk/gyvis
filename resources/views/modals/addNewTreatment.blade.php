@@ -150,7 +150,7 @@
                     <div class="form-group">
                         <label for="info" class="control-label col-sm-3">Pastabos</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control otherInfo" name="info" id="info" required>
+                            <input type="text" class="form-control otherInfo" name="info" id="info">
                             <span class="help-block err-info">
                                 <strong></strong>
                             </span>

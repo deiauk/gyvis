@@ -110,7 +110,7 @@ class TreatmentController extends Controller
             "diagnosis" => $request->input('diagnosis'),
             "treatmentAndDirections" => $request->input('treatment'),
             "result" => $request->input('end'),
-            "notes" => $request->input('info'),
+//            "notes" => $request->input('info'),
             "quantity" => $request->input('quantity'),
         ]);
         $treatment->medicine()->associate($medicine);
@@ -168,7 +168,7 @@ class TreatmentController extends Controller
             "medicine" => "required|numeric|min:1",
             "quantity" => "required|numeric|min:0",
             "end" => "required",
-            "notes" => "required",
+//            "notes" => "required",
         ]);
         if($validator->fails()) {
             return response()->json($validator->messages(), 200);

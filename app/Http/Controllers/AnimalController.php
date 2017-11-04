@@ -50,7 +50,7 @@ class AnimalController extends Controller
             "color" => "required",
             "mother" => "required",
             "father" => "required",
-            "desc" => "required|min:10",
+//            "desc" => "required|min:10",
             "filldate" => "required|date"
         ]);
         if($validator->fails()) {
@@ -116,7 +116,7 @@ class AnimalController extends Controller
             "color" => "required",
             "mother" => "required",
             "father" => "required",
-            "desc" => "required|min:10",
+//            "desc" => "required|min:10",
             "filldate" => "required|date",
         ]);
         if($validator->fails()) {

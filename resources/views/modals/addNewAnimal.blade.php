@@ -112,7 +112,7 @@
                 <div class="form-group">
                     <label for="bodytext" class="control-label col-sm-3">Aprašymas</label>
                     <div class="col-sm-8">
-                        <textarea name="bodytext" id="bodytext" class="form-control description-user" minlength="10"></textarea>
+                        <textarea name="bodytext" id="bodytext" class="form-control description-user"></textarea>
                         <span class="help-block err-desc">
                             <strong></strong>
                         </span>
