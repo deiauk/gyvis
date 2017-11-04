@@ -169,10 +169,13 @@
         $(document).ready(function () {
             $('#search-medicine').autocomplete({
                 source: '/medikamentai/autocomplete/{{ $category }}',
-                minLength: 1,
+                minLength: 0,
                 select: function (event, ui) {
                     $('#search-medicine').val(ui.item.value);
                 }
+            })
+            .focus(function() {
+                $(this).autocomplete('search', $(this).val())
             });
             $('#get-pdf-btn').on('click', function () {
                 $('#med-form').submit();

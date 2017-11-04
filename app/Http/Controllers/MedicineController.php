@@ -219,10 +219,17 @@ class MedicineController extends Controller
     {
         $results = [];
 
-        $medicines = Medicine::type($category)
-            ->where('from', 'LIKE', '%' . request('term') . '%')
-            ->take(5)
-            ->get();
+        if(is_null(request('term'))) {
+            $medicines = Medicine::type($category)
+                ->orderBy('from', 'desc')
+                ->get();
+        }
+        else {
+            $medicines = Medicine::type($category)
+                ->where('from', 'LIKE', '%' . request('term') . '%')
+                ->take(5)
+                ->get();
+        }
 
         foreach($medicines as $medicine) {
             $results[] = [

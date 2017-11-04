@@ -468,6 +468,11 @@ h2#calving-year {
     font-size: 1.5em;
     padding-bottom: 15px;
 }
+.ui-autocomplete {
+    max-height: 200px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
 @media screen and (max-width: 768px) {
     .crud-btns button {
         margin-bottom: 15px;
