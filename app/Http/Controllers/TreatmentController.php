@@ -110,7 +110,7 @@ class TreatmentController extends Controller
             "diagnosis" => $request->input('diagnosis'),
             "treatmentAndDirections" => $request->input('treatment'),
             "result" => $request->input('end'),
-//            "notes" => $request->input('info'),
+            "notes" => $request->input('info'),
             "quantity" => $request->input('quantity'),
         ]);
         $treatment->medicine()->associate($medicine);
