@@ -14,6 +14,11 @@ class Heat extends Model
         return $this->belongsTo('App\\Animal');
     }
 
+    public function calvingStat()
+    {
+        return $this->belongsTo('App\\CalvingStat');
+    }
+
     public static function dateRange($dateRange)
     {
         return static::whereBetween('calving_date', $dateRange);

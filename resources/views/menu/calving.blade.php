@@ -58,18 +58,16 @@
                                                 </tr>
                                             </theader>
                                             <tbody>
-                                            @foreach($heats as $heat)
-                                                @foreach($heat as $item)
-                                                    <tr>
-                                                        <td>{{ !empty($item->animal) ? $item->animal->number : '' }}</td>
-                                                        <td>{{$item->calving_date_expected}}</td>
-                                                        <td class="fullinfo" data-comment="{{$item->notes}}">
-                                                            <a>
-                                                                {{ str_limit($item->notes, 20, '...') }}
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
+                                            @foreach($heats as $item)
+                                                <tr>
+                                                    <td>{{ !empty($item->animal) ? $item->animal->number : '' }}</td>
+                                                    <td>{{$item->calving_date_expected}}</td>
+                                                    <td class="fullinfo" data-comment="{{$item->notes}}">
+                                                        <a>
+                                                            {{ str_limit($item->notes, 20, '...') }}
+                                                        </a>
+                                                    </td>
+                                                </tr>
                                             @endforeach
                                             </tbody>
                                         </table>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\GeneralHelper;
 use Illuminate\Support\Facades\Validator;
 use App\Heat;
+use App\CalvingStat;
 use App\Animal;
 
 class HeatController extends Controller
@@ -14,29 +15,29 @@ class HeatController extends Controller
         $search = '';
         $animal = null;
         $numbers = null;
-        if(request('search') == null || is_null(request('search'))) {
+        if (request('search') == null || is_null(request('search'))) {
             $heats = Heat::orderBy('animal_id', 'ASC')
-                ->orderBy('calving_date_expected', 'ASC')
+                ->orderBy('id', 'ASC')
                 ->paginate(30);
             $numbers = Animal::where('sex', '=', 2)->get();
-        }
-        else {
+        } else {
             $search = request('search');
 
             $animal = Animal::where('number', 'LIKE', $search . '%')
                 ->where('sex', '=', 2)
                 ->first();
 
-            $heats = $animal->heats;
+            $heats = $animal->heats()->orderBy('id', 'ASC')->get();
 
             $numbers = [$animal];
         }
         return view('menu.heats', compact('heats', 'search', 'numbers', 'animal'));
     }
+
     public function store()
     {
         $validator = $this->validator();
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return response()->json($validator->messages(), 200);
         }
         $heat = Heat::create([
@@ -49,12 +50,29 @@ class HeatController extends Controller
         $heat->animal()->associate(request('number'));
         $heat->save();
 
+        $stats = null;
+        if (!is_null(request('calving_date')) && is_null(request('heat_date'))) {
+            $stats = CalvingStat::create([
+                "latest_heat" => $heat->id,
+            ]);
+            $heat->calvingStat()->associate($stats->id);
+        } else {
+            $heatBefore = Heat::orderBy('id', 'desc')->skip(1)->take(1)->get();
+            $heat->calvingStat()->associate($heatBefore[0]->calving_stat_id);
+            $heat->save();
+
+            $stats = CalvingStat::find($heatBefore[0]->calving_stat_id)->first();
+            $stats->latest_heat = $heat->id;
+        }
+        $heat->save();
+
         return response()->json([], 201);
     }
+
     public function update()
     {
         $validator = $this->validator();
-        if($validator->fails()) {
+        if ($validator->fails()) {
             return response()->json($validator->messages(), 200);
         }
 
@@ -68,11 +86,14 @@ class HeatController extends Controller
 
         return response()->json([], 201);
     }
-    public function delete(Heat $heat) {
+
+    public function delete(Heat $heat)
+    {
         $id = $heat->id;
         $heat->delete();
         return $id;
     }
+
     public function autocomplete()
     {
         $results = [];
@@ -82,7 +103,7 @@ class HeatController extends Controller
             ->take(5)
             ->get();
 
-        foreach($animals as $animal) {
+        foreach ($animals as $animal) {
             $results[] = [
                 "id" => $animal->id,
                 "value" => $animal->number
@@ -90,6 +111,7 @@ class HeatController extends Controller
         }
         return response()->json($results);
     }
+
     private function validator()
     {
         return Validator::make(request()->all(), [
@@ -99,50 +121,36 @@ class HeatController extends Controller
             "calving_date_expected" => "required|date",
         ]);
     }
-    public function getData(Heat $heat) {
+
+    public function getData(Heat $heat)
+    {
         return $heat;
     }
+
     public function indexCalving()
     {
         $search = '';
-        if(!empty(request('search'))) {
+        if (!empty(request('search'))) {
             $this->validate(request(), [
                 'search' => 'numeric'
             ]);
             $search = request('search');
         }
 
-        $months = [];
-
         $year = empty($search) ? date('Y') : $search;
-        for($i = 0; $i < 12; $i++) {
+        $calvingStat = CalvingStat::all();
+        $heats = [];
+        foreach ($calvingStat as $item) {
+            $heats[] = $item->latestHeat($year);
+        }
+        $months = [];
+        for($i=0;$i<12;$i++) {
             $months[$i] = [];
-            $heats = Heat::whereYear('calving_date_expected', '=', $year)
-                ->whereMonth('calving_date_expected', '=', ($i+1))
-                ->get();
-
-            foreach ($heats as $heat) {
-                if(empty($months[$i][$heat->animal_id])) {
-                    $months[$i][$heat->animal_id][0] = $heat;
-                }
-                else {
-
-                    if(is_null($months[$i][$heat->animal_id][0]->heat_date)) {
-                        if(!is_null($heat->heat_date)) {
-                            $months[$i][$heat->animal_id] = null;
-                            $months[$i][$heat->animal_id][0] = $heat;
-                        }
-                        else {
-                            $months[$i][$heat->animal_id][] = $heat;
-                        }
-                    }
-                    else {
-                        if(!is_null($heat->heat_date) && date('j', strtotime($months[$i][$heat->animal_id][0]->calving_date_expected)) < date('j', strtotime($heat->calving_date_expected))) {
-                            $months[$i][$heat->animal_id] = null;
-                            $months[$i][$heat->animal_id][0] = $heat;
-                        }
-                    }
-                }
+        }
+        foreach($heats as $heat) {
+            if(date('Y', strtotime($heat->calving_date_expected)) == $year) {
+                $month = date('n', strtotime($heat->calving_date_expected));
+                $months[$month-1][] = $heat;
             }
         }
 
