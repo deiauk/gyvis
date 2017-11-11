@@ -52,11 +52,11 @@
     </tr>
     @foreach($data as $heat)
         <tr>
-            <td>{{$heat->animal->number}}</td>
-            <td>{{$heat->calving_date}}</td>
-            <td>{{$heat->heat_date}}</td>
-            <td>{{$heat->calving_date_expected}}</td>
-            <td>{{$heat->notes}}</td>
+            <td>{{ $heat->animal->number }}</td>
+            <td>{{ $heat->calving_date }}</td>
+            <td>{{ $heat->heat_date }}</td>
+            <td>{{ $heat->calving_date_expected }}</td>
+            <td>{{ str_limit($heat->notes, $limit = 20, $end = '...') }}</td>
         </tr>
     @endforeach
 </table>
