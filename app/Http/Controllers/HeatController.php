@@ -63,6 +63,7 @@ class HeatController extends Controller
 
             $stats = CalvingStat::find($heatBefore[0]->calving_stat_id)->first();
             $stats->latest_heat = $heat->id;
+            $stats->save();
         }
         $heat->save();
 
