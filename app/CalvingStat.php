@@ -16,7 +16,6 @@ class CalvingStat extends Model
 
     public function latestHeat($year)
     {
-        dd($this->heats()->find($this->latest_heat));
         return $this->heats()->find($this->latest_heat);
     }
 }

@@ -159,7 +159,6 @@ class HeatController extends Controller
         $calvingStat = CalvingStat::all();
         $heats = [];
         foreach ($calvingStat as $item) {
-            dd($item->latestHeat($year));
             $heats[] = $item->latestHeat($year);
         }
         $months = [];
