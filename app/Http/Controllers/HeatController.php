@@ -148,10 +148,12 @@ class HeatController extends Controller
         for($i=0;$i<12;$i++) {
             $months[$i] = [];
         }
-        foreach($heats as $heat) {
-            if(date('Y', strtotime($heat->calving_date_expected)) == $year) {
-                $month = date('n', strtotime($heat->calving_date_expected));
-                $months[$month-1][] = $heat;
+        if(!empty($heats)) {
+            foreach($heats as $heat) {
+                if(!is_null($heat) && date('Y', strtotime($heat->calving_date_expected)) == $year) {
+                    $month = date('n', strtotime($heat->calving_date_expected));
+                    $months[$month-1][] = $heat;
+                }
             }
         }
 
