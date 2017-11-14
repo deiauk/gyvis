@@ -61,7 +61,8 @@ class HeatController extends Controller
             $heat->calvingStat()->associate($heatBefore[0]->calving_stat_id);
             $heat->save();
 
-            $stats = CalvingStat::find($heatBefore[0]->calving_stat_id)->first();
+
+            $stats = CalvingStat::find($heatBefore[0]->calving_stat_id);
             $stats->latest_heat = $heat->id;
             $stats->save();
         }
@@ -158,6 +159,7 @@ class HeatController extends Controller
         $calvingStat = CalvingStat::all();
         $heats = [];
         foreach ($calvingStat as $item) {
+            dd($item->latestHeat($year));
             $heats[] = $item->latestHeat($year);
         }
         $months = [];
