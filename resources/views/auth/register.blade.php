@@ -32,7 +32,7 @@
                             <label for="email" class="col-md-4 control-label">El. paštas</label>
 
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ is_null($token->email) ? old('email') : $token->email }}" required>
+                                <input id="email" type="email" class="form-control" name="email" value="{{ is_null($token) ? old('email') : $token->email }}" required>
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">

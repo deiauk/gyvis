@@ -72,7 +72,12 @@ class RegisterController extends Controller
                 'role' => 'user'
             ]);
         } else {
-            return redirect('/');
+            return User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => bcrypt($data['password']),
+                'role' => 'admin'
+            ]);
         }
     }
 }

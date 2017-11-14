@@ -55,9 +55,9 @@ Route::group(['middleware' => 'auth'], function () {
 
 Auth::routes();
 
-Route::get('/', 'HomeController@index')->name('auth.login');
+Route::get('/', 'HomeController@index')->middleware('auth')->name('auth.login');
 Route::get('prisijungti', 'HomeController@index')->name('auth.login');
-//Route::get('registruotis', 'HomeController@index')->name('auth.register');
+Route::get('registruotis', 'HomeController@registration')->name('auth.register');
 
 Route::get('zetonas/{token}', 'TokenController@create')->name('token.create');
 

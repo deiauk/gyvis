@@ -24,6 +24,9 @@
                 @if (Auth::guest())
                     <li class="{{ Route::currentRouteNamed('galerija') ? 'active' : '' }}"><a href="{{ route('galerija') }}">Galerija</a></li>
                     <li class="{{ Route::currentRouteNamed('login') ? 'active' : '' }}"><a href="{{ route('login') }}">Prisijungti</a></li>
+                    @if(\App\User::count() == 0)
+                        <li class="{{ Route::currentRouteNamed('register') ? 'active' : '' }}"><a href="{{ route('auth.register') }}">Registruotis</a></li>
+                    @endif
                 @else
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
