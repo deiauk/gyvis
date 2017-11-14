@@ -90,7 +90,23 @@ class HeatController extends Controller
 
     public function delete(Heat $heat)
     {
+        $latest = $heat->calvingStat->latest_heat;
+
         $id = $heat->id;
+
+        if($latest == $id) {
+            $heatAfterDelete = $heat->calvingStat->heats()->where('id', '!=', $id)->orderBy('id', 'desc')->first();
+
+            $stat = $heat->calvingStat;
+            if(count($heatAfterDelete) > 0) {
+                $stat = CalvingStat::find($stat->id);
+                $stat->latest_heat = $heatAfterDelete->id;
+                $stat->save();
+            }
+            else {
+                $stat->delete();
+            }
+        }
         $heat->delete();
         return $id;
     }

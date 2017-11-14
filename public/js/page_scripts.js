@@ -590,6 +590,7 @@ $(document).ready(function () {
                 method: 'POST', // Type of response and matches what we said in the route
                 data: obj,
                 success: function (response) { // What to do if we succeed
+                    console.log(response);
                     heatTableRowId = -1;
                     location.reload();
                 },
